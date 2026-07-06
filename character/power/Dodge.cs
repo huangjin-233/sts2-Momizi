@@ -37,24 +37,18 @@ public class Dodge: ModPowerTemplate
             Active = true;
         }
     }
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyHpLostAfterOstyLate(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != base.Owner)
+        if (target != Owner)
         {
-            return 1m;
-        }
-        if (!props.IsPoweredAttack())
-        {
-            return 1m;
+            return amount;
         }
         return 0m;
     }
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult _, ValueProp props, Creature? dealer, CardModel? __)
+
+    public override async Task AfterModifyingHpLostAfterOsty()
     {
-        if (target == base.Owner && dealer != null && props.IsPoweredAttack())
-        {
-            await PowerCmd.Decrement(this);
-        }
+        await PowerCmd.Decrement(this);
     }
     public override async Task AfterEnergyReset(Player player)
     {

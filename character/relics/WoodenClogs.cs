@@ -135,7 +135,7 @@ public class WoodenClogs : ModRelicTemplate
             RemainingUses++;
             Dodge.Active=false;
         }
-        if (RemainingUses == 0)
+        if (RemainingUses == 10)
         {
         }
         else
