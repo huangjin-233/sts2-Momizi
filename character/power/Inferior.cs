@@ -29,8 +29,8 @@ public class Inferior: ModPowerTemplate
     {
         if (powers == this)
         {
-            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -1, Owner, null);
-            await PowerCmd.Apply<JiZhong>(choiceContext, Owner, -1, Owner, null);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -amount, Owner, null);
+            await PowerCmd.Apply<JiZhong>(choiceContext, Owner, -amount, Owner, null);
         }
     }
 }

@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
 using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
@@ -78,7 +79,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         if (side == Owner.Creature.Side && combatState.RoundNumber == 1)
         {
             Flash(); // 触发遗物图标闪烁
-            await PowerCmd.Apply<Inferior>(new ThrowingPlayerChoiceContext(), Owner.Creature, _inferior, Owner.Creature, null);
+            await PowerCmd.Apply<Inferior>(new ThrowingPlayerChoiceContext(), Owner.Creature, Inferior, Owner.Creature, null);
             IEnumerable<Creature> enumerable = Owner.Creature.CombatState.PlayerCreatures.Where((Creature c) => c?.IsAlive ?? false).ToList();
             int count = enumerable.Count()-1;
             if (count == 0)
@@ -115,6 +116,27 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
     private void SetCharges(int value)
     {
         _inferior = value;
+        InvokeDisplayAmountChanged();
+    }
+    [SavedProperty]
+    public int Inferior
+    {
+        get
+        {
+            return _inferior;
+        }
+        private set
+        {
+            AssertMutable();
+            if (_inferior != value)
+            {
+                _inferior = value;
+                UpdateDisplay();
+            }
+        }
+    }
+    private void UpdateDisplay()
+    {
         InvokeDisplayAmountChanged();
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [

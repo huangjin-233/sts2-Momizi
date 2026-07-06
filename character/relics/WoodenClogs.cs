@@ -26,7 +26,7 @@ namespace Momizi.character.relics;
 [RegisterCharacterStarterRelic(typeof(Momizi))]
 public class WoodenClogs : ModRelicTemplate
 {
-    private int _RemainingUses = 0;
+    private int _RemainingUses = 10;
     private bool _isActivating;
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
@@ -118,11 +118,11 @@ public class WoodenClogs : ModRelicTemplate
     }
 
     public void NotifySkillPlayed()
-    {if (RemainingUses == 0)
+    {if (RemainingUses == 10)
         {
             return;
         }
-        RemainingUses++;
+        RemainingUses--;
     }
     private async Task DoActivateVisuals()
     {
@@ -133,7 +133,7 @@ public class WoodenClogs : ModRelicTemplate
     }
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (RemainingUses == 10)
+        if (RemainingUses == 0)
         {
             await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature, null);
         }
@@ -169,7 +169,7 @@ public class WoodenClogs : ModRelicTemplate
     {
         if (Dodge.Active)
         {
-            RemainingUses++;
+            RemainingUses--;
             Dodge.Active=false;
         }
     }
@@ -177,7 +177,7 @@ public class WoodenClogs : ModRelicTemplate
     {
         if (Dodge.Active)
         {
-            RemainingUses++;
+            RemainingUses--;
             Dodge.Active=false;
         }
     }
@@ -198,7 +198,7 @@ public class WoodenClogs : ModRelicTemplate
 
     public void Fix()
     {
-        RemainingUses = 0;
+        RemainingUses = 10;
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<Dodge>(),
