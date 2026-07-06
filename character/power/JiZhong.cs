@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using Teamy.character;
 
 namespace Momizi.character.power;
 
@@ -38,7 +39,12 @@ public class JiZhong: ModPowerTemplate
         {
             return 0m;
         }
-        return Amount;
+
+        if (cardSource.Keywords.Contains(MomiziKeyword.Spell))
+        {
+            return Amount;
+        }
+        return 0m;
     }
     public override decimal ModifyBlockAdditive(Creature target, decimal block, ValueProp props, CardModel? cardSource, CardPlay? cardPlay)
     {

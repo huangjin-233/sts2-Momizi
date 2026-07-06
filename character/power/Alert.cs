@@ -43,6 +43,7 @@ public class Alert : ModPowerTemplate
             await PowerCmd.Apply<DexterityPower>(choiceContext,Owner, 2, Owner, null);
             await PowerCmd.Apply<JiZhong>(choiceContext,Owner, 2, Owner, null);
             await PowerCmd.Apply<StrengthPower>(choiceContext,Owner, Amount, Owner, null);
+            await PowerCmd.Remove(this);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
@@ -14,8 +15,11 @@ public class ThinkingSingle : HookedSingletonModel
     public ThinkingSingle() : base(HookType.Run)
     {
     }
-    public async override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    public override async Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
      {
-        
+         if (card.Keywords.Contains(MomiziKeyword.Thinking))
+         {
+             await CardPileCmd.Draw(choiceContext, 1,card.Owner );//抽卡 
+         }
      }
 }
