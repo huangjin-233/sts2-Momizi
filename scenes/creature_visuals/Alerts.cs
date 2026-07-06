@@ -46,7 +46,7 @@ public partial class Alerts : Control
 		{
 			return 0f;
 		}
-		float val = (float)amount * maxFgWidth;
+		float val = (float)amount/10 * maxFgWidth;
 		return Math.Max(val, ( _creature.CurrentHp > 0) ? 12f : 0f);
 	}
 	public void RefreshValues()

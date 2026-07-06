@@ -8,14 +8,17 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using Momizi.character.power;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using Teamy.character;
 
 namespace Momizi.character.relics;
 
@@ -130,11 +133,6 @@ public class WoodenClogs : ModRelicTemplate
     }
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (Dodge.Active)
-        {
-            RemainingUses++;
-            Dodge.Active=false;
-        }
         if (RemainingUses == 10)
         {
         }
@@ -154,8 +152,32 @@ public class WoodenClogs : ModRelicTemplate
                             await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
                         }
                     }
+                    if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
+                    {
+                        int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
+                        if (dodge <= WoodenClogs.dodge[Owner])
+                        {
+                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                        }
+                    }
                 }
             }
+        }
+    }
+    public override async Task AfterModifyingHpLostAfterOsty()
+    {
+        if (Dodge.Active)
+        {
+            RemainingUses++;
+            Dodge.Active=false;
+        }
+    }
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        if (Dodge.Active)
+        {
+            RemainingUses++;
+            Dodge.Active=false;
         }
     }
     public override bool IsAllowed(IRunState runState)
@@ -177,4 +199,7 @@ public class WoodenClogs : ModRelicTemplate
     {
         RemainingUses = 0;
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromPower<Dodge>(),
+    ];
 }

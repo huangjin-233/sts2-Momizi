@@ -23,17 +23,17 @@ public class Alert : ModPowerTemplate
         IconPath: "res://images/powers/Alert.png",
         BigIconPath: "res://images/powers/Alert.png"
     );
-    //protected override bool IsVisibleInternal
-    //{
-      //  get
-        //{
-            //if (base.Owner.Player.Character is Momizi)
-          //  {
-              //  return false;
-            //}
-            //return base.IsVisibleInternal;
-        //}
-    //}
+    protected override bool IsVisibleInternal
+    {
+        get
+        {
+            if (base.Owner.Player.Character is Momizi)
+            {
+                return false;
+            }
+            return base.IsVisibleInternal;
+        }
+    }
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (amount >= 10)

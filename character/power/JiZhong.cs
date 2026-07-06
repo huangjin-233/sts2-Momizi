@@ -26,7 +26,7 @@ public class JiZhong: ModPowerTemplate
         IconPath: "res://Test/images/powers/JiZhong.png",
         BigIconPath: "res://Test/images/powers/JiZhong.png"
     );
-
+    
     // 抽牌后给予玩家力量
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {

@@ -40,7 +40,7 @@ namespace Teamy.character.cards.basic
         };
         // 卡牌基础数值
         protected override IEnumerable<DynamicVar> CanonicalVars => [
-            new DamageVar(6, ValueProp.Move)
+            new DamageVar(3, ValueProp.Move)
         ];
 
         public StrikeMomizi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

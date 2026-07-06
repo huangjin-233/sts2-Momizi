@@ -36,12 +36,12 @@ public class Help: ModPowerTemplate
         }
         if (cardPlay.Card.Type == CardType.Skill && cardPlay.Card.Owner != Owner.Player)
         {
-            await PowerCmd.Apply<HelpSkill>(choiceContext,Owner, 4, Owner, null);
+            await PowerCmd.Apply<HelpSkill>(choiceContext,Owner, 2, Owner, null);
             await PowerCmd.Decrement(this);
         }
         if (cardPlay.Card.Type == CardType.Attack && cardPlay.Card.Owner != Owner.Player)
         {
-            await PowerCmd.Apply<HelpAttack>(choiceContext,Owner, 4, Owner, null);
+            await PowerCmd.Apply<HelpAttack>(choiceContext,Owner, 2, Owner, null);
             await PowerCmd.Decrement(this);
         }
     }
