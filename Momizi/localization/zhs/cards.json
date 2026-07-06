@@ -1,0 +1,6 @@
+{
+  "MOMIZI_CARD_DEFEND_MOMIZI.title": "防御",
+  "MOMIZI_CARD_DEFEND_MOMIZI.description": "获得{Block:diff()}点格挡。",
+  "MOMIZI_CARD_STRIKE_MOMIZI.title": "打击",
+  "MOMIZI_CARD_STRIKE_MOMIZI.description": "造成{Damage:diff()}点伤害。"
+}

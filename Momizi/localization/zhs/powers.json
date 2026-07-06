@@ -1,0 +1,14 @@
+{
+  "MOMIZI_POWER_ALERTS.title": "警戒",
+  "MOMIZI_POWER_ALERTS.description": "警戒",
+  "MOMIZI_POWER_ALERTS.smartDescription": "警戒",
+  "MOMIZI_POWER_DODGE.title": "闪避",
+  "MOMIZI_POWER_DODGE.description": "闪避一次伤害或者负面状态",
+  "MOMIZI_POWER_DODGE.smartDescription": "闪避一次伤害或者负面状态",
+  "MOMIZI_POWER_INFERIOR.title": "自卑",
+  "MOMIZI_POWER_INFERIOR.description": "减少[gold]力量[/gold],[gold]集中[/gold]，闪避概率下降",
+  "MOMIZI_POWER_INFERIOR.smartDescription": "减少{Amount}层[gold]力量[/gold],{Amount}层[gold]集中[/gold]，闪避概率下降{Amount} x 10%",
+  "MOMIZI_POWER_JI_ZHONG.title": "集中",
+  "MOMIZI_POWER_JI_ZHONG.description": "造成伤害增加，获得格挡增加，闪避概率增加",
+  "MOMIZI_POWER_JI_ZHONG.smartDescription": "造成伤害增加{Amount}，获得格挡增加{Amount}，闪避概率增加{Amount} x 5%"
+}

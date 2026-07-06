@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ducrp5e415mcm"]
+
+[ext_resource type="Texture2D" uid="uid://bant4f1ns7uwt" path="res://images/packed/character/akai_icon.png" id="1_vlre5"]
+
+[node name="YakumoakaiIcon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30.999998, 34)
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("1_vlre5")

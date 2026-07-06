@@ -1,0 +1,18 @@
+{
+	"MOMIZI_CHARACTER_MOMIZI.title":  "犬走椛",
+	"MOMIZI_CHARACTER_MOMIZI.description":  "...",
+	"MOMIZI_CHARACTER_MOMIZI.titleObject":  "犬走椛",
+	"MOMIZI_CHARACTER_MOMIZI.pronounObject":  "她",
+	"MOMIZI_CHARACTER_MOMIZI.possessiveAdjective":  "她的",
+	"MOMIZI_CHARACTER_MOMIZI.pronounPossessive":  "她的",
+	"MOMIZI_CHARACTER_MOMIZI.pronounSubject":  "她",
+	"MOMIZI_CHARACTER_MOMIZI.cardsModifierTitle":  "犬走椛卡牌",
+	"MOMIZI_CHARACTER_MOMIZI.cardsModifierDescription":  "犬走椛的卡牌现在会出现在奖励和商店中。",
+	"MOMIZI_CHARACTER_MOMIZI.eventDeathPrevention":  "……",
+	"MOMIZI_CHARACTER_MOMIZI.unlockText":  "完成 {Prerequisite} 的条件后解锁。",
+	"MOMIZI_CHARACTER_MOMIZI.banter.alive.endTurnPing":  "[sine]快点[/sine]",
+	"MOMIZI_CHARACTER_MOMIZI.banter.dead.endTurnPing":  "..",
+	"MOMIZI_CHARACTER_MOMIZI.goldMonologue": "[sine]..[/sine]",
+	"MOMIZI_CHARACTER_MOMIZI.aromaPrinciple": "[sine][red]？？？[/red][/sine]",
+	"SEA_GLASS.YAKUMO_AKAI.title":"椛玻璃"
+}
