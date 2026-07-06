@@ -1,12 +1,16 @@
 ﻿#nullable enable
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -23,6 +27,8 @@ public class Alert : ModPowerTemplate
         IconPath: "res://images/powers/Alert.png",
         BigIconPath: "res://images/powers/Alert.png"
     );
+
+    public static bool inferior;
     protected override bool IsVisibleInternal
     {
         get
@@ -38,11 +44,19 @@ public class Alert : ModPowerTemplate
     {
         if (amount >= 10)
         {
-            await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, base.Owner);
-            await PowerCmd.Apply<StrengthPower>(choiceContext,Owner, 2, Owner, null);
-            await PowerCmd.Apply<DexterityPower>(choiceContext,Owner, 2, Owner, null);
-            await PowerCmd.Apply<JiZhong>(choiceContext,Owner, 2, Owner, null);
-            await PowerCmd.Apply<StrengthPower>(choiceContext,Owner, Amount, Owner, null);
+            await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered,Owner);
+            IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
+                where c != null && c.IsAlive && c.IsPlayer && c != Owner
+                select c;
+            foreach (Creature players in enumerable)
+            {
+                await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
+                await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
+                await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
+            }
+            await PowerCmd.Apply<Inferior>(choiceContext, Owner, 1, Owner, null);
+            inferior = true;
+            await PowerCmd.Remove(this);
         }
     }
 }

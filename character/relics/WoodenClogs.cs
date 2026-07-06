@@ -135,13 +135,14 @@ public class WoodenClogs : ModRelicTemplate
     {
         if (RemainingUses == 10)
         {
+            await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature, null);
         }
         else
         {
-            Flash(); // 触发遗物图标闪烁
-            SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10);
             if (side == Owner.Creature.Side)
             {
+                Flash(); // 触发遗物图标闪烁
+                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10);
                 foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
                 {
                     if (creature.Monster.IntendsToAttack)

@@ -25,9 +25,12 @@ public class Inferior: ModPowerTemplate
     );
 
     // 抽牌后给予玩家力量
-    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, -1, Owner, null);
-        await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner, -1, Owner, null);
+        if (powers == this)
+        {
+            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -1, Owner, null);
+            await PowerCmd.Apply<JiZhong>(choiceContext, Owner, -1, Owner, null);
+        }
     }
 }

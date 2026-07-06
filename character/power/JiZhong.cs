@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using Teamy.character;
 
 namespace Momizi.character.power;
 
@@ -28,18 +29,8 @@ public class JiZhong: ModPowerTemplate
     );
     
     // 抽牌后给予玩家力量
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
-    {
-        if (Owner != dealer)
-        {
-            return 0m;
-        }
-        if (!props.IsPoweredAttack())
-        {
-            return 0m;
-        }
-        return Amount;
-    }
+    public override bool AllowNegative => true;
+
     public override decimal ModifyBlockAdditive(Creature target, decimal block, ValueProp props, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (cardSource != null)

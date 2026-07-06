@@ -48,6 +48,7 @@ public class Dodge: ModPowerTemplate
 
     public override async Task AfterModifyingHpLostAfterOsty()
     {
+        Active = true;
         await PowerCmd.Decrement(this);
     }
     public override async Task AfterEnergyReset(Player player)

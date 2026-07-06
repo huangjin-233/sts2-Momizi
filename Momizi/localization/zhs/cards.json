@@ -2,5 +2,9 @@
   "MOMIZI_CARD_DEFEND_MOMIZI.title": "防御",
   "MOMIZI_CARD_DEFEND_MOMIZI.description": "获得{Block:diff()}点格挡。",
   "MOMIZI_CARD_STRIKE_MOMIZI.title": "打击",
-  "MOMIZI_CARD_STRIKE_MOMIZI.description": "造成{Damage:diff()}点伤害。"
+  "MOMIZI_CARD_STRIKE_MOMIZI.description": "造成{Damage:diff()}点伤害。",
+  "MOMIZI_CARD_ALERT_CARD.title": "警戒",
+  "MOMIZI_CARD_ALERT_CARD.description": "仅能在有敌人[red]不利[/red]状态且未打出[gold]攻击牌[/gold]时可以打出，获得1点[gold]集中（椛）[/gold]，获得{Dodge:diff()}%闪避率，重新计算[gold]闪避[/gold]",
+  "MOMIZI_CARD_SHIELD_ATTACK.title": "盾击",
+  "MOMIZI_CARD_SHIELD_ATTACK.description": "造成防御1/4({CalculatedDamage:diff()})的伤害"
 }

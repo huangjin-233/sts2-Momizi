@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using Teamy.character;
@@ -22,11 +23,11 @@ using Teamy.character;
 namespace Momizi.character.relics;
 [RegisterRelic(typeof(MomiziRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Momizi))]
-public class Tengu: ModRelicTemplate
+public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
 {
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
-    
+    private int _inferior;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -39,6 +40,11 @@ public class Tengu: ModRelicTemplate
     // 每回合开始时，抽一张牌
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
+        if (Alert.inferior)
+        {
+            SetCharges(_inferior + 1);
+            Alert.inferior = false;
+        }
         if (power.Type == PowerType.Debuff)
         {
             if (!Dodge.Active)
@@ -72,6 +78,7 @@ public class Tengu: ModRelicTemplate
         if (side == Owner.Creature.Side && combatState.RoundNumber == 1)
         {
             Flash(); // 触发遗物图标闪烁
+            await PowerCmd.Apply<Inferior>(new ThrowingPlayerChoiceContext(), Owner.Creature, _inferior, Owner.Creature, null);
             IEnumerable<Creature> enumerable = Owner.Creature.CombatState.PlayerCreatures.Where((Creature c) => c?.IsAlive ?? false).ToList();
             int count = enumerable.Count()-1;
             if (count == 0)
@@ -95,11 +102,26 @@ public class Tengu: ModRelicTemplate
             }
         }
     }
+    public IReadOnlyList<ExtraIconAmountLabelSpec> GetRelicExtraIconAmountLabelSpecs()
+    {
+        return
+        [
+            ExtraIconAmountLabelSpec.Plain(
+                ExtraIconAmountLabelCorner.TopLeft,
+                _inferior.ToString()),
+        ];
+    }
 
+    private void SetCharges(int value)
+    {
+        _inferior = value;
+        InvokeDisplayAmountChanged();
+    }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromKeyword(MomiziKeyword.Loyalty),
         HoverTipFactory.FromKeyword(MomiziKeyword.SelfEsteem),
         HoverTipFactory.FromKeyword(MomiziKeyword.Collaboration),
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
         HoverTipFactory.FromPower<Alert>(),
         HoverTipFactory.FromPower<JiZhong>()
     ];
