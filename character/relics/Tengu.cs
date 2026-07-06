@@ -64,7 +64,11 @@ public class Tengu: ModRelicTemplate
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        await PowerCmd.Apply<Help>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+        if (side == Owner.Creature.Side)
+        {
+            await PowerCmd.Apply<Help>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+        }
+
         if (side == Owner.Creature.Side && combatState.RoundNumber == 1)
         {
             Flash(); // 触发遗物图标闪烁
@@ -96,5 +100,7 @@ public class Tengu: ModRelicTemplate
         HoverTipFactory.FromKeyword(MomiziKeyword.Loyalty),
         HoverTipFactory.FromKeyword(MomiziKeyword.SelfEsteem),
         HoverTipFactory.FromKeyword(MomiziKeyword.Collaboration),
+        HoverTipFactory.FromPower<Alert>(),
+        HoverTipFactory.FromPower<JiZhong>()
     ];
 }

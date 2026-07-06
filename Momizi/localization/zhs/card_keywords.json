@@ -1,8 +1,8 @@
 {
   "MOMIZI_KEYWORD_LOYALTY.title": "对大天狗的忠诚心",
-  "MOMIZI_KEYWORD_LOYALTY.description": "每次受到敌方不利行为获得1层[gold]警戒[/gold]，累计10层[gold]警戒[/gold]后清空并对敌方全体造成50点伤害，队友获得2层[gold]力量[/gold]，2层[gold]敏捷[/gold]，2层[gold]集中[/gold]，自身获得1层[gold]自卑[/gold]",
+  "MOMIZI_KEYWORD_LOYALTY.description": "每次受到敌方不利行为获得1层[gold]警戒[/gold]",
   "MOMIZI_KEYWORD_SELF_ESTEEM.title": "白狼天狗的自尊心",
-  "MOMIZI_KEYWORD_SELF_ESTEEM.description": "队友1：战斗开始获得1层[gold]敏捷[/gold]。\n队友2：战斗开始获得1层[gold]力量[/gold]1层[gold]敏捷[/gold]。\n队友>=3：战斗开始获得1层[gold]力量[/gold]，1层[gold]敏捷[/gold]，1层[gold]集中[/gold]。\n无队友：战斗开始获得2层[gold]集中[/gold]",
+  "MOMIZI_KEYWORD_SELF_ESTEEM.description": "队友=1：战斗开始获得1层[gold]敏捷[/gold]。\n队友=2：战斗开始获得1层[gold]力量[/gold]1层[gold]敏捷[/gold]。\n队友>=3：战斗开始获得1层[gold]力量[/gold]，1层[gold]敏捷[/gold]，1层[gold]集中[/gold]。\n无队友：战斗开始获得2层[gold]集中[/gold]",
   "MOMIZI_KEYWORD_COLLABORATION.title": "天狗们的协作性",
   "MOMIZI_KEYWORD_COLLABORATION.description": "记录队友每回合的打出第1张牌\n攻击：下一张[gold]攻击牌[/gold]造成的伤害+4\n技能:下一次获得的[gold]格挡[/gold]+4\n能力：下一张[gold]能力牌[/gold]免费打出"
 }
