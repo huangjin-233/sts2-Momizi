@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using Momizi.character.power;
@@ -28,6 +29,9 @@ public class WoodenClogs : ModRelicTemplate
 {
     private int _RemainingUses = 10;
     private bool _isActivating;
+
+    public static bool Flag = true;
+
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
     public override bool ShowCounter => true;
@@ -60,21 +64,15 @@ public class WoodenClogs : ModRelicTemplate
     {
         dodge[player] = value;
     }
+
     public override int DisplayAmount
     {
-        get
-        {
-
-            return RemainingUses;
-        }
+        get { return RemainingUses; }
     }
 
     private bool IsActivating
     {
-        get
-        {
-            return _isActivating;
-        }
+        get { return _isActivating; }
         set
         {
             AssertMutable();
@@ -82,15 +80,12 @@ public class WoodenClogs : ModRelicTemplate
             UpdateDisplay();
         }
     }
-    
+
 
     [SavedProperty]
     public int RemainingUses
     {
-        get
-        {
-            return _RemainingUses;
-        }
+        get { return _RemainingUses; }
         private set
         {
             AssertMutable();
@@ -108,22 +103,26 @@ public class WoodenClogs : ModRelicTemplate
     {
         if (IsActivating)
         {
-            Status = RelicStatus.Active;  // 激活时显示高亮
+            Status = RelicStatus.Active; // 激活时显示高亮
         }
         else
         {
             Status = ((RemainingUses == Threshold) ? RelicStatus.Active : RelicStatus.Normal);
         }
+
         InvokeDisplayAmountChanged();
     }
 
     public void NotifySkillPlayed()
-    {if (RemainingUses == 10)
+    {
+        if (RemainingUses == 10)
         {
             return;
         }
+
         RemainingUses--;
     }
+
     private async Task DoActivateVisuals()
     {
         IsActivating = true;
@@ -131,18 +130,22 @@ public class WoodenClogs : ModRelicTemplate
         await Cmd.Wait(1f);
         IsActivating = false;
     }
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
+        ICombatState combatState)
     {
         if (RemainingUses == 0)
         {
-            await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature, null);
+            await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature,
+                null);
         }
         else
         {
             if (side == Owner.Creature.Side)
             {
                 Flash(); // 触发遗物图标闪烁
-                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10);
+                SetValue(Owner,
+                    25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10);
                 foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
                 {
                     if (creature.Monster.IntendsToAttack)
@@ -150,37 +153,44 @@ public class WoodenClogs : ModRelicTemplate
                         int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
                         if (dodge <= WoodenClogs.dodge[Owner])
                         {
-                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
+                                Owner.Creature, null);
                         }
                     }
+
                     if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
                     {
                         int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
                         if (dodge <= WoodenClogs.dodge[Owner])
                         {
-                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
+                                Owner.Creature, null);
                         }
                     }
                 }
             }
         }
     }
+
     public override async Task AfterModifyingHpLostAfterOsty()
     {
         if (Dodge.Active)
         {
             RemainingUses--;
-            Dodge.Active=false;
+            Dodge.Active = false;
         }
     }
-    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
+
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers,
+        decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (Dodge.Active)
         {
             RemainingUses--;
-            Dodge.Active=false;
+            Dodge.Active = false;
         }
     }
+
     public override bool IsAllowed(IRunState runState)
     {
         return IsBeforeAct3TreasureChest(runState);
@@ -192,6 +202,7 @@ public class WoodenClogs : ModRelicTemplate
         {
             return false;
         }
+
         options.Add(new Fix(player));
         return true;
     }
@@ -200,7 +211,16 @@ public class WoodenClogs : ModRelicTemplate
     {
         RemainingUses = 10;
     }
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+
+    public override Task BeforeRoomEntered(AbstractRoom room)
+    {
+        if (room.RoomType == RoomType.RestSite && RemainingUses == 10)
+        {
+            Flag = false;
+        }
+        return Task.CompletedTask;
+    }
+protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<Dodge>(),
     ];
 }

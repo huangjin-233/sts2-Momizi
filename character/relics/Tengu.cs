@@ -6,16 +6,20 @@ using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using Momizi.character.rest;
 using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -29,6 +33,8 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
     private int _inferior;
+    public static bool Flag = true;
+    public static bool inferior;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -147,4 +153,38 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         HoverTipFactory.FromPower<Alert>(),
         HoverTipFactory.FromPower<JiZhong>()
     ];
+    public override bool TryModifyRestSiteOptions(Player player, ICollection<RestSiteOption> options)
+    {
+        if (player != base.Owner)
+        {
+            return false;
+        }
+        options.Add(new InferiorRest(player));
+        return true;
+    }
+    public void InferiorRest()
+    {
+        if (Flag)
+        {
+            Inferior--;
+            Flag = false;
+        }
+    }
+
+    public override Task BeforeRoomEntered(AbstractRoom room)
+    {
+        if (room.RoomType == RoomType.RestSite)
+        {
+            Flag = true;
+            if (Inferior == 0)
+            {
+                inferior = false;
+            }
+            else
+            {
+                inferior = true;
+            }
+        }
+        return Task.CompletedTask;
+    }
 }

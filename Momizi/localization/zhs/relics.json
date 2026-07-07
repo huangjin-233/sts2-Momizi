@@ -5,5 +5,8 @@
   "MOMIZI_RELIC_WOODEN_CLOGS.title": "天狗专用的红色高齿木屐",
   "MOMIZI_RELIC_WOODEN_CLOGS.description": "获得25%的闪避，可使用10次，可在火堆进行修复",
   "MOMIZI_RELIC_WOODEN_CLOGS.flavor": "",
-  "OPTION_FIX.description": "修复[gold]天狗专用的红色高齿木屐[/gold]"
+  "OPTION_Fix.title": "修复",
+  "OPTION_Fix.description": "修复[gold]天狗专用的红色高齿木屐[/gold]",
+  "OPTION_InferiorRest.title": "鼓励",
+  "OPTION_InferiorRest.description": "修复[gold]天狗专用的红色高齿木屐[/gold]"
 }
