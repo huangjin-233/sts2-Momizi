@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -25,5 +28,12 @@ public class BlockPosture: ModPowerTemplate
         IconPath: "res://Test/images/powers/BlockPosture.png",
         BigIconPath: "res://Test/images/powers/BlockPosture.png"
     );
-    
+    public override async Task BeforeSideTurnEndEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (participants.Contains(base.Owner))
+        {
+            Flash();
+            await CreatureCmd.GainBlock(base.Owner, base.Amount, ValueProp.Unpowered, null);
+        }
+    }
 }

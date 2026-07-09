@@ -91,19 +91,32 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
                 await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, 2, Owner.Creature, null);
             }
             else if (count == 1)
-            {
-                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+            { 
+                IEnumerable<Creature> player1 = from c in Owner.Creature.CombatState.GetTeammatesOf(Owner.Creature) where c != null && c.IsAlive && c.IsPlayer select c;
+                foreach (Creature item in player1)
+                {
+                    await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                }
             }
             else if (count == 2)
             {
-                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
-                await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+               
+                IEnumerable<Creature> player1 = from c in Owner.Creature.CombatState.GetTeammatesOf(Owner.Creature) where c != null && c.IsAlive && c.IsPlayer select c;
+                foreach (Creature item in player1)
+                {
+                    await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                    await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                }
             }
             else
             {
-                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
-                await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
-                await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                IEnumerable<Creature> player1 = from c in Owner.Creature.CombatState.GetTeammatesOf(Owner.Creature) where c != null && c.IsAlive && c.IsPlayer select c;
+                foreach (Creature item in player1)
+                {
+                    await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                    await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                    await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+                }
             }
         }
     }

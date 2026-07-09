@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
@@ -45,7 +46,7 @@ public class JiZhongSpirt: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<JiZhong>(choiceContext,Owner.Creature,DynamicVars["JiZhong"].BaseValue,null,this);
+        await PowerCmd.Apply<Spirt>(choiceContext,Owner.Creature,DynamicVars["JiZhong"].BaseValue,Owner.Creature,this);
     }
 
     // 升级后的效果逻辑
@@ -53,4 +54,7 @@ public class JiZhongSpirt: ModCardTemplate
     {
         EnergyCost.UpgradeBy(-1);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromPower<JiZhong>(),
+    ];
 }
