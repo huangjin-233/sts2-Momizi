@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,20 +8,20 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
-using Momizi.character;
 using Momizi.character.power;
 using Momizi.character.relics;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using Teamy.character;
+// ReSharper disable All
 
-namespace Teamy.character.cards.basic;
+namespace Momizi.character.card.basic;
 
 [RegisterCard(typeof(MomiziCardPool))]
-[RegisterCharacterStarterCard(typeof(Momizi.character.Momizi), 1)]
+[RegisterCharacterStarterCard(typeof(Momizi))]
 public class AlertCard: ModCardTemplate
 {
     public override bool GainsBlock => true;
@@ -37,9 +36,9 @@ public class AlertCard: ModCardTemplate
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
 
-    public bool attack = true;
-    public bool intnet =false;
-    public bool flag = false;
+    public bool Attack = true;
+    public bool Intnet;
+    public bool Flag;
 
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
@@ -52,7 +51,7 @@ public class AlertCard: ModCardTemplate
         ModCardVars.Int("Dodge",10 ),
     ];
 
-    protected override bool IsPlayable => flag;
+    protected override bool IsPlayable => Flag;
     //打出条件
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MomiziKeyword.Thinking,CardKeyword.Innate,CardKeyword.Retain,CardKeyword.Exhaust];
@@ -64,15 +63,15 @@ public class AlertCard: ModCardTemplate
     {
         if (cardPlay.Card.Type == CardType.Attack)
         {
-            attack = false;
+            Attack = false;
         }
-        if (intnet && attack)
+        if (Intnet && Attack)
         {
-            flag = true;
+            Flag = true;
         }
         else
         {
-            flag = false;
+            Flag = false;
         }
     }
     // 打出时的效果逻辑
@@ -82,17 +81,17 @@ public class AlertCard: ModCardTemplate
         {
             if (creature.Monster.IntendsToAttack || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
             {
-                intnet = true;
+                Intnet = true;
             }
         }
 
-        if (intnet && attack)
+        if (Intnet && Attack)
         {
-            flag = true;
+            Flag = true;
         }
         else
         {
-            flag = false;
+            Flag = false;
         }
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -121,7 +120,7 @@ public class AlertCard: ModCardTemplate
     }
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        attack = true;
+        Attack = true;
     }
 
     // 升级后的效果逻辑
@@ -132,6 +131,6 @@ public class AlertCard: ModCardTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),
         HoverTipFactory.FromPower<Dodge>(),
-        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
     ];
 }

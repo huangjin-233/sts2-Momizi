@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -12,7 +11,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rooms;
@@ -114,7 +112,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         return
         [
             ExtraIconAmountLabelSpec.Plain(
-                ExtraIconAmountLabelCorner.TopLeft,
+                ExtraIconAmountLabelCorner.BottomRight,
                 _inferior.ToString()),
         ];
     }

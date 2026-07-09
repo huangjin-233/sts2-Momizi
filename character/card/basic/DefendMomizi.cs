@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+// ReSharper disable All
 
 namespace Teamy.character.cards.basic
 {
@@ -31,7 +32,7 @@ namespace Teamy.character.cards.basic
         public override CardAssetProfile AssetProfile => new(
             PortraitPath: $"res://images/cards/basic/{GetType().Name}.png"
         );
-        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag>
+        protected override HashSet<CardTag> CanonicalTags => new()
         {
             CardTag.Defend
         };

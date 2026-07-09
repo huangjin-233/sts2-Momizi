@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -10,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+// ReSharper disable All
 
 namespace Teamy.character.cards.basic;
 
@@ -48,9 +50,10 @@ public class ShieldAttack : ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this).Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
-            .Execute(choiceContext);
+        if (cardPlay.Target != null)
+            await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this).Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
+                .Execute(choiceContext);
     }
 
     // 升级后的效果逻辑
