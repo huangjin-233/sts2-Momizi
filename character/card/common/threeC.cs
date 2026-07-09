@@ -14,7 +14,6 @@ namespace Teamy.character.cards.basic;
 [RegisterCard(typeof(MomiziCardPool))]
 public class threeC: ModCardTemplate
 {
-    public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型

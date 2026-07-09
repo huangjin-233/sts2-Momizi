@@ -1,9 +1,13 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -60,5 +64,27 @@ public class ShieldAttack : ModCardTemplate
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(2);
+    }
+    public static async Task<CardModel> CreateInHand(Player owner, ICombatState combatState)
+    {
+        return (await CreateInHand(owner, 1, combatState)).FirstOrDefault()!;
+    }
+    public static async Task<IEnumerable<CardModel>> CreateInHand(Player owner, int count, ICombatState combatState)
+    {
+        if (count == 0)
+        {
+            return Array.Empty<CardModel>();
+        }
+        if (CombatManager.Instance.IsOverOrEnding)
+        {
+            return Array.Empty<CardModel>();
+        }
+        List<CardModel> Shield = new List<CardModel>();
+        for (int i = 0; i < count; i++)
+        {
+            Shield.Add(combatState.CreateCard<ShieldAttack>(owner));
+        }
+        await CardPileCmd.AddGeneratedCardsToCombat(Shield, PileType.Hand, owner);
+        return Shield;
     }
 }

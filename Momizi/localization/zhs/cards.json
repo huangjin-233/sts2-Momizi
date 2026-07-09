@@ -4,7 +4,17 @@
   "MOMIZI_CARD_STRIKE_MOMIZI.title": "打击",
   "MOMIZI_CARD_STRIKE_MOMIZI.description": "造成{Damage:diff()}点伤害。",
   "MOMIZI_CARD_ALERT_CARD.title": "警戒",
-  "MOMIZI_CARD_ALERT_CARD.description": "仅能在有敌人[red]不利[/red]状态且未打出[gold]攻击牌[/gold]时可以打出，获得1点[gold]集中（椛）[/gold]，获得{Dodge:diff()}%闪避率，重新计算[gold]闪避[/gold]",
+  "MOMIZI_CARD_ALERT_CARD.description": "仅能在有敌人[red]不利[/red]状态且未打出[gold]攻击牌[/gold]时可以打出，获得1点[gold]集中（椛）[/gold]。\n获得{Dodge:diff()}%闪避率，重新计算[gold]闪避[/gold]。",
   "MOMIZI_CARD_SHIELD_ATTACK.title": "盾击",
-  "MOMIZI_CARD_SHIELD_ATTACK.description": "获得{Block:diff()}点格挡。\n造成防御1/4({CalculatedDamage:diff()})的伤害"
+  "MOMIZI_CARD_SHIELD_ATTACK.description": "获得{Block:diff()}点格挡。\n造成防御1/4({CalculatedDamage:diff()})的伤害。",
+  "MOMIZI_CARD_JI_ZHONG_SPIRT.title": "集中精神",
+  "MOMIZI_CARD_JI_ZHONG_SPIRT.description": "获得{JiZhong:diff()}点临时[gold]集中（椛）[/gold]。",
+  "MOMIZI_CARD_SKILL_STRIKE.title": "技巧打击",
+  "MOMIZI_CARD_SKILL_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害\n（受到[gold]集中（椛）[/gold]加成。",
+  "MOMIZI_CARD_MAPLE_SHIELD.title": "枫叶圆盾",
+  "MOMIZI_CARD_MAPLE_SHIELD.description": "获得{Blockposture:diff()}层[gold]格挡姿态[/gold]。\n获得{Block:diff()}点[gold]格挡[/gold]。",
+  "MOMIZI_CARD_KEY_STRIKE.title": "要害打击",
+  "MOMIZI_CARD_KEY_STRIKE.description": "造成{Damage:diff()}点伤害。\n给予{VulnerablePower:diff()}层[gold]易伤[/gold]",
+  "MOMIZI_CARD_ALL_READY.title": "蓄势待发",
+  "MOMIZI_CARD_ALL_READY.description": "获得{Block:diff()}点格挡，减少20%闪避。\n若本回合未失去生命，下回合给予全体友方{IfUpgraded:show:3|2}点[gold]活力[/gold]。"
 }
