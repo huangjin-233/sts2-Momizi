@@ -23,8 +23,7 @@ public class Inferior: ModPowerTemplate
         IconPath: "res://Test/images/powers/Inferior.png",
         BigIconPath: "res://Test/images/powers/Inferior.png"
     );
-
-    // 抽牌后给予玩家力量
+    
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (powers == this)

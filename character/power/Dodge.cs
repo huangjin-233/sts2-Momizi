@@ -27,7 +27,6 @@ public class Dodge: ModPowerTemplate
     );
 
     public static bool Active;
-    // 抽牌后给予玩家力量
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (powers.Type == PowerType.Debuff && applier.IsEnemy)

@@ -25,8 +25,7 @@ public class Help: ModPowerTemplate
         IconPath: "res://Test/images/powers/Help.png",
         BigIconPath: "res://Test/images/powers/Help.png"
     );
-
-    // 抽牌后给予玩家力量
+    
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Card.Type == CardType.Power && cardPlay.Card.Owner != Owner.Player)

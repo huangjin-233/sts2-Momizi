@@ -28,7 +28,6 @@ public class JiZhong: ModPowerTemplate
         BigIconPath: "res://Test/images/powers/JiZhong.png"
     );
     
-    // 抽牌后给予玩家力量
     public override bool AllowNegative => true;
 
     public override decimal ModifyBlockAdditive(Creature target, decimal block, ValueProp props, CardModel? cardSource, CardPlay? cardPlay)
