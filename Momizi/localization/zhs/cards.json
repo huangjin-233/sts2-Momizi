@@ -6,7 +6,7 @@
   "MOMIZI_CARD_ALERT_CARD.title": "警戒",
   "MOMIZI_CARD_ALERT_CARD.description": "仅能在有敌人[red]不利[/red]状态且未打出[gold]攻击牌[/gold]时可以打出，获得1点[gold]集中（椛）[/gold]。\n获得{Dodge:diff()}%闪避率，重新计算[gold]闪避[/gold]。",
   "MOMIZI_CARD_SHIELD_ATTACK.title": "盾击",
-  "MOMIZI_CARD_SHIELD_ATTACK.description": "获得{Block:diff()}点格挡。\n造成防御1/4({CalculatedDamage:diff()})的伤害。",
+  "MOMIZI_CARD_SHIELD_ATTACK.description": "获得{Block:diff()}点格挡。\n造成格挡25%({CalculatedDamage:diff()})的伤害。",
   "MOMIZI_CARD_JI_ZHONG_SPIRT.title": "集中精神",
   "MOMIZI_CARD_JI_ZHONG_SPIRT.description": "获得{JiZhong:diff()}点临时[gold]集中（椛）[/gold]。",
   "MOMIZI_CARD_SKILL_STRIKE.title": "技巧打击",
@@ -16,5 +16,11 @@
   "MOMIZI_CARD_KEY_STRIKE.title": "要害打击",
   "MOMIZI_CARD_KEY_STRIKE.description": "造成{Damage:diff()}点伤害。\n给予{VulnerablePower:diff()}层[gold]易伤[/gold]",
   "MOMIZI_CARD_ALL_READY.title": "蓄势待发",
-  "MOMIZI_CARD_ALL_READY.description": "获得{Block:diff()}点格挡，减少20%闪避。\n若本回合未失去生命，下回合给予全体友方{IfUpgraded:show:3|2}点[gold]活力[/gold]。"
+  "MOMIZI_CARD_ALL_READY.description": "获得{Block:diff()}点格挡，减少20%闪避。\n若本回合未失去生命，下回合给予全体友方{IfUpgraded:show:3|2}点[gold]活力[/gold]。",
+  "MOMIZI_CARD_CONSECUTIVE_KILLS.title": "连斩",
+  "MOMIZI_CARD_CONSECUTIVE_KILLS.description": "造成{Damage:diff()}点伤害2次。\n随机打出并[gold]消耗[/gold][gold]手牌[/gold]中的一张[gold]攻击牌[/gold]。",
+  "MOMIZI_CARD_STANDOFF.title": "对峙",
+  "MOMIZI_CARD_STANDOFF.description": "造成{Damage:diff()}点伤害。\n若目标意图包含攻击，将{Cards:diff()}张{IfUpgraded:show:[gold]盾击[/gold]|[gold]盾击+[/gold]}加入[gold]手牌[/gold]",
+  "MOMIZI_CARD_BEST_ATTACK.title": "竭力撞击",
+  "MOMIZI_CARD_BEST_ATTACK.description": "造成{Damage:diff()}点伤害。\n再造成格挡{IfUpgraded:show:50%|}的伤害（{CalculatedDamage:diff()}）\n之后两个回合失去2点[gold]集中（椛）[/gold]。"
 }

@@ -28,5 +28,8 @@
   "MOMIZI_POWER_READY.smartDescription": "若本回合未失去生命，给予全体友方{Amount}[gold]活力[/gold]",
   "MOMIZI_POWER_SPIRT.title": "集中精神",
   "MOMIZI_POWER_SPIRT.description": "临时[gold]集中（椛）[/gold]",
-  "MOMIZI_POWER_SPIRT.smartDescription": "临时[gold]集中（椛）[/gold]"
+  "MOMIZI_POWER_SPIRT.smartDescription": "临时[gold]集中（椛）[/gold]",
+  "MOMIZI_POWER_ONE_BEST.title": "竭力",
+  "MOMIZI_POWER_ONE_BEST.description": "失去[gold]集中（椛）[/gold]",
+  "MOMIZI_POWER_ONE_BEST.smartDescription": "失去2层[gold]集中（椛）[/gold]"
 }
