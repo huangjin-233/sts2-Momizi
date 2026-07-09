@@ -16,7 +16,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 // ReSharper disable All
 
-namespace Teamy.character.cards.basic;
+namespace Momizi.character.cards.basic;
 
 [RegisterCard(typeof(MomiziCardPool))]
 public class AllReady: ModCardTemplate

@@ -17,9 +17,9 @@ using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using Momizi.character.power;
+using Momizi.character.rest;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using Teamy.character;
 
 namespace Momizi.character.relics;
 

@@ -14,7 +14,6 @@ using Momizi.character.relics;
 using STS2RitsuLib.Combat.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using Teamy.character.cards.basic;
 
 namespace Momizi.character.power;
 [RegisterPower]

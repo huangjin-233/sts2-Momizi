@@ -67,7 +67,7 @@ public class HelpAttack: ModPowerTemplate
 
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (base.Owner != dealer)
+        if (Owner != dealer)
         {
             return 0m;
         }
@@ -84,7 +84,7 @@ public class HelpAttack: ModPowerTemplate
         {
             return 0m;
         }
-        return base.Amount;
+        return Amount;
     }
 
     public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)

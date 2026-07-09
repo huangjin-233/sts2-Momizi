@@ -22,5 +22,15 @@
   "MOMIZI_CARD_STANDOFF.title": "对峙",
   "MOMIZI_CARD_STANDOFF.description": "造成{Damage:diff()}点伤害。\n若目标意图包含攻击，将{Cards:diff()}张{IfUpgraded:show:[gold]盾击[/gold]|[gold]盾击+[/gold]}加入[gold]手牌[/gold]",
   "MOMIZI_CARD_BEST_ATTACK.title": "竭力撞击",
-  "MOMIZI_CARD_BEST_ATTACK.description": "造成{Damage:diff()}点伤害。\n再造成格挡{IfUpgraded:show:50%|}的伤害（{CalculatedDamage:diff()}）\n之后两个回合失去2点[gold]集中（椛）[/gold]。"
+  "MOMIZI_CARD_BEST_ATTACK.description": "造成{Damage:diff()}点伤害。\n再造成格挡{IfUpgraded:show:50%|}的伤害（{CalculatedDamage:diff()}）\n之后两个回合失去2点[gold]集中（椛）[/gold]。",
+  "MOMIZI_CARD_HOLD_ON.title": "坚守",
+  "MOMIZI_CARD_HOLD_ON.description": "",
+  "MOMIZI_CARD_BITE_MOMIZI.title": "撕咬（椛）",
+  "MOMIZI_CARD_BITE_MOMIZI.description": "",
+  "MOMIZI_CARD_QUICK_THINKING.title": "冷静思考",
+  "MOMIZI_CARD_QUICK_THINKING.description": "",
+  "MOMIZI_CARD_THINK_ATTACK.title": "冷静思考-攻击",
+  "MOMIZI_CARD_THINK_ATTACK.description": "下回合打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
+  "MOMIZI_CARD_THINK_DEFEND.title": "冷静思考-防御",
+  "MOMIZI_CARD_THINK_DEFEND.description": "下回合打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍"
 }

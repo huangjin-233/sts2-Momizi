@@ -2,9 +2,8 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Ancients;
 using MegaCrit.Sts2.Core.Models;
-using Momizi;
 
-namespace YakumoAkai.character;
+namespace Momizi.character;
 
 [HarmonyPatch(typeof(AncientDialogueSet))]
 public static class AncientDialogueSetPatch

@@ -21,7 +21,6 @@ using Momizi.character.rest;
 using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using Teamy.character;
 
 namespace Momizi.character.relics;
 [RegisterRelic(typeof(MomiziRelicPool))]

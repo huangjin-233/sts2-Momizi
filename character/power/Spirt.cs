@@ -10,11 +10,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Momizi.character.cards.basic;
 using Momizi.character.relics;
 using STS2RitsuLib.Combat.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using Teamy.character.cards.basic;
 
 namespace Momizi.character.power;
 [RegisterPower]

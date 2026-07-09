@@ -15,7 +15,6 @@ using Momizi.character.relics;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using Teamy.character;
 // ReSharper disable All
 
 namespace Momizi.character.card.basic;

@@ -1,14 +1,11 @@
-﻿using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+﻿using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 
-namespace Teamy.character.single;
+namespace Momizi.character.single;
 
 [RegisterSingleton]
 public class JiZhongSingle: HookedSingletonModel

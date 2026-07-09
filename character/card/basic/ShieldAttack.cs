@@ -17,10 +17,10 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 // ReSharper disable All
 
-namespace Teamy.character.cards.basic;
+namespace Momizi.character.cards.basic;
 
 [RegisterCard(typeof(MomiziCardPool))]
-[RegisterCharacterStarterCard(typeof(Momizi.character.Momizi), 1)]
+[RegisterCharacterStarterCard(typeof(Momizi), 1)]
 public class ShieldAttack : ModCardTemplate
 {
     // 基础耗能

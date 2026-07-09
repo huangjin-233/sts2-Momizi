@@ -31,5 +31,17 @@
   "MOMIZI_POWER_SPIRT.smartDescription": "临时[gold]集中（椛）[/gold]",
   "MOMIZI_POWER_ONE_BEST.title": "竭力",
   "MOMIZI_POWER_ONE_BEST.description": "失去[gold]集中（椛）[/gold]",
-  "MOMIZI_POWER_ONE_BEST.smartDescription": "失去2层[gold]集中（椛）[/gold]"
+  "MOMIZI_POWER_ONE_BEST.smartDescription": "失去2层[gold]集中（椛）[/gold]",
+  "MOMIZI_POWER_THINK_DEFEND_POWER.title": "冷静思考-防御-1",
+  "MOMIZI_POWER_THINK_DEFEND_POWER.description": "下回合打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍",
+  "MOMIZI_POWER_THINK_DEFEND_POWER.smartDescription": "下回合打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍",
+  "MOMIZI_POWER_THINK_ATTACK_POWER.title": "冷静思考-攻击-1",
+  "MOMIZI_POWER_THINK_ATTACK_POWER.description": "下回合打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
+  "MOMIZI_POWER_THINK_ATTACK_POWER.smartDescription": "下回合打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
+  "MOMIZI_POWER_QUICK_THINK_DEFEND_POWER.title": "冷静思考-防御-2",
+  "MOMIZI_POWER_QUICK_THINK_DEFEND_POWER.description": "打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍",
+  "MOMIZI_POWER_QUICK_THINK_DEFEND_POWER.smartDescription": "打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍",
+  "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.title": "冷静思考-攻击-2",
+  "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.description": "打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
+  "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.smartDescription": "打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍"
 }
