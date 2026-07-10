@@ -16,7 +16,7 @@ namespace Momizi.character.card.special;
 public class ThinkAttack: ModCardTemplate,QuickThinking.IChoosable
 {
     // 基础耗能
-    private const int energyCost = -2;
+    private const int energyCost = -1;
     // 卡牌类型
     private const CardType type = CardType.Attack;
     // 卡牌稀有度

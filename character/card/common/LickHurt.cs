@@ -37,7 +37,7 @@ public class LickHurt: ModCardTemplate
         new BlockVar(4, ValueProp.Move),
         new HealVar(3)
     ];
-
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public LickHurt() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }

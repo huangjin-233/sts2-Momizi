@@ -1,22 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
+using Momizi.character.power;
+using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
 [RegisterCard(typeof(MomiziCardPool))]
-public class twoS: ModCardTemplate
+public class Prediction: ModCardTemplate
 {
     public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Attack;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Status;
     // 目标类型（AnyEnemy表示任意敌人）
@@ -30,20 +36,32 @@ public class twoS: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4, ValueProp.Move)
+        new BlockVar(8, ValueProp.Move)
     ];
 
-    public twoS() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    public Prediction() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var intentQueue = cardPlay.Target.Monster.GetIntents();
+        var nextIntent = intentQueue[1];
+        
+        if (nextIntent.IntentType == IntentType.Attack ||  nextIntent.IntentType==IntentType.Debuff)
+        {
+            await PowerCmd.Apply<PredictionPower>(choiceContext, Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature, null);
+        }
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
+        DynamicVars.Block.UpgradeValueBy(2);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
+        HoverTipFactory.FromPower<ArtifactPower>()
+    ];
 }

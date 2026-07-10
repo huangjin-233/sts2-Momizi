@@ -144,7 +144,7 @@ public class WoodenClogs : ModRelicTemplate
             if (side == Owner.Creature.Side)
             {
                 Flash(); // 触发遗物图标闪烁
-                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10);
+                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10 + Owner.Creature.GetPowerAmount<PredictionPower>()*10);
                 foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
                 {
                     if (creature.Monster.IntendsToAttack)
@@ -166,6 +166,7 @@ public class WoodenClogs : ModRelicTemplate
                                 Owner.Creature, null);
                         }
                     }
+                    await PowerCmd.Remove<PredictionPower>(Owner.Creature);
                 }
             }
         }

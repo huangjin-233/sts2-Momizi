@@ -69,6 +69,7 @@ public class See: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),
-        HoverTipFactory.FromPower<Alert>()
+        HoverTipFactory.FromPower<Alert>(),
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
     ];
 }
