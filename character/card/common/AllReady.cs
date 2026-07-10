@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
 using Momizi.character.power;
+using Momizi.character.relics;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -49,6 +50,7 @@ public class AllReady: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        WoodenClogs.dodge[Owner] = WoodenClogs.GetValue(Owner)-20;
         await PowerCmd.Remove<Dodge>(Owner.Creature);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
         foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
@@ -56,7 +58,7 @@ public class AllReady: ModCardTemplate
             if (creature.Monster.IntendsToAttack)
             {
                 int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= 5 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10)
+                if (dodge <= WoodenClogs.dodge[Owner])
                 {
                     await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
                 }
@@ -65,7 +67,7 @@ public class AllReady: ModCardTemplate
             if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
             {
                 int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= 5 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10)
+                if (dodge <= WoodenClogs.dodge[Owner])
                 {
                     await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
                 }

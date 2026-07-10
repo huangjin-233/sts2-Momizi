@@ -14,12 +14,4 @@ public class JiZhongSingle: HookedSingletonModel
     public JiZhongSingle() : base(HookType.Run)
     {
     }
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
-    {
-        if (!props.IsPoweredAttack())
-        {
-            return 0m;
-        }
-        return dealer.GetPowerAmount<JiZhong>();
-    }
 }

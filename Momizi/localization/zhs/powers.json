@@ -43,5 +43,17 @@
   "MOMIZI_POWER_QUICK_THINK_DEFEND_POWER.smartDescription": "打出的第一张[gold]技能牌[/gold]耗能+1.获得的格挡翻倍",
   "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.title": "冷静思考-攻击-2",
   "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.description": "打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
-  "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.smartDescription": "打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍"
+  "MOMIZI_POWER_QUICK_THINK_ATTACK_POWER.smartDescription": "打出的第一张[gold]攻击牌[/gold]耗能+1.造成的伤害翻倍",
+  "MOMIZI_POWER_WARN_ROAR.title": "警戒咆哮",
+  "MOMIZI_POWER_WARN_ROAR.description": "本回合失去力量",
+  "MOMIZI_POWER_WARN_ROAR.smartDescription": "本回合失去{Amount}点[gold]力量[/gold]",
+  "MOMIZI_POWER_WARNING_ROAR_BEST.title": "搭档",
+  "MOMIZI_POWER_WARNING_ROAR_BEST.description": "下次打出的攻击牌耗能减少",
+  "MOMIZI_POWER_WARNING_ROAR_BEST.smartDescription": "下次打出的攻击牌耗能减少2",
+  "MOMIZI_POWER_HELPUNITY.title": "协助",
+  "MOMIZI_POWER_HELPUNITY.description": "选择一张[gold]手牌[/gold]升级",
+  "MOMIZI_POWER_HELPUNITY.smartDescription": "选择一张[gold]手牌[/gold]升级",
+  "MOMIZI_POWER_HELPUNITY1.title": "协助（升级）",
+  "MOMIZI_POWER_HELPUNITY1.description": "升级所有[gold]手牌[/gold]",
+  "MOMIZI_POWER_HELPUNITY1.smartDescription": "升级所有[gold]手牌[/gold]"
 }

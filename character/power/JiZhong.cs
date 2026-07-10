@@ -1,8 +1,12 @@
 ﻿#nullable enable
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -25,23 +29,47 @@ public class JiZhong: ModPowerTemplate
     
     public override bool AllowNegative => true;
 
-    public override decimal ModifyBlockAdditive(Creature target, decimal block, ValueProp props, CardModel? cardSource, CardPlay? cardPlay)
+    public override decimal ModifyBlockAdditive(Creature target, decimal block, ValueProp props, CardModel? cardSource,
+        CardPlay? cardPlay)
     {
-        if (cardSource != null)
-        {
-            if (cardSource.Owner.Creature != Owner)
+            if (cardSource != null)
+            {
+                if (cardSource.Owner.Creature != Owner)
+                {
+                    return 0m;
+                }
+            }
+            else if (Owner != target)
             {
                 return 0m;
             }
-        }
-        else if (Owner != target)
+
+            if (!props.IsPoweredCardOrMonsterMoveBlock())
+            {
+                return 0m;
+            }
+
+            return Amount;
+    }
+
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
+        CardModel? cardSource)
+    {
+            if (!props.IsPoweredAttack())
+            {
+                return 0m;
+            }
+            return dealer.GetPowerAmount<JiZhong>();
+    }
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        if (powers == this)
         {
-            return 0m;
+            if (Owner.Player.Character is not Momizi)
+            {
+                await PowerCmd.Apply<FocusPower>(choiceContext, Owner, amount, Owner, null);
+                await PowerCmd.Remove(this);
+            }
         }
-        if (!props.IsPoweredCardOrMonsterMoveBlock())
-        {
-            return 0m;
-        }
-        return Amount;
     }
 }
