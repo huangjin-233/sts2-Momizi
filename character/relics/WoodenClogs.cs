@@ -134,42 +134,55 @@ public class WoodenClogs : ModRelicTemplate
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
-        if (RemainingUses == 0)
+        if (side == Owner.Creature.Side)
         {
-            await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature,
-                null);
-        }
-        else
-        {
-            if (side == Owner.Creature.Side)
+            if (RemainingUses == 0)
             {
-                Flash(); // 触发遗物图标闪烁
-                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 - Owner.Creature.GetPowerAmount<Inferior>() * 10 + Owner.Creature.GetPowerAmount<PredictionPower>()*10);
-                foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-                {
-                    if (creature.Monster.IntendsToAttack)
-                    {
-                        int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                        if (dodge <= WoodenClogs.dodge[Owner])
-                        {
-                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
-                                Owner.Creature, null);
-                        }
-                    }
-
-                    if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
-                    {
-                        int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                        if (dodge <= WoodenClogs.dodge[Owner])
-                        {
-                            await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
-                                Owner.Creature, null);
-                        }
-                    }
-                    await PowerCmd.Remove<PredictionPower>(Owner.Creature);
-                }
+                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature,
+                    null);
+                SetValue(Owner, Owner.Creature.GetPowerAmount<JiZhong>() * 5 -
+                                Owner.Creature.GetPowerAmount<Inferior>() * 10 +
+                                Owner.Creature.GetPowerAmount<PredictionPower>() * 10 -
+                                Owner.Creature.GetPowerAmount<WarningDodge>() * 20 -
+                                Owner.Creature.GetPowerAmount<WarningDodgePlaus>() * 15 +
+                                Owner.Creature.GetPowerAmount<FlexiblePower>() * 10);
             }
-        }
+            else
+            {
+                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 -
+                                Owner.Creature.GetPowerAmount<Inferior>() * 10 +
+                                Owner.Creature.GetPowerAmount<PredictionPower>() * 10 -
+                                Owner.Creature.GetPowerAmount<WarningDodge>() * 20 -
+                                Owner.Creature.GetPowerAmount<WarningDodgePlaus>() * 15 +
+                                Owner.Creature.GetPowerAmount<FlexiblePower>() * 10);
+            }
+            Flash(); // 触发遗物图标闪烁
+            foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
+            {
+                if (creature.Monster.IntendsToAttack)
+                {
+                    int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
+                    if (dodge <= WoodenClogs.dodge[Owner])
+                    {
+                        await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
+                            Owner.Creature, null);
+                    }
+                }
+
+                if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
+                {
+                    int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
+                    if (dodge <= WoodenClogs.dodge[Owner])
+                    {
+                        await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1,
+                            Owner.Creature, null);
+                    }
+                }
+                await PowerCmd.Remove<PredictionPower>(Owner.Creature);
+                await PowerCmd.Remove<WarningDodge>(Owner.Creature);
+                await PowerCmd.Remove<WarningDodgePlaus>(Owner.Creature);
+            }
+            }
     }
 
     public override async Task AfterModifyingHpLostAfterOsty()
