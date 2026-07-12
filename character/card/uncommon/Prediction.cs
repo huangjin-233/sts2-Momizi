@@ -9,11 +9,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
-using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
-namespace Momizi.character.card.special;
+namespace Momizi.character.card.uncommon;
 
 [RegisterCard(typeof(MomiziCardPool))]
 public class Prediction: ModCardTemplate
@@ -32,7 +31,7 @@ public class Prediction: ModCardTemplate
 
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://images/cards/basic/{GetType().Name}.png"
+        PortraitPath: $"res://images/cards/uncommon/{GetType().Name}.png"
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [

@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.cards.basic;
 using Momizi.character.power;
@@ -12,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(MomiziCardPool))]
+[RegisterCard(typeof(ColorlessCardPool))]
 public class ThinkDefend : ModCardTemplate, QuickThinking.IChoosable
 {
     // 基础耗能
@@ -32,7 +33,7 @@ public class ThinkDefend : ModCardTemplate, QuickThinking.IChoosable
 
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://images/cards/basic/{GetType().Name}.png"
+        PortraitPath: $"res://images/cards/special/{GetType().Name}.png"
     );
 
     // 卡牌基础数值

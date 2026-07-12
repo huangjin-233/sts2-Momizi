@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -32,6 +36,19 @@ public class Dodge: ModPowerTemplate
         if (powers.Type == PowerType.Debuff && applier.IsEnemy)
         {
             await PowerCmd.Remove(powers);
+            if (Owner.Player.Creature.HasPower<StrikeAfterPower>())
+            {
+                IEnumerable<CardModel> distinctForCombat= CardFactory.GetDistinctForCombat(
+                    Owner.Player, 
+                    from c in Owner.Player.Character.CardPool.GetUnlockedCards(
+                        Owner.Player.UnlockState, 
+                        Owner.Player.Creature.CombatState.RunState.CardMultiplayerConstraint)
+                    where c.Rarity == CardRarity.Common
+                    where c.Type == CardType.Attack
+                    select c,
+                    1,
+                    Owner.Player.Creature.CombatState.RunState.Rng.CombatCardGeneration).ToList();
+            }
             await PowerCmd.Decrement(this);
             Active = true;
         }

@@ -50,10 +50,10 @@ position = Vector2(165, -367)
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -462.00006
-offset_top = -110.00001
-offset_right = -374.00006
-offset_bottom = -67.00001
+offset_left = -372.0
+offset_top = -106.99999
+offset_right = -284.0
+offset_bottom = -63.999992
 rotation = 4.7246065
 script = ExtResource("2_y3u1x")
 

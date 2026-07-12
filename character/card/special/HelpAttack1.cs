@@ -4,13 +4,14 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(MomiziCardPool))]
+[RegisterCard(typeof(ColorlessCardPool))]
 public class HelpAttack1: ModCardTemplate
 {
     public override bool GainsBlock => true;
@@ -27,7 +28,7 @@ public class HelpAttack1: ModCardTemplate
 
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://images/cards/basic/{GetType().Name}.png"
+        PortraitPath: $"res://images/cards/special/{GetType().Name}.png"
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [

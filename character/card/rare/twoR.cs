@@ -26,7 +26,7 @@ public class twoR: ModCardTemplate
 
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://images/cards/basic/{GetType().Name}.png"
+        PortraitPath: $"res://images/cards/rare/{GetType().Name}.png"
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [

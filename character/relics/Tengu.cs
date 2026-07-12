@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -32,6 +33,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
     private int _inferior;
     public static bool Flag = true;
     public static bool inferior;
+    public static bool First = true;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -70,10 +72,14 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
             }
         }
     }
-
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        First = false;
+    }
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
         ICombatState combatState)
     {
+        First = true;
         if (side == Owner.Creature.Side)
         {
             await PowerCmd.Apply<Help>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);

@@ -76,5 +76,8 @@
   "MOMIZI_POWER_SUPPRESS_POWER.smartDescription": "本回合失去{Amount}点[gold]力量[/gold]",
   "MOMIZI_POWER_FLEXIBLE_POWER.title": "灵活",
   "MOMIZI_POWER_FLEXIBLE_POWER.description": "闪避概率增加",
-  "MOMIZI_POWER_FLEXIBLE_POWER.smartDescription": "闪避概率增加10%"
+  "MOMIZI_POWER_FLEXIBLE_POWER.smartDescription": "闪避概率增加10%",
+  "MOMIZI_POWER_DESPERATE.title": "绝境反击",
+  "MOMIZI_POWER_DESPERATE.description": "本回合失去力量",
+  "MOMIZI_POWER_DESPERATE.smartDescription": "本回合失去{Amount}点[gold]力量[/gold]"
 }
