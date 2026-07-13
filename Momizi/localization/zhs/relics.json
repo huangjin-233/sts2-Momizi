@@ -1,12 +1,5 @@
 {
   "MOMIZI_RELIC_TENGU.title": "忠诚心与协作性",
   "MOMIZI_RELIC_TENGU.description": "对大天狗的忠诚心 \n天狗们的协作性",
-  "MOMIZI_RELIC_TENGU.flavor": "",
-  "MOMIZI_RELIC_WOODEN_CLOGS.title": "天狗专用的红色高齿木屐",
-  "MOMIZI_RELIC_WOODEN_CLOGS.description": "获得25%的闪避，可使用10次，可在火堆进行修复,耐久归零后失去24%闪避",
-  "MOMIZI_RELIC_WOODEN_CLOGS.flavor": "",
-  "OPTION_Fix.title": "修复",
-  "OPTION_Fix.description": "修复[gold]天狗专用的红色高齿木屐[/gold]",
-  "OPTION_InferiorRest.title": "鼓励",
-  "OPTION_InferiorRest.description": "修复[gold]天狗专用的红色高齿木屐[/gold]"
+  "MOMIZI_RELIC_TENGU.flavor": ""
 }

@@ -41,10 +41,6 @@ public class BestMatch: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(10, ValueProp.Move),
-        new CalculationBaseVar(1m),
-        new ExtraDamageVar(1m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature _) =>
-            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     public BestMatch() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -54,29 +50,7 @@ public class BestMatch: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Remove<Dodge>(Owner.Creature);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        WoodenClogs.dodge[Owner] = WoodenClogs.GetValue(Owner)*(9/10);
-        foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-        {
-            if (creature.Monster.IntendsToAttack)
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner])
-                {
-                    await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-                }
-            }
-
-            if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner])
-                {
-                    await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-                }
-            }
-        }
         await PowerCmd.Apply<Best>(choiceContext, cardPlay.Target, 1, Owner.Creature, this);
     }
 
@@ -88,7 +62,6 @@ public class BestMatch: ModCardTemplate
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
-        HoverTipFactory.FromPower<Dodge>(),
         HoverTipFactory.FromPower<Best>()
     ];
     //关键词

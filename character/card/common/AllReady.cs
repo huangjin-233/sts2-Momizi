@@ -41,10 +41,6 @@ public class AllReady: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(6m,ValueProp.Move),
-        new CalculationBaseVar(1m),
-        new ExtraDamageVar(1m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (card, _) =>
-            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     public AllReady() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -54,30 +50,7 @@ public class AllReady: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        WoodenClogs.dodge[Owner] = WoodenClogs.GetValue(Owner)*8/10;
-        await PowerCmd.Remove<Dodge>(Owner.Creature);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-        {
-            if (creature.Monster.IntendsToAttack)
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner])
-                {
-                    await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-                }
-            }
-
-            if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner])
-                {
-                    await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-                }
-            }
-        }
-
         await PowerCmd.Apply<Ready>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 

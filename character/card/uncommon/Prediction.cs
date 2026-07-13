@@ -40,10 +40,6 @@ public class Prediction: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(8, ValueProp.Move),
-        new CalculationBaseVar(1m),
-        new ExtraDamageVar(1m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (card, _) =>
-            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     public Prediction() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

@@ -45,34 +45,17 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         BigIconPath: $"res://images/relics/{GetType().Name}.png"
     );
     // 每回合开始时，抽一张牌
-    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power,
+        decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (Alert.inferior)
         {
             SetCharges(_inferior + 1);
             Alert.inferior = false;
         }
-        if (power.Type == PowerType.Debuff)
-        {
-            if (!Dodge.Active)
-            {
-                Flash();
-                await PowerCmd.Apply<Alert>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
-            }
-        }
+    }
 
-    }
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
-    {
-        if (CombatManager.Instance.IsInProgress && target == Owner.Creature && result.UnblockedDamage > 0 &&
-            !Owner.Creature.HasPower<Dodge>())
-        {
-            if (!Dodge.Active)
-            {
-                await PowerCmd.Apply<Alert>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
-            }
-        }
-    }
+
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         First = false;

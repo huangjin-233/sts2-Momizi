@@ -47,10 +47,6 @@ public class AlertCard: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         ModCardVars.Int("Jizhong",1 ),
         ModCardVars.Int("Dodge",10 ),
-        new CalculationBaseVar(1m),
-        new ExtraDamageVar(1m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature _) =>
-            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     protected override bool IsPlayable => Flag;
@@ -99,26 +95,6 @@ public class AlertCard: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, DynamicVars["Jizhong"].BaseValue, Owner.Creature, null);
-        await PowerCmd.Remove<Dodge>(Owner.Creature);
-        foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-        {
-            if (creature.Monster.IntendsToAttack)
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner]*(1+DynamicVars["Dodge"].BaseValue/100))
-                {
-                    await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
-                }
-            }
-            if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
-            {
-                int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner]*(1+DynamicVars["Dodge"].BaseValue/100))
-                {
-                    await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
-                }
-            }
-        }
     }
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
@@ -132,7 +108,6 @@ public class AlertCard: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),
-        HoverTipFactory.FromPower<Dodge>(),
         HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
     ];
 }
