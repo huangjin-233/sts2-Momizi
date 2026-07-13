@@ -26,8 +26,8 @@ public class Ready: ModPowerTemplate
     public bool Flag = true;
     // 自定义图标路径。1:1即可。原版游戏大图256x256，小图64x64。
     public override PowerAssetProfile AssetProfile => new(
-        IconPath: "res://Test/images/powers/Ready.png",
-        BigIconPath: "res://Test/images/powers/Ready.png"
+        IconPath: "res://images/powers/Ready.png",
+        BigIconPath: "res://images/powers/Ready.png"
     );
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
         DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)

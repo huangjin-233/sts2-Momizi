@@ -38,7 +38,7 @@ namespace Momizi.character.cards.basic
         };
         // 卡牌基础数值
         protected override IEnumerable<DynamicVar> CanonicalVars => [
-            new BlockVar(4, ValueProp.Move)
+            new BlockVar(5, ValueProp.Move)
         ];
 
         public DefendMomizi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -26,15 +27,18 @@ public class QuickThinkAttackPower : ModPowerTemplate
         IconPath: "res://images/powers/Alert.png",
         BigIconPath: "res://images/powers/Alert.png"
     );
-
-    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    public bool Flag = true;
+    public override bool TryModifyEnergyCostInCombat(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
-        List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
-        foreach (CardModel cardModel in items)
+        modifiedCost = originalCost;
+        if (card.Owner.Creature != Owner || card.Type != CardType.Attack)
         {
-            cardModel.EnergyCost.UpgradeBy(1);
+            return false;
         }
+        modifiedCost = originalCost + 1;
+        return true;
     }
+
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         if (!props.IsPoweredAttack())
@@ -45,14 +49,14 @@ public class QuickThinkAttackPower : ModPowerTemplate
         {
             return 1m;
         }
-        if (dealer != base.Owner && !base.Owner.Pets.Contains<Creature>(dealer))
+        if (dealer != Owner && !Owner.Pets.Contains<Creature>(dealer))
         {
             return 1m;
         }
         return 2m;
     }
-    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Remove(this);
+        if (cardPlay.Card.Type==CardType.Attack) await PowerCmd.Remove(this);
     }
 }

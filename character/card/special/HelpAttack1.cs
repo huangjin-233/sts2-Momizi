@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(ColorlessCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public class HelpAttack1: ModCardTemplate
 {
     public override bool GainsBlock => true;

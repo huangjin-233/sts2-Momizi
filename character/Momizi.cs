@@ -33,24 +33,24 @@ public class Momizi: ModCharacterTemplate<MomiziCardPool, MomiziRelicPool, Momiz
                 // 人物模型tscn路径。
                 VisualsPath: "res://scenes/creature_visuals/momizi.tscn"
                 // 能量表盘tscn路径。
-                //EnergyCounterPath: "res://Test/scenes/test_energy_counter.tscn",
+                //EnergyCounterPath: "res://scenes_energy_counter.tscn",
                 // 商店人物场景。
-                //MerchantAnimPath: "res://Test/scenes/test_character_merchant.tscn",
+                //MerchantAnimPath: "res://scenes_character_merchant.tscn",
                 // 篝火休息场景。
-                //RestSiteAnimPath: "res://Test/scenes/test_character_rest_site.tscn"
+                //RestSiteAnimPath: "res://scenes_character_rest_site.tscn"
             ),
             Ui: new(
                 // 对于图片，只要是godot支持的格式都可以，例如png,jpg,svg等等，之后不再说明
                 // 人物头像路径。自适应大小。
                 //IconTexturePath: "res://icon.svg",
                 // 游戏左上角头像、角色统计页头像、每日挑战角色头像。这个是场景而不是图片。参考下方附赠资源搭建。
-                //IconPath: "res://Test/scenes/test_icon.tscn",
+                //IconPath: "res://scenes_icon.tscn",
                 // 人物选择背景。
-                //CharacterSelectBgPath: "res://Test/scenes/test_bg.tscn",
+                //CharacterSelectBgPath: "res://scenes_bg.tscn",
                 // 人物选择图标。
-                //CharacterSelectIconPath: "res://Test/images/char_select_test.png",
+                //CharacterSelectIconPath: "res://images/char_select_test.png",
                 // 人物选择图标-锁定状态。
-                //CharacterSelectLockedIconPath: "res://Test/images/char_select_test_locked.png",
+                //CharacterSelectLockedIconPath: "res://images/char_select_test_locked.png",
                 // 人物选择过渡动画。
                 // CharacterSelectTransitionPath: "res://materials/transitions/ironclad_transition_mat.tres",
                 // 地图上的角色标记图标、表情轮盘上的角色头像。

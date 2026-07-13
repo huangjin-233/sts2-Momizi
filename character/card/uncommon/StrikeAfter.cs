@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using Momizi.character.power;
@@ -51,4 +52,7 @@ public class StrikeAfter: ModCardTemplate
     {
         EnergyCost.UpgradeBy(-1);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
+    ];
 }

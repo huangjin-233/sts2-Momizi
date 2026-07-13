@@ -26,8 +26,8 @@ public class Hold: ModPowerTemplate
 
     // 自定义图标路径。1:1即可。原版游戏大图256x256，小图64x64。
     public override PowerAssetProfile AssetProfile => new(
-        IconPath: "res://Test/images/powers/Help.png",
-        BigIconPath: "res://Test/images/powers/Help.png"
+        IconPath: "res://images/powers/Help.png",
+        BigIconPath: "res://images/powers/Help.png"
     );
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(3, ValueProp.Move)

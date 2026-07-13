@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
+using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
 using Momizi.character.rest;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -37,15 +38,17 @@ public class WoodenClogs : ModRelicTemplate
     public override bool ShowCounter => true;
 
     // 遗物的数值。这里会替换本地化中的{Cards}。
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(10)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CardsVar(10)
+    ];
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
-        IconPath: $"res://Test/images/relics/{GetType().Name}.png",
+        IconPath: $"res://images/relics/{GetType().Name}.png",
         // 轮廓图标（原版85x85）
-        IconOutlinePath: $"res://Test/images/relics/{GetType().Name}.png",
+        IconOutlinePath: $"res://images/relics/{GetType().Name}.png",
         // 大图标（原版256x256）
-        BigIconPath: $"res://Test/images/relics/{GetType().Name}.png"
+        BigIconPath: $"res://images/relics/{GetType().Name}.png"
     );
 
     public static Dictionary<Player, int> dodge = new Dictionary<Player, int>();
@@ -140,21 +143,22 @@ public class WoodenClogs : ModRelicTemplate
             {
                 await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature,
                     null);
-                SetValue(Owner, Owner.Creature.GetPowerAmount<JiZhong>() * 5 -
-                                Owner.Creature.GetPowerAmount<Inferior>() * 10 +
-                                Owner.Creature.GetPowerAmount<PredictionPower>() * 10 -
-                                Owner.Creature.GetPowerAmount<WarningDodge>() * 20 -
-                                Owner.Creature.GetPowerAmount<WarningDodgePlaus>() * 15 +
-                                Owner.Creature.GetPowerAmount<FlexiblePower>() * 10);
+                SetValue(Owner,1
+                               *(1 + Owner.Creature.GetPowerAmount<JiZhong>()*5/100)
+                               *(1 - Owner.Creature.GetPowerAmount<Inferior>()*10/100)
+                               *(110/100)
+                               *(1 - Owner.Creature.GetPowerAmount<WarningDodge>()*20/100)
+                               *(1 - Owner.Creature.GetPowerAmount<WarningDodgePlaus>()*15/100)
+                               *(1 + Owner.Creature.GetPowerAmount<FlexiblePower>()*10/100));
             }
             else
             {
-                SetValue(Owner, 25 + Owner.Creature.GetPowerAmount<JiZhong>() * 5 -
-                                Owner.Creature.GetPowerAmount<Inferior>() * 10 +
-                                Owner.Creature.GetPowerAmount<PredictionPower>() * 10 -
-                                Owner.Creature.GetPowerAmount<WarningDodge>() * 20 -
-                                Owner.Creature.GetPowerAmount<WarningDodgePlaus>() * 15 +
-                                Owner.Creature.GetPowerAmount<FlexiblePower>() * 10);
+                SetValue(Owner, 25 *(1 + Owner.Creature.GetPowerAmount<JiZhong>()*5/100)
+                                   *(1 - Owner.Creature.GetPowerAmount<Inferior>()*10/100)
+                                   *(110/100)
+                                   *(1 - Owner.Creature.GetPowerAmount<WarningDodge>()*20/100)
+                                   *(1 - Owner.Creature.GetPowerAmount<WarningDodgePlaus>()*15/100)
+                                   *(1 + Owner.Creature.GetPowerAmount<FlexiblePower>()*10/100));
             }
             Flash(); // 触发遗物图标闪烁
             foreach (var creature in Owner.Creature.CombatState.HittableEnemies)

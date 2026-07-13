@@ -38,7 +38,7 @@ public class AutoBlock: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(0),
         new CalculationExtraVar(0.5m),
-        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((CardModel _, Creature? target) => Owner.Creature.GetPowerAmount<Alert>())
+        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => card.Owner.Creature.GetPowerAmount<Alert>())
     ];
 
     public AutoBlock() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

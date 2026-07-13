@@ -5,8 +5,10 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -19,7 +21,6 @@ namespace Momizi.character.card.uncommon;
 [RegisterCard(typeof(MomiziCardPool))]
 public class Provocation: ModCardTemplate
 {
-    public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 0;
     // 卡牌类型
@@ -50,7 +51,7 @@ public class Provocation: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);//能量
-        await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
+        await PowerCmd.Apply<ProvocationPower>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
         foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
         {
             if (creature.Monster.IntendsToAttack)
@@ -65,4 +66,8 @@ public class Provocation: ModCardTemplate
     {
         DynamicVars.Energy.UpgradeValueBy(1);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
+        HoverTipFactory.FromPower<ArtifactPower>()
+    ];
 }

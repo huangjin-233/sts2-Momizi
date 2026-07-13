@@ -2,12 +2,15 @@
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -33,7 +36,11 @@ public class WarnDodge: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<VulnerablePower>(2)
+        new PowerVar<VulnerablePower>(2),
+        new CalculationBaseVar(1m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (card, _) =>
+            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     public WarnDodge() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

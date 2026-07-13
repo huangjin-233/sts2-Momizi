@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(ColorlessCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public class ThinkAttack: ModCardTemplate,QuickThinking.IChoosable
 {
     // 基础耗能

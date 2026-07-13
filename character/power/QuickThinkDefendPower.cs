@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -24,13 +26,17 @@ public class QuickThinkDefendPower : ModPowerTemplate
         IconPath: "res://images/powers/Alert.png",
         BigIconPath: "res://images/powers/Alert.png"
     );
-    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+
+    public bool Flag = true;
+    public override bool TryModifyEnergyCostInCombat(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
-        List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.Type == CardType.Skill && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
-        foreach (CardModel cardModel in items)
+        modifiedCost = originalCost;
+        if (card.Owner.Creature != Owner || card.Type != CardType.Skill)
         {
-            cardModel.EnergyCost.UpgradeBy(1);
+            return false;
         }
+        modifiedCost = originalCost + 1;
+        return true;
     }
     
     public override decimal ModifyBlockMultiplicative(Creature target, decimal block, ValueProp props, CardModel? cardSource, CardPlay? cardPlay)
@@ -50,8 +56,8 @@ public class QuickThinkDefendPower : ModPowerTemplate
         return 2m;
     }
 
-    public override async Task AfterBlockGained(Creature creature, decimal amount, ValueProp props, CardModel? cardSource)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Remove(this);
+        if (cardPlay.Card.Type==CardType.Skill) await PowerCmd.Remove(this);
     }
 }

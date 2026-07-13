@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
@@ -38,7 +40,11 @@ public class BestMatch: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(10, ValueProp.Move)
+        new BlockVar(10, ValueProp.Move),
+        new CalculationBaseVar(1m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature _) =>
+            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     public BestMatch() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -50,7 +56,7 @@ public class BestMatch: ModCardTemplate
     {
         await PowerCmd.Remove<Dodge>(Owner.Creature);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        WoodenClogs.dodge[Owner] = WoodenClogs.GetValue(Owner)-10;
+        WoodenClogs.dodge[Owner] = WoodenClogs.GetValue(Owner)*(9/10);
         foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
         {
             if (creature.Monster.IntendsToAttack)

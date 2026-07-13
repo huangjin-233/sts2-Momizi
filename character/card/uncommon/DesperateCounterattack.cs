@@ -68,8 +68,6 @@ public class DesperateCounterattack: ModCardTemplate
         DynamicVars.ExtraDamage.UpgradeValueBy(4);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<WeakPower>(),
-        HoverTipFactory.FromPower<VulnerablePower>(),
         HoverTipFactory.FromPower<StrengthPower>(),
     ];
 }

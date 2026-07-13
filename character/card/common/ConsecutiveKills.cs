@@ -49,7 +49,12 @@ public class ConsecutiveKills: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).WithHitCount(2).FromCard(this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(2)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
         List<CardModel> items = PileType.Hand.GetPile(Owner).Cards.Where((CardModel c) => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
         CardModel cardModel = Owner.Creature.Player.RunState.Rng.Shuffle.NextItem(items);
         if (cardModel != null)

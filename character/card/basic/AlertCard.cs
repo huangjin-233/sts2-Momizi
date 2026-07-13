@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
@@ -23,7 +24,6 @@ namespace Momizi.character.card.basic;
 [RegisterCharacterStarterCard(typeof(Momizi))]
 public class AlertCard: ModCardTemplate
 {
-    public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 2;
     // 卡牌类型
@@ -45,9 +45,12 @@ public class AlertCard: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4, ValueProp.Move),
         ModCardVars.Int("Jizhong",1 ),
         ModCardVars.Int("Dodge",10 ),
+        new CalculationBaseVar(1m),
+        new ExtraDamageVar(1m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature _) =>
+            WoodenClogs.GetValue(card.Owner)-1)
     ];
 
     protected override bool IsPlayable => Flag;
@@ -102,7 +105,7 @@ public class AlertCard: ModCardTemplate
             if (creature.Monster.IntendsToAttack)
             {
                 int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner] + DynamicVars["Dodge"].BaseValue)
+                if (dodge <= WoodenClogs.dodge[Owner]*(1+DynamicVars["Dodge"].BaseValue/100))
                 {
                     await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
                 }
@@ -110,7 +113,7 @@ public class AlertCard: ModCardTemplate
             if (creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
             {
                 int dodge = Owner.RunState.Rng.CombatCardGeneration.NextInt(0, 100);
-                if (dodge <= WoodenClogs.dodge[Owner] + DynamicVars["Dodge"].BaseValue)
+                if (dodge <= WoodenClogs.dodge[Owner]*(1+DynamicVars["Dodge"].BaseValue/100))
                 {
                     await PowerCmd.Apply<Dodge>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
                 }

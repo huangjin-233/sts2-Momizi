@@ -40,7 +40,7 @@ public class ShieldAttack : ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4, ValueProp.Move),
+        new BlockVar(6, ValueProp.Move),
         new CalculationBaseVar(0m),
         new ExtraDamageVar(1m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => card.Owner.Creature.Block/4)

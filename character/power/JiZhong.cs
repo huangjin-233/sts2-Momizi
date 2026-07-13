@@ -23,8 +23,8 @@ public class JiZhong: ModPowerTemplate
 
     // 自定义图标路径。1:1即可。原版游戏大图256x256，小图64x64。
     public override PowerAssetProfile AssetProfile => new(
-        IconPath: "res://Test/images/powers/JiZhong.png",
-        BigIconPath: "res://Test/images/powers/JiZhong.png"
+        IconPath: "res://images/powers/JiZhong.png",
+        BigIconPath: "res://images/powers/JiZhong.png"
     );
     
     public override bool AllowNegative => true;
@@ -49,7 +49,7 @@ public class JiZhong: ModPowerTemplate
                 return 0m;
             }
 
-            return Amount;
+            return Amount/2;
     }
 
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
@@ -59,7 +59,7 @@ public class JiZhong: ModPowerTemplate
             {
                 return 0m;
             }
-            return dealer.GetPowerAmount<JiZhong>();
+            return dealer.GetPowerAmount<JiZhong>()/2;
     }
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {

@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
+using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -25,15 +26,15 @@ public class PredictionPower: ModPowerTemplate
 
     // 自定义图标路径。1:1即可。原版游戏大图256x256，小图64x64。
     public override PowerAssetProfile AssetProfile => new(
-        IconPath: "res://Test/images/powers/Inferior.png",
-        BigIconPath: "res://Test/images/powers/Inferior.png"
+        IconPath: "res://images/powers/PredictionPower.png",
+        BigIconPath: "res://images/powers/PredictionPower.png"
     );
     
     public override async Task AfterEnergyReset(Player player)
     {
         if (player == Owner.Player)
         {
-            await CreatureCmd.GainBlock(Owner, DynamicVars.Block, null);//防御
+            await CreatureCmd.GainBlock(Owner, Amount,ValueProp.Move, null);//防御
         }
     }
 }
