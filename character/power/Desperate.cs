@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Momizi.character.card.uncommon;
 using Momizi.character.cards.basic;
 using Momizi.character.relics;
 using STS2RitsuLib.Combat.Powers;
@@ -18,7 +19,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.power;
 [RegisterPower]
-public class Desperate : ModTemporaryAppliedPowerTemplate<WarningRoar, StrengthPower>
+public class Desperate : ModTemporaryAppliedPowerTemplate<DesperateCounterattack, StrengthPower>
 {
     public override PowerType Type => PowerType.Debuff;
     // 叠加类型，Counter表示可叠加，Single表示不可叠加
