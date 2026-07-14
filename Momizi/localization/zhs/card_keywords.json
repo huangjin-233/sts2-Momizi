@@ -2,7 +2,7 @@
   "MOMIZI_KEYWORD_LOYALTY.title": "对大天狗的忠诚心",
   "MOMIZI_KEYWORD_LOYALTY.description": "每次受到敌方[red]不利[/red]行为获得1层[gold]警戒[/gold]",
   "MOMIZI_KEYWORD_COLLABORATION.title": "天狗们的协作性",
-  "MOMIZI_KEYWORD_COLLABORATION.description": "记录队友每回合的打出第1张牌的种类\n攻击：下一张[gold]攻击牌[/gold]造成的伤害+2\n技能:下一次获得的[gold]格挡[/gold]+2\n能力：下一张[gold]能力牌[/gold]免费打出",
+  "MOMIZI_KEYWORD_COLLABORATION.description": "{IsMultiplayer:记录队友每回合的打出第1张牌的种类\n攻击：下一张[gold]攻击牌[/gold]造成的伤害+2\n技能:下一次获得的[gold]格挡[/gold]+2\n能力：下一张[gold]能力牌[/gold]免费打出|仅在联机时有效}",
   "MOMIZI_KEYWORD_THINKING.title": "想法",
   "MOMIZI_KEYWORD_THINKING.description": "抽到带有本词条的卡时抽1张牌",
   "MOMIZI_KEYWORD_SPELL.title": "符卡",

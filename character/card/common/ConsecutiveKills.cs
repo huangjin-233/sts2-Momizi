@@ -69,4 +69,8 @@ public class ConsecutiveKills: ModCardTemplate
     {
         DynamicVars.Damage.UpgradeValueBy(2);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    [
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
+    ];
 }

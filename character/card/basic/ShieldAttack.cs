@@ -23,6 +23,7 @@ namespace Momizi.character.cards.basic;
 [RegisterCharacterStarterCard(typeof(Momizi), 1)]
 public class ShieldAttack : ModCardTemplate
 {
+    public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型

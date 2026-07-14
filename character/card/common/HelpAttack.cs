@@ -31,7 +31,8 @@ public class HelpAttack: ModCardTemplate
     private const TargetType targetType = TargetType.AllEnemies;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
-
+    //多人联机卡牌
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/common/{GetType().Name}.png"

@@ -10,7 +10,7 @@
 
 
   "MOMIZI_CARD_JI_ZHONG_SPIRT.title": "集中精神",
-  "MOMIZI_CARD_JI_ZHONG_SPIRT.description": "获得{JiZhong:diff()}点临时[gold]集中（椛）[/gold]。",
+  "MOMIZI_CARD_JI_ZHONG_SPIRT.description": "获得{JiZhong:diff()}点[gold]临时集中（椛）[/gold]。",
   "MOMIZI_CARD_SKILL_STRIKE.title": "技巧打击",
   "MOMIZI_CARD_SKILL_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n（受到[gold]集中（椛）[/gold]加成）",
   "MOMIZI_CARD_MAPLE_SHIELD.title": "枫叶圆盾",
@@ -48,7 +48,7 @@
   
 
   "MOMIZI_CARD_FLY_SHEILD.title": "飞盾",
-  "MOMIZI_CARD_FLY_SHEILD.description": "只能在拥有{Block:inverseDiff()}点格挡时才可打出。\n移除自身所有格挡，造成{Damage:diff()}点伤害4次。",
+  "MOMIZI_CARD_FLY_SHEILD.description": "只能在拥有{Block:inverseDiff()}点[gold]格挡[/gold]时才可打出。\n移除自身所有[gold]格挡[/gold]，造成{Damage:diff()}点伤害4次。",
   "MOMIZI_CARD_MOCK.title": "嘲讽",
   "MOMIZI_CARD_MOCK.description": "获得{Block:diff()}点[gold]格挡[/gold]。\n使一名敌人获得2点[gold]临时力量[/gold]，2层[gold]易伤[/gold]。",
   "MOMIZI_CARD_MOMIZI_SOLVE.title": "椛的解法",
@@ -58,9 +58,9 @@
   "MOMIZI_CARD_ADAPT_TO_CIRCUMSTANCES.title": "随机应变",
   "MOMIZI_CARD_ADAPT_TO_CIRCUMSTANCES.description": "若目标意图[red]不利[/red]，获得{Block:diff()}点[gold]格挡[/gold]{IfUpgraded:show:X|X-1}次，获得一层临时[gold]人工制品[/gold]。\n否则随机打出[gold]弃牌堆[/gold]X-1张牌。",
   "MOMIZI_CARD_AUTO_BLOCK.title": "自动招架",
-  "MOMIZI_CARD_AUTO_BLOCK.description": "获得{CalculatedBlock:diff()}层[gold]自动格挡[/gold]（受警戒的50%加成）。",
+  "MOMIZI_CARD_AUTO_BLOCK.description": "获得{CalculatedBlock:diff()}层[gold]格挡姿态[/gold]（受警戒的50%加成）。",
   "MOMIZI_CARD_SELF_BELIEVE.title": "自信",
-  "MOMIZI_CARD_SELF_BELIEVE.description": "选择[gold]抽牌堆[/gold]2张牌丢弃]。\n本回合无法从卡牌中获得[gold]格挡[/gold]。\n获得2层[gold]易伤[/gold]，2点[gold]集中（椛）[/gold]。",
+  "MOMIZI_CARD_SELF_BELIEVE.description": "选择[gold]抽牌堆[/gold]2张牌丢弃。\n本回合无法从卡牌中获得[gold]格挡[/gold]。\n获得2层[gold]易伤[/gold]，2点[gold]集中（椛）[/gold]。",
   "MOMIZI_CARD_WARN_DODGE.title": "紧急闪避",
   "MOMIZI_CARD_WARN_DODGE.description": "获得2层[gold]闪避[/gold]，{VulnerablePower:diff()}层[gold]易伤[/gold]。",
   "MOMIZI_CARD_SUPPRESS.title": "压制",
@@ -68,7 +68,7 @@
   "MOMIZI_CARD_FLEXIBLE.title": "灵活",
   "MOMIZI_CARD_FLEXIBLE.description": "获得{DexterityPower:diff()}层[gold]敏捷[/gold]。",
   "MOMIZI_CARD_TRACKING.title": "追踪",
-  "MOMIZI_CARD_TRACKING.description": "目标意图[red]不利[/red]时，获得{Alert:diff()}点[gold]警戒[/gold]。\n 否则抽{Cards:diff()}张牌。",
+  "MOMIZI_CARD_TRACKING.description": "目标意图[red]不利[/red]时，\n获得{Alert:diff()}点[gold]警戒[/gold]。\n 否则抽{Cards:diff()}张牌。",
   "MOMIZI_CARD_DESPERATE_COUNTERATTACK.title": "绝境反击",
   "MOMIZI_CARD_DESPERATE_COUNTERATTACK.description": "仅能在在血量低于20%时才可打出。\n 对全体敌人造成{CalculatedDamage:diff()}点伤害（20+{ExtraDamage:diff()}*[gold]力量[/gold]层数）",
   "MOMIZI_CARD_PROVOCATION.title": "挑衅",

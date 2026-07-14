@@ -68,7 +68,6 @@ public class See: ModCardTemplate
         DynamicVars["Alert"].UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<JiZhong>(),
         HoverTipFactory.FromPower<Alert>(),
         HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
     ];

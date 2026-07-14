@@ -48,6 +48,7 @@ public class AutoBlock: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<BlockPosture>(choiceContext, Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, Owner.Creature, null);
     }
 

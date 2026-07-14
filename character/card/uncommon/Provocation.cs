@@ -67,7 +67,6 @@ public class Provocation: ModCardTemplate
         DynamicVars.Energy.UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
-        HoverTipFactory.FromPower<ArtifactPower>()
+        HoverTipFactory.FromPower<JiZhong>()
     ];
 }

@@ -64,4 +64,8 @@ public class BestAttack: ModCardTemplate
         DynamicVars.ExtraDamage.BaseValue = 1m;
         DynamicVars.Damage.UpgradeValueBy(6);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    [
+        HoverTipFactory.FromPower<JiZhong>()
+    ];
 }

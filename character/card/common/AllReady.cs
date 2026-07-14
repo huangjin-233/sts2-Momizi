@@ -33,7 +33,8 @@ public class AllReady: ModCardTemplate
     private const TargetType targetType = TargetType.Self;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
-
+    //多人联机卡牌
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/common/{GetType().Name}.png"
@@ -60,6 +61,6 @@ public class AllReady: ModCardTemplate
         DynamicVars.Block.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<VulnerablePower>(),
+        HoverTipFactory.FromPower<VigorPower>(),
     ];
 }

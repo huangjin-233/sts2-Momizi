@@ -7,23 +7,20 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
-using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.card.rare;
 using Momizi.character.power;
 using Momizi.character.rest;
 using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-
 namespace Momizi.character.relics;
 [RegisterRelic(typeof(MomiziRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Momizi))]
@@ -35,6 +32,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
     public static bool Flag = true;
     public static bool inferior;
     public static bool First = true;
+    private NetGameType NetGameType;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -64,12 +62,16 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         ICombatState combatState)
     {
         First = true;
-        if (side == Owner.Creature.Side)
+        if (NetGameType == NetGameType.Host || NetGameType == NetGameType.Client)
         {
-            await PowerCmd.Apply<Help>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+            
+            if (side == Owner.Creature.Side)
+            {
+                await PowerCmd.Apply<Help>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+            }
         }
 
-        if (side == Owner.Creature.Side && combatState.RoundNumber == 1)
+        if (side == Owner.Creature.Side && combatState.RoundNumber == 1 && Inferior > 0)
         {
             PostureChange.posture = 0;
             Flash(); // 触发遗物图标闪烁
@@ -117,7 +119,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         HoverTipFactory.FromKeyword(MomiziKeyword.Collaboration),
         HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
         HoverTipFactory.FromPower<Alert>(),
-        HoverTipFactory.FromPower<JiZhong>()
+        HoverTipFactory.FromPower<JiZhong>(),
     ];
     public override bool TryModifyRestSiteOptions(Player player, ICollection<RestSiteOption> options)
     {

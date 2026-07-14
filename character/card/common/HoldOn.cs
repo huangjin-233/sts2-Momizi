@@ -54,8 +54,4 @@ public class HoldOn: ModCardTemplate
     {
         DynamicVars.Block.UpgradeValueBy(2);
     }
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-    [
-        HoverTipFactory.FromPower<Hold>()
-    ];
 }
