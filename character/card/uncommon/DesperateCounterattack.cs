@@ -41,7 +41,8 @@ public class DesperateCounterattack: ModCardTemplate
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => 
             card.Owner.Creature.GetPowerAmount<StrengthPower>()),
         new PowerVar<WeakPower>(5),
-        new PowerVar<VulnerablePower>(5)
+        new PowerVar<VulnerablePower>(5),
+        new PowerVar<StrengthPower>(10)
     ];
 
     public DesperateCounterattack() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -59,7 +60,7 @@ public class DesperateCounterattack: ModCardTemplate
             .Execute(choiceContext);
         await PowerCmd.Apply<WeakPower>(choiceContext, CombatState.HittableEnemies,DynamicVars.Weak.BaseValue , Owner.Creature, null);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, CombatState.HittableEnemies,DynamicVars.Vulnerable.BaseValue , Owner.Creature, null);
-        await PowerCmd.Apply<Desperate>(choiceContext, CombatState.HittableEnemies,DynamicVars.Vulnerable.BaseValue , Owner.Creature, null);
+        await PowerCmd.Apply<Desperate>(choiceContext, CombatState.HittableEnemies,DynamicVars.Strength.BaseValue , Owner.Creature, null);
     }
 
     // 升级后的效果逻辑
