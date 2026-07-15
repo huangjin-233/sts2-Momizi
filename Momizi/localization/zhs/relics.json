@@ -1,5 +1,8 @@
 {
   "MOMIZI_RELIC_TENGU.title": "忠诚心与协作性",
   "MOMIZI_RELIC_TENGU.description": "对大天狗的忠诚心 \n天狗们的协作性",
-  "MOMIZI_RELIC_TENGU.flavor": ""
+  "MOMIZI_RELIC_TENGU.flavor": "",
+  "MOMIZI_RELIC_MOUNTAIN_SEE.title": "山中的千里眼",
+  "MOMIZI_RELIC_MOUNTAIN_SEE.description": "每回合[gold]预见[/gold]2。\n在[gold]警戒[/gold]》5时可以右键遗物：从[gold]抽牌堆[/gold]选择一张牌加入[gold]手牌[/gold],这张牌在本场战斗耗能+1，选择一张[gold]手牌[/gold]放回[gold]抽牌堆[/gold]",
+  "MOMIZI_RELIC_MOUNTAIN_SEE.flavor": ""
 }
