@@ -8,8 +8,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+using YakumoAkai.character.power;
 
 namespace Momizi.character.card.uncommon;
 
@@ -34,9 +36,11 @@ public class Flexible: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<DexterityPower>(2)
+        new PowerVar<DexterityPower>(2),
+        ModCardVars.Int("Flexible",3)
     ];
 
+    public static int flex = 0;
     public Flexible() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -44,14 +48,17 @@ public class Flexible: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        flex = DynamicVars["Flexible"].IntValue;
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<DexterityPower>(choiceContext, Owner.Creature, DynamicVars.Dexterity.BaseValue, Owner.Creature, null);
+        await PowerCmd.Apply<FlexiblePower>(choiceContext, Owner.Creature, DynamicVars["Flexible"].BaseValue, Owner.Creature, null);
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
         EnergyCost.UpgradeBy(-1);
+        DynamicVars["Flexible"].UpgradeValueBy(-1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<DexterityPower>()
