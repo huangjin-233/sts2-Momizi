@@ -75,6 +75,8 @@
   "MOMIZI_CARD_PROVOCATION.description": "获得{Energy:energyIcons()}，本回合获得3点[gold]集中（椛）[/gold]。\n所有意图为攻击的敌人执行一次当前意图。",
   "MOMIZI_CARD_STRIKE_FIRST.title": "先发制人",
   "MOMIZI_CARD_STRIKE_FIRST.description": "抽2+[gold]集中（椛）[/gold]层数张牌,只在没有打出其他牌时才可打出",
+  "MOMIZI_CARD_AUTUMN.title": "秋意",
+  "MOMIZI_CARD_AUTUMN.description": "下回合获得{Energy:energyIcons()}，降低{Autumn:diff()}层[gold]警戒[/gold]。",
 
   
   "MOMIZI_CARD_POSTURE_CHANGE.title": "形态切换",

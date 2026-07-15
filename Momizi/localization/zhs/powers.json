@@ -85,5 +85,8 @@
   "MOMIZI_POWER_CARD_POWER.smartDescription": "战斗结束获得额外卡牌奖励",
   "MOMIZI_POWER_BEST.title": "最佳搭档",
   "MOMIZI_POWER_BEST.description": "减少[gold]攻击牌[/gold]耗能",
-  "MOMIZI_POWER_BEST.smartDescription": "减少[gold]攻击牌[/gold]耗能2点"
+  "MOMIZI_POWER_BEST.smartDescription": "减少[gold]攻击牌[/gold]耗能2点",
+  "MOMIZI_POWER_AUTUMN_POWER.title": "秋意",
+  "MOMIZI_POWER_AUTUMN_POWER.description": "下回合获得能量，降低警戒",
+  "MOMIZI_POWER_AUTUMN_POWER.smartDescription": "下回合获得{energyPrefix:energyIcons(2)}，降低{Amount}层[gold]警戒[/gold]"
 }
