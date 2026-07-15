@@ -12,7 +12,7 @@
   "MOMIZI_CARD_JI_ZHONG_SPIRT.title": "集中精神",
   "MOMIZI_CARD_JI_ZHONG_SPIRT.description": "获得{JiZhong:diff()}点[gold]临时集中（椛）[/gold]。",
   "MOMIZI_CARD_SKILL_STRIKE.title": "技巧打击",
-  "MOMIZI_CARD_SKILL_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n（受到[gold]集中（椛）[/gold]加成）",
+  "MOMIZI_CARD_SKILL_STRIKE.description": "造成{CalculatedDamage:diff()}点伤害。\n（{ExtraDamage:diff()} x [gold]集中（椛）[/gold]层数的一半）",
   "MOMIZI_CARD_MAPLE_SHIELD.title": "枫叶圆盾",
   "MOMIZI_CARD_MAPLE_SHIELD.description": "获得{Blockposture:diff()}层[gold]格挡姿态[/gold]。\n获得{Block:diff()}点[gold]格挡[/gold]。",
   "MOMIZI_CARD_KEY_STRIKE.title": "要害打击",

@@ -36,8 +36,8 @@ public class SkillStrike: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(3m),
-        new ExtraDamageVar(0.5m),
+        new CalculationBaseVar(0),
+        new ExtraDamageVar(6),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => card.Owner.Creature.GetPowerAmount<JiZhong>())
     ];
 
@@ -57,7 +57,7 @@ public class SkillStrike: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculatedDamage.UpgradeValueBy(2);
+        DynamicVars.ExtraDamage.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [

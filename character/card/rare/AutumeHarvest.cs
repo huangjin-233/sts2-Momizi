@@ -26,7 +26,7 @@ public class AutumeHarvest: ModCardTemplate
     
     public bool Remove;
     private const string _increaseKey = "Increase";
-    private int _currentUse = 0;
+    private int _currentUse = 3;
     private int _increasedUse;
     // 基础耗能
     private const int energyCost = 3;
