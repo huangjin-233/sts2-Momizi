@@ -51,7 +51,7 @@ public class Provocation: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);//能量
-        await PowerCmd.Apply<ProvocationPower>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
+        await PowerCmd.Apply<ProvocationPower>(choiceContext, Owner.Creature, 3, Owner.Creature, null);
         foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
         {
             if (creature.Monster.IntendsToAttack)
