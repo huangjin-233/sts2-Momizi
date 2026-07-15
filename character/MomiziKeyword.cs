@@ -10,6 +10,7 @@ namespace Momizi.character
 	[RegisterOwnedCardKeyword(nameof(Thinking),CardDescriptionPlacement = ModKeywordCardDescriptionPlacement.BeforeCardDescription)]
 	[RegisterOwnedCardKeyword(nameof(Spell),CardDescriptionPlacement = ModKeywordCardDescriptionPlacement.BeforeCardDescription)]
 	[RegisterOwnedCardKeyword(nameof(Debuff))]
+	[RegisterOwnedCardKeyword(nameof(Scry))]
 	internal class MomiziKeyword
 	{
 		public static readonly CardKeyword  Loyalty = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Loyalty)).GetModCardKeyword();
@@ -17,5 +18,6 @@ namespace Momizi.character
 		public static readonly CardKeyword  Thinking = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Thinking)).GetModCardKeyword();
 		public static readonly CardKeyword  Spell = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Spell)).GetModCardKeyword();
 		public static readonly CardKeyword  Debuff = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Debuff)).GetModCardKeyword();
+		public static readonly CardKeyword  Scry = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Scry)).GetModCardKeyword();
 	}
 }

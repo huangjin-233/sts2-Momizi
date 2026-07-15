@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using Momizi.character.power;
@@ -57,4 +58,7 @@ public class MountainSee: ModRelicTemplate,IModRightClickableRelic
         await CardPileCmd.Add(await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(L10NLookup("选择一张牌返回抽卡堆"), 1), context: new BlockingPlayerChoiceContext(), player: Owner, filter: null, source: this), PileType.Draw);
         await PowerCmd.Remove<Alert>(Owner.Creature);
     }
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromKeyword(MomiziKeyword.Scry),
+    ];
 }
