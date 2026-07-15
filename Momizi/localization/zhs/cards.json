@@ -77,7 +77,8 @@
   "MOMIZI_CARD_STRIKE_FIRST.description": "抽2+[gold]集中（椛）[/gold]层数张牌,只在没有打出其他牌时才可打出",
   "MOMIZI_CARD_AUTUMN.title": "秋意",
   "MOMIZI_CARD_AUTUMN.description": "下回合获得{Energy:energyIcons()}，降低{Autumn:diff()}层[gold]警戒[/gold]。",
-
+  "MOMIZI_CARD_COME_BACK.title": "重振旗鼓",
+  "MOMIZI_CARD_COME_BACK.description": "移除自身所有[gold]自卑[/gold]，获得{StrengthPower:diff()}层[gold]力量[/gold]。",
   
   "MOMIZI_CARD_POSTURE_CHANGE.title": "形态切换",
   "MOMIZI_CARD_POSTURE_CHANGE.description": "选择[gold]大刀形态[/gold]或[gold]盾牌形态[/gold]或[gold]普通形态[/gold]。\n不能选择当前处于的形态。\n打出后返回抽牌堆。",

@@ -71,6 +71,5 @@ public class ConsecutiveKills: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
-        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
     ];
 }

@@ -38,7 +38,7 @@ public class Autumn: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        ModCardVars.Int("Autumu",2),
+        ModCardVars.Int("Autumn",2),
         new EnergyVar(2)
     ];
     public Autumn() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -48,7 +48,7 @@ public class Autumn: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<Alert>(choiceContext, Owner.Creature, DynamicVars["Autumn"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<AutumnPower>(choiceContext, Owner.Creature, DynamicVars["Autumn"].BaseValue, Owner.Creature, this);
     }
 
     // 升级后的效果逻辑

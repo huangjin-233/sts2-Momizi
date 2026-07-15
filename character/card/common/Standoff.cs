@@ -70,6 +70,5 @@ public class Standoff: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromCard<ShieldAttack>(IsUpgraded),
-        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
     ];
 }
