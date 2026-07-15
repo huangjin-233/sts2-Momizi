@@ -36,9 +36,10 @@ public class MapleShield: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        ModCardVars.Int("Blockposture",1),
+        ModCardVars.Int("Blockposture",2),
         new BlockVar(3m,ValueProp.Move)
     ];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public MapleShield() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -55,6 +56,7 @@ public class MapleShield: ModCardTemplate
     protected override void OnUpgrade()
     {
         DynamicVars["Blockposture"].UpgradeValueBy(1);
+        DynamicVars.Block.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<BlockPosture>(),

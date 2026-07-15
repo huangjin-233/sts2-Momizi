@@ -38,7 +38,7 @@ public class AutumeHarvest: ModCardTemplate
     private const TargetType targetType = TargetType.Self;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
-    //public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/rare/{GetType().Name}.png"
