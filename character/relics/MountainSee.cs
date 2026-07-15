@@ -18,6 +18,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace Momizi.character.relics;
 [RegisterRelic(typeof(MomiziRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Momizi))]
+[RegisterTouchOfOrobasRefinement(typeof(TenguSee))]
 public class MountainSee: ModRelicTemplate,IModRightClickableRelic
 {
     // 稀有度
