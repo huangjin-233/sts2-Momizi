@@ -33,15 +33,13 @@ public class BestMatch: ModCardTemplate
     private const TargetType targetType = TargetType.AnyPlayer;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
-    //多人联机卡牌
-    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/common/{GetType().Name}.png"
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(10, ValueProp.Move),
+        new BlockVar(8, ValueProp.Move),
     ];
 
     public BestMatch() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -58,7 +56,7 @@ public class BestMatch: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2);
+        DynamicVars.Block.UpgradeValueBy(4);
     }
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

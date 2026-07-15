@@ -34,7 +34,6 @@ public class LickHurt: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(4, ValueProp.Move),
         new HealVar(3)
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -54,7 +53,7 @@ public class LickHurt: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Heal.UpgradeValueBy(2);
+        DynamicVars.Heal.UpgradeValueBy(3);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<WeakPower>(),

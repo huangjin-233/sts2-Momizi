@@ -35,7 +35,7 @@ public class KeyStrike: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(4m,ValueProp.Move),
+        new DamageVar(6m,ValueProp.Move),
         new PowerVar<VulnerablePower>(1)
     ];
 

@@ -20,7 +20,7 @@ namespace Momizi.character.cards.basic;
 public class BestAttack: ModCardTemplate
 {
     // 基础耗能
-    private const int energyCost = 0;
+    private const int energyCost = 2;
     // 卡牌类型
     private const CardType type = CardType.Attack;
     // 卡牌稀有度

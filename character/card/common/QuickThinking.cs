@@ -70,6 +70,7 @@ public class QuickThinking: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
+        EnergyCost.UpgradeBy(-1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromCard<ThinkAttack>(),
