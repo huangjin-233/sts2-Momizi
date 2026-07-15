@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -35,7 +36,7 @@ public class SelfBelieve: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        
+        ModCardVars.Int("JiZhong",2)
     ];
 
     public SelfBelieve() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -45,16 +46,11 @@ public class SelfBelieve: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        IReadOnlyList<CardModel> card = PileType.Draw.GetPile(Owner).Cards;
-        List<CardModel> cards = new List<CardModel>();
-        cards.AddRange(card);
-        foreach (CardModel believe in await CardSelectCmd.FromSimpleGrid(choiceContext,cards, base.Owner, new CardSelectorPrefs(RelicModel.L10NLookup("从抽牌堆选择2张牌进入弃牌堆"), 2)))
-        {
-            await CardCmd.Discard(choiceContext, believe);
-        }
+        await ScryCmd.Execute(new BlockingPlayerChoiceContext(),this,3);
+        await CardPileCmd.Draw(choiceContext, 1, base.Owner);//抽卡
         await PowerCmd.Apply<NoBlockPower>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
-        await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
+        await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, DynamicVars["JiZhong"].BaseValue, Owner.Creature, null);
     }
 
     // 升级后的效果逻辑

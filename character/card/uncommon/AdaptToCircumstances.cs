@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -65,27 +66,21 @@ public class AdaptToCircumstances: ModCardTemplate
         }
         else
         {
-            CardPile pile = PileType.Discard.GetPile(Owner);
-            IEnumerable<CardModel> enumerable = pile.Cards
-                .Where(c => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList()
-                .StableShuffle(Owner.RunState.Rng.Shuffle)
-                .Take(ResolveEnergyXValue());
-            foreach (CardModel item in enumerable)
+            for (int i = 0; i < num; i++)
             {
-                if (!CombatManager.Instance.IsOverOrEnding)
+                CardModel cardModel = PileType.Discard.GetPile(Owner.Creature.Player).Cards.ToList()
+                    .StableShuffle(Owner.Creature.Player.RunState.Rng.Shuffle)
+                    .FirstOrDefault();
+                if (cardModel == null)
                 {
-                    if (item.TargetType == TargetType.AnyEnemy)
-                    {
-                        Creature target = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
-                        await CardCmd.AutoPlay(choiceContext, item, target);
-                    }
-                    else
-                    {
-                        await CardCmd.AutoPlay(choiceContext, item, null);
-                    }
-                    continue;
+                    cardModel = PileType.Discard.GetPile(Owner.Creature.Player).Cards.ToList()
+                        .StableShuffle(Owner.Creature.Player.RunState.Rng.Shuffle).FirstOrDefault();
                 }
-                break;
+
+                if (cardModel != null)
+                {
+                    await CardCmd.AutoPlay(choiceContext, cardModel, null);
+                }
             }
         }
     }

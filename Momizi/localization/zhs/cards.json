@@ -60,7 +60,7 @@
   "MOMIZI_CARD_AUTO_BLOCK.title": "自动招架",
   "MOMIZI_CARD_AUTO_BLOCK.description": "获得{CalculatedBlock:diff()}层[gold]格挡姿态[/gold]（受警戒的50%加成）。",
   "MOMIZI_CARD_SELF_BELIEVE.title": "自信",
-  "MOMIZI_CARD_SELF_BELIEVE.description": "选择[gold]抽牌堆[/gold]2张牌丢弃。\n本回合无法从卡牌中获得[gold]格挡[/gold]。\n获得2层[gold]易伤[/gold]，2点[gold]集中（椛）[/gold]。",
+  "MOMIZI_CARD_SELF_BELIEVE.description": "[gold]预见[/gold]\n本回合无法从卡牌中获得[gold]格挡[/gold]。\n获得2层[gold]易伤[/gold]，{JiZhong:diff()}点[gold]集中（椛）[/gold]。",
   "MOMIZI_CARD_WARN_DODGE.title": "紧急闪避",
   "MOMIZI_CARD_WARN_DODGE.description": "获得2层[gold]闪避[/gold]，{VulnerablePower:diff()}层[gold]易伤[/gold]。",
   "MOMIZI_CARD_SUPPRESS.title": "压制",
