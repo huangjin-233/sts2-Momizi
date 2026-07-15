@@ -16,12 +16,12 @@ using MegaCrit.Sts2.Core.Models;
 
 public static class ScryCmd
 {
-	public static Task<ScryResult> Execute(PlayerChoiceContext choiceContext, CardModel card,int amount)
+	public static Task<ScryResult> Execute(BlockingPlayerChoiceContext choiceContext, CardModel card,int amount)
 	{
 		return Execute(choiceContext, card.Owner, amount);
 	}
 
-	public static async Task<ScryResult> Execute(PlayerChoiceContext choiceContext, Player player, int amount)
+	public static async Task<ScryResult> Execute(BlockingPlayerChoiceContext choiceContext, Player player, int amount)
 	{
 		IEnumerable<IModifyScryAmount> modifiers;
 		int modifiedAmount = ScryHook.ModifyScryAmount(player, amount, out modifiers);
