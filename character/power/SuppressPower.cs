@@ -19,7 +19,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.power;
 [RegisterPower]
-public class SuppressPower : ModTemporaryAppliedPowerTemplate<Suppress, StrengthPower>
+public class SuppressPower : ModTemporaryAppliedPowerTemplate<Suppress__________, StrengthPower>
 {
     public override PowerType Type => PowerType.Debuff;
     // 叠加类型，Counter表示可叠加，Single表示不可叠加
