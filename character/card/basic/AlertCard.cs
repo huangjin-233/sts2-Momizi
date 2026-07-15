@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
@@ -45,8 +46,9 @@ public class AlertCard: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        ModCardVars.Int("Jizhong",1 ),
+        ModCardVars.Int("JiZhong",1 ),
         ModCardVars.Int("Dodge",10 ),
+        new BlockVar(6m,ValueProp.Move)
     ];
 
     protected override bool IsPlayable => Flag;
@@ -94,7 +96,9 @@ public class AlertCard: ModCardTemplate
     }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, DynamicVars["Jizhong"].BaseValue, Owner.Creature, null);
+        await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, DynamicVars["JiZhong"].BaseValue, Owner.Creature, null);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
+        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
     }
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
@@ -104,7 +108,7 @@ public class AlertCard: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars["Dodge"].UpgradeValueBy(10);
+        DynamicVars["JiZhong"].UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),
