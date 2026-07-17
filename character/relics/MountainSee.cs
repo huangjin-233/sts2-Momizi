@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using Momizi.character.power;
+using Momizi.character.Scry;
 using STS2RitsuLib.Interactions.RightClick;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -23,7 +24,6 @@ public class MountainSee: ModRelicTemplate,IModRightClickableRelic
 {
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
-    private NetGameType NetGameType;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -36,8 +36,11 @@ public class MountainSee: ModRelicTemplate,IModRightClickableRelic
     // 每回合开始时，抽一张牌
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player == Owner)
+        {
             Flash(); // 触发遗物图标闪烁
-            await ScryCmd.Execute(new BlockingPlayerChoiceContext(),Owner.Creature.Player, 2);
+            await ScryCmd.Execute(new BlockingPlayerChoiceContext(), Owner.Creature.Player, 2);
+        }
     }
     public bool CanHandleRightClickLocal(ModRightClickContext context)
     {

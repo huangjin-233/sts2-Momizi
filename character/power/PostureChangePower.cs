@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -30,8 +31,10 @@ public class PostureChangePower: ModPowerTemplate
         IconPath: "res://images/powers/PostureChangePower.png",
         BigIconPath: "res://images/powers/PostureChangePower.png"
     );
-    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
+
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, 1, Owner, null);
+        if (cardPlay.Card.Type ==CardType.Attack)
+        await PowerCmd.Apply<VulnerablePower>(choiceContext,cardPlay.Target , 1, Owner, null);
     }
 }

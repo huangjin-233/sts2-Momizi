@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,7 +39,7 @@ public class DesperateCounterattack: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(20m),
         new ExtraDamageVar(3m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => 
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
             card.Owner.Creature.GetPowerAmount<StrengthPower>()),
         new PowerVar<WeakPower>(5),
         new PowerVar<VulnerablePower>(5),
@@ -54,13 +55,19 @@ public class DesperateCounterattack: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int num = Owner.Creature.GetPowerAmount<StrengthPower>();
-        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-            .FromCard(this)
-            .TargetingAllOpponents(CombatState)
-            .Execute(choiceContext);
-        await PowerCmd.Apply<WeakPower>(choiceContext, CombatState.HittableEnemies,DynamicVars.Weak.BaseValue , Owner.Creature, null);
-        await PowerCmd.Apply<VulnerablePower>(choiceContext, CombatState.HittableEnemies,DynamicVars.Vulnerable.BaseValue , Owner.Creature, null);
-        await PowerCmd.Apply<Desperate>(choiceContext, CombatState.HittableEnemies,DynamicVars.Strength.BaseValue , Owner.Creature, null);
+        if (CombatState != null)
+        {
+            await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+                .FromCard(this)
+                .TargetingAllOpponents(CombatState)
+                .Execute(choiceContext);
+            await PowerCmd.Apply<WeakPower>(choiceContext, CombatState.HittableEnemies, DynamicVars.Weak.BaseValue,
+                Owner.Creature, null);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, CombatState.HittableEnemies,
+                DynamicVars.Vulnerable.BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<Desperate>(choiceContext, CombatState.HittableEnemies, DynamicVars.Strength.BaseValue,
+                Owner.Creature, null);
+        }
     }
 
     // 升级后的效果逻辑

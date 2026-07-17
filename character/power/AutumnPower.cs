@@ -30,8 +30,8 @@ public class AutumnPower : ModPowerTemplate
     );
     public override async Task AfterEnergyReset(Player player)
     {
-        await PlayerCmd.GainEnergy(2, Owner.Player);//能量
-        await PowerCmd.Apply<Alert>(new ThrowingPlayerChoiceContext(), Owner, Amount, Owner, null);
+        if (Owner.Player != null) await PlayerCmd.GainEnergy(2, Owner.Player); //能量
+        await PowerCmd.Apply<Alert>(new ThrowingPlayerChoiceContext(), Owner, -Amount, Owner, null);
         await PowerCmd.Remove(this);
     }
 }

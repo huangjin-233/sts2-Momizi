@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -32,8 +33,8 @@ public class Inferior: ModPowerTemplate
     {
         if (powers == this)
         {
-            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -amount, Owner, null);
-            await PowerCmd.Apply<JiZhong>(choiceContext, Owner, -amount, Owner, null);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, amount, Owner, null);
+            await PowerCmd.Apply<FrailPower>(choiceContext, Owner, amount, Owner, null);
         }
     }
 }

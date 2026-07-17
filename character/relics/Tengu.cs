@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -15,12 +16,14 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
+using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.card.rare;
 using Momizi.character.power;
 using Momizi.character.rest;
 using STS2RitsuLib.Combat.Ui.ExtraCornerAmountLabels;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+#pragma warning disable CS0649 // 从未对字段赋值，字段将一直保持其默认值
 namespace Momizi.character.relics;
 [RegisterRelic(typeof(MomiziRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Momizi))]
@@ -50,6 +53,10 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
         {
             SetCharges(_inferior + 1);
             Alert.inferior = false;
+        }
+        if (power.Type == PowerType.Debuff && applier != null && applier.IsEnemy)
+        {
+            await PowerCmd.Apply<Alert>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
         }
     }
 
@@ -123,7 +130,7 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
     ];
     public override bool TryModifyRestSiteOptions(Player player, ICollection<RestSiteOption> options)
     {
-        if (player != base.Owner)
+        if (player != Owner)
         {
             return false;
         }
@@ -154,5 +161,13 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
             }
         }
         return Task.CompletedTask;
+    }
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if (target != Owner.Creature || result.UnblockedDamage <= 0)
+        {
+            return;
+        }
+        await PowerCmd.Apply<Alert>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
     }
 }

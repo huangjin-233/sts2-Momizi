@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using Momizi.character.power;
+using Momizi.character.Scry;
 using STS2RitsuLib.Interactions.RightClick;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -22,7 +23,6 @@ public class TenguSee: ModRelicTemplate,IModRightClickableRelic
 {
     // 稀有度
     public override RelicRarity Rarity => RelicRarity.Starter;
-    private NetGameType NetGameType;
 
     public override RelicAssetProfile AssetProfile => new(
         // 小图标（原版85x85）
@@ -35,19 +35,26 @@ public class TenguSee: ModRelicTemplate,IModRightClickableRelic
     // 每回合开始时，抽一张牌
     public override async Task BeforeHandDraw(Player player,PlayerChoiceContext choiceContext,ICombatState combatState)
     {
+        if (player == Owner)
+        {
             Flash(); // 触发遗物图标闪烁
             IReadOnlyList<CardModel> cards1 = PileType.Draw.GetPile(Owner).Cards;
             List<CardModel> cards = new List<CardModel>();
             cards.AddRange(cards1);
-            foreach (CardModel see in await CardSelectCmd.FromSimpleGrid(choiceContext,cards, Owner, new CardSelectorPrefs(L10NLookup("从抽牌堆选择至多三张牌消耗"), 0,3)))
+            foreach (CardModel see in await CardSelectCmd.FromSimpleGrid(choiceContext, cards, Owner,
+                         new CardSelectorPrefs(L10NLookup("从抽牌堆选择至多三张牌消耗"), 0, 3)))
             {
-                await CardCmd.Exhaust(choiceContext,see);
+                await CardCmd.Exhaust(choiceContext, see);
             }
+        }
     }
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        Flash(); // 触发遗物图标闪烁
-        await ScryCmd.Execute(new BlockingPlayerChoiceContext(),Owner.Creature.Player, 3);
+        if (player == Owner)
+        {
+            Flash(); // 触发遗物图标闪烁
+            await ScryCmd.Execute(new BlockingPlayerChoiceContext(), Owner.Creature.Player, 3);
+        }
     }
     public bool CanHandleRightClickLocal(ModRightClickContext context)
     {

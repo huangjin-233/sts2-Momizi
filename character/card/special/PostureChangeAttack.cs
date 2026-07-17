@@ -49,7 +49,7 @@ public class PostureChangeAttack: ModCardTemplate,PostureChange.IChoosable
         {
             await PowerCmd.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 2, Owner.Creature, null);
             await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -2, Owner.Creature, null);
-            await PowerCmd.Apply<BarricadePower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature, null);
+            await PowerCmd.Apply<BarricadePower>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
         }
         if (PostureChange.posture == 3)
         {

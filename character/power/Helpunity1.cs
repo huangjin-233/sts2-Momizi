@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -36,10 +37,12 @@ public class Helpunity1: ModPowerTemplate
     {
         if (powers == this)
         {
-            foreach (CardModel item in PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.IsUpgradable))
-            {
-                CardCmd.Upgrade(item);
-            }
+            if (Owner.Player != null)
+                foreach (CardModel item in PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.IsUpgradable))
+                {
+                    CardCmd.Upgrade(item);
+                }
+
             await PowerCmd.Remove(this);
         }
     }

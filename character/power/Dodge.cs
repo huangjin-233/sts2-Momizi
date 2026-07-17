@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -33,7 +35,7 @@ public class Dodge: ModPowerTemplate
     public static bool Active;
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (powers.Type == PowerType.Debuff && applier.IsEnemy)
+        if (powers.Type == PowerType.Debuff && applier != null && applier.IsEnemy)
         {
             await PowerCmd.Remove(powers);
             await PowerCmd.Decrement(this);

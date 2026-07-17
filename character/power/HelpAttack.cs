@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿#nullable enable
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -39,7 +39,7 @@ public class HelpAttack: ModPowerTemplate
 
     public override Task BeforeAttack(AttackCommand command)
     {
-        if (command.Attacker != base.Owner)
+        if (command.Attacker != Owner)
         {
             return Task.CompletedTask;
         }
@@ -61,7 +61,7 @@ public class HelpAttack: ModPowerTemplate
             return Task.CompletedTask;
         }
         internalData.commandToModify = command;
-        internalData.amountWhenAttackStarted = base.Amount;
+        internalData.amountWhenAttackStarted = Amount;
         return Task.CompletedTask;
     }
 

@@ -35,6 +35,8 @@ public class PredictionPower: ModPowerTemplate
         if (player == Owner.Player)
         {
             await CreatureCmd.GainBlock(Owner, Amount,ValueProp.Move, null);//防御
+            await PowerCmd.Apply<Alert>(new ThrowingPlayerChoiceContext(),Owner, 2,Owner, null);
+            await PowerCmd.Remove(this);
         }
     }
 }

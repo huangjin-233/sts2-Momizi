@@ -2,6 +2,8 @@
 // for ex. property getter/setter access. To get optimal decompilation results, please manually add the missing references to the list of loaded assemblies.
 // Watcher, Version=1.5.2.0, Culture=neutral, PublicKeyToken=null
 // Watcher.Code.Events.ScryHook
+
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,13 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using Momizi.character.Scry;
 
-public class ScryHook
+public abstract class ScryHook
 {
 	private static async Task Dispatch<T>(PlayerChoiceContext ctx, Player player, Func<T, Task> invoke) where T : class
 	{
-		ICombatState combatState = player.Creature.CombatState;
+		ICombatState? combatState = player.Creature.CombatState;
 		if (combatState == null)
 		{
 			return;
@@ -56,20 +59,21 @@ public class ScryHook
 		return val;
 	}
 
-	public static async Task AfterModifying<THook>(ICombatState cs, IEnumerable<THook> modifiers, Func<THook, Task> action) where THook : class
+	public static async Task AfterModifying<THook>(ICombatState? cs, IEnumerable<THook> modifiers, Func<THook, Task> action) where THook : class
 	{
 		HashSet<THook> modifierSet = new HashSet<THook>(modifiers);
-		foreach (THook iterateHookListener in cs.IterateHookListeners().OfType<THook>())
-		{
-			if (modifierSet.Contains(iterateHookListener))
+		if (cs != null)
+			foreach (THook iterateHookListener in cs.IterateHookListeners().OfType<THook>())
 			{
-				await action(iterateHookListener);
-				if (iterateHookListener is AbstractModel abstractModel)
+				if (modifierSet.Contains(iterateHookListener))
 				{
-					abstractModel.InvokeExecutionFinished();
+					await action(iterateHookListener);
+					if (iterateHookListener is AbstractModel abstractModel)
+					{
+						abstractModel.InvokeExecutionFinished();
+					}
 				}
 			}
-		}
 	}
 	
 

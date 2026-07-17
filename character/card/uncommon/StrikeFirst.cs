@@ -39,7 +39,7 @@ public class StrikeFirst: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CardsVar(2)
     ];
-
+    protected override bool IsPlayable => Flag;
     public StrikeFirst() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }

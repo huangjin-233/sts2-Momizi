@@ -2,11 +2,16 @@
 // for ex. property getter/setter access. To get optimal decompilation results, please manually add the missing references to the list of loaded assemblies.
 // Watcher, Version=1.5.2.0, Culture=neutral, PublicKeyToken=null
 // Watcher.Code.Commands.ScryResult
+
+#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using MegaCrit.Sts2.Core.Models;
+
+namespace Momizi.character.Scry;
 
 public readonly struct ScryResult : IEquatable<ScryResult>
 {
@@ -58,11 +63,12 @@ public readonly struct ScryResult : IEquatable<ScryResult>
 	[CompilerGenerated]
 	public override int GetHashCode()
 	{
+		Debug.Assert(_discarded != null, nameof(_discarded) + " != null");
 		return EqualityComparer<IReadOnlyList<CardModel>>.Default.GetHashCode(_discarded);
 	}
 
 	[CompilerGenerated]
-	public override bool Equals(object obj)
+	public override bool Equals(object? obj)
 	{
 		if (obj is ScryResult)
 		{

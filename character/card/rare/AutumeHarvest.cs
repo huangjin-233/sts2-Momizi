@@ -43,7 +43,6 @@ public class AutumeHarvest: ModCardTemplate
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/rare/{GetType().Name}.png"
     );
-    private int _use;
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(4, ValueProp.Move),
@@ -108,7 +107,7 @@ public class AutumeHarvest: ModCardTemplate
         }
         if (CurrentUse == 0)
         {
-            CardPileCmd.RemoveFromCombat(this, skipVisuals: false);
+            await CardPileCmd.RemoveFromCombat(this, skipVisuals: false);
         }
     }
     public override async Task AfterCombatEnd(CombatRoom _)

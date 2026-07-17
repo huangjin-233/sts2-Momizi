@@ -33,7 +33,7 @@ public class Alert : ModPowerTemplate
     {
         get
         {
-            if (base.Owner.Player.Character is Momizi)
+            if (Owner.Player?.Character is Momizi)
             {
                 return false;
             }
@@ -42,21 +42,38 @@ public class Alert : ModPowerTemplate
     }
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (amount >= 10)
+        switch (amount)
         {
-            await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered,Owner);
-            IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
-                where c != null && c.IsAlive && c.IsPlayer && c != Owner
-                select c;
-            foreach (Creature players in enumerable)
+            case 10:
             {
-                await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
-                await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
-                await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
+                if (Owner.Player != null)
+                {
+                    IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
+                        where c.IsAlive && c.IsPlayer && c != Owner
+                        select c;
+                    foreach (Creature players in enumerable)
+                    {
+                        await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
+                        await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
+                        await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
+                    }
+                    await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, 2, Owner, null);
+                    await PowerCmd.Apply<Dodge>(choiceContext, Owner, 1, Owner, null);
+                    await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
+                }
+                break;
             }
-            await PowerCmd.Apply<Inferior>(choiceContext, Owner, 1, Owner, null);
-            inferior = true;
-            await PowerCmd.Remove(this);
+            case 20:
+            {
+                if (Owner.Player != null)
+                {
+                    inferior = true;
+                    await PowerCmd.Apply<Inferior>(choiceContext, Owner, 1, Owner, null);
+                    await PowerCmd.Remove(this);
+                    await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
+                }
+                break;
+            }
         }
     }
 }

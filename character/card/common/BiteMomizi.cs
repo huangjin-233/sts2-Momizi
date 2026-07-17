@@ -18,11 +18,11 @@ public class BiteMomizi: ModCardTemplate
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Attack;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Common;
     // 目标类型（AnyEnemy表示任意敌人）
-    private const TargetType targetType = TargetType.Self;
+    private const TargetType targetType = TargetType.AnyEnemy;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
 

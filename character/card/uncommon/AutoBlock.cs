@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,7 +39,7 @@ public class AutoBlock: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(4),
         new CalculationExtraVar(0.5m),
-        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => card.Owner.Creature.GetPowerAmount<Alert>()/2)
+        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<Alert>()/2)
     ];
 
     public AutoBlock() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

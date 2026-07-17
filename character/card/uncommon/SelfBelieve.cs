@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.power;
+using Momizi.character.Scry;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -22,7 +23,7 @@ public class SelfBelieve: ModCardTemplate
     // 基础耗能
     private const int energyCost = 2;
     // 卡牌类型
-    private const CardType type = CardType.Attack;
+    private const CardType type = CardType.Skill;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Uncommon;
     // 目标类型（AnyEnemy表示任意敌人）

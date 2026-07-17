@@ -25,7 +25,7 @@ public class Prediction: ModCardTemplate
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型
-    private const CardType type = CardType.Attack;
+    private const CardType type = CardType.Skill;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Uncommon;
     // 目标类型（AnyEnemy表示任意敌人）

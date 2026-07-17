@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿#nullable enable
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -28,11 +29,15 @@ public class Helpunity: ModPowerTemplate
     {
         if (powers == this)
         {
-            CardModel cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner.Player, this);
-            if (cardModel != null)
+            if (Owner.Player != null)
             {
-                CardCmd.Upgrade(cardModel);
+                CardModel? cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner.Player, this);
+                if (cardModel != null)
+                {
+                    CardCmd.Upgrade(cardModel);
+                }
             }
+
             await PowerCmd.Remove(this);
         }
     }

@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
+#pragma warning disable CS8602 // 解引用可能出现空引用。
 
 namespace Momizi.character.power;
 
@@ -65,7 +66,7 @@ public class JiZhong: ModPowerTemplate
     {
         if (powers == this)
         {
-            if (Owner.Player.Character is not Momizi)
+            if (Owner.Player?.Character is not Momizi)
             {
                 await PowerCmd.Apply<FocusPower>(choiceContext, Owner, amount, Owner, null);
                 await PowerCmd.Remove(this);
