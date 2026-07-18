@@ -32,7 +32,7 @@ public class BiteMomizi: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(2, ValueProp.Move),
+        new DamageVar(4, ValueProp.Move),
         new CardsVar(1)
     ];
 
@@ -53,6 +53,6 @@ public class BiteMomizi: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Damage.UpgradeValueBy(7);
     }
 }

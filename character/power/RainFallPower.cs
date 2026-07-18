@@ -22,7 +22,6 @@ using YakumoAkai.character.power;
 
 namespace Momizi.character.power;
 
-[RegisterPower]
 public class RainFallPower : ModPowerTemplate,IHealthBarForecastSource
 {
     // 类型，Buff或Debuff

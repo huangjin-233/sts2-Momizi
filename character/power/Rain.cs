@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
-namespace YakumoAkai.character.power;
-[RegisterPower]
+namespace Momizi.character.power;
 public sealed class Rain : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;

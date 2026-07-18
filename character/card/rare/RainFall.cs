@@ -13,7 +13,6 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.rare;
 
-[RegisterCard(typeof(MomiziCardPool))]
 public class RainFall: ModCardTemplate
 {
     // 基础耗能

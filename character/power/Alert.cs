@@ -28,6 +28,8 @@ public class Alert : ModPowerTemplate
         BigIconPath: "res://images/powers/Alert.png"
     );
 
+    public static int max = 20;
+
     public static bool inferior;
     protected override bool IsVisibleInternal
     {
@@ -60,7 +62,25 @@ public class Alert : ModPowerTemplate
                 await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
             }
         }
-        if (Amount == 20 && power==this)
+        if (Amount == 20 && power==this && max !=20)
+        {
+            if (Owner.Player != null)
+            {
+                IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
+                    where c.IsAlive && c.IsPlayer && c != Owner
+                    select c;
+                foreach (Creature players in enumerable)
+                {
+                    await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
+                    await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
+                    await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
+                }
+                await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, 2, Owner, null);
+                await PowerCmd.Apply<Dodge>(choiceContext, Owner, 1, Owner, null);
+                await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
+            }
+        }
+        if (Amount == max && power==this)
         {
             inferior = true;
             await PowerCmd.Apply<Inferior>(choiceContext, Owner, 1, Owner, null);

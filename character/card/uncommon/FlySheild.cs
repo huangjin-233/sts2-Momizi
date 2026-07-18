@@ -32,9 +32,9 @@ public class FlySheild: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(10m, ValueProp.Move),
+        new BlockVar(5m, ValueProp.Move),
         new DamageVar(3m,ValueProp.Move),
-        ModCardVars.Int("LoseBlock",7)
+        ModCardVars.Int("LoseBlock",5)
     ];
     protected override bool IsPlayable => Owner.Creature.Block > DynamicVars.Block.IntValue;
     public FlySheild() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

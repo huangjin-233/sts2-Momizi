@@ -89,7 +89,7 @@
   "MOMIZI_CARD_LAST_MEANS.title": "最终手段",
   "MOMIZI_CARD_LAST_MEANS.description": "造成0点伤害。将[gold]警戒[/gold]回复至满，每回复1点，这张牌的伤害额外增加5。",
   "MOMIZI_CARD_RAIN_FALL.title": "暴雨倾盆",
-  "MOMIZI_CARD_RAIN_FALL.description": "给予所有敌人3层[gold]暴雨[/gold].\n每有一层[gold]集中（椛）[/gold]，给予所有敌人1层[gold]暴雨[/gold]",
+  "MOMIZI_CARD_RAIN_FALL.description": "给予所有敌人3层[gold]暴雨[/gold].\n每有一层[gold]集中（椛）[/gold]，额外给予所有敌人1层[gold]暴雨[/gold]",
   "MOMIZI_CARD_AUTUME_HARVEST.title": "秋意正浓的丰收",
   "MOMIZI_CARD_AUTUME_HARVEST.description": "概率获得20金币、额外卡牌奖励，药水，遗物奖励\n打出{CurrentUse:diff()}次后移除",
 
