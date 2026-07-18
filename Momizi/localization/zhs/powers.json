@@ -1,7 +1,7 @@
 {
   "MOMIZI_POWER_ALERT.title": "警戒",
-  "MOMIZI_POWER_ALERT.description": "累计10层[gold]警戒[/gold]后对敌方全体造成伤害，给予其他队友和自身增益，累计20层[gold]警戒[/gold]后清空并对敌方全体造成伤害，自身获得1层[gold]自卑[/gold]",
-  "MOMIZI_POWER_ALERT.smartDescription": "累计10层[gold]警戒[/gold]后清空并对敌方全体造成50点伤害，队友获得2层[gold]力量[/gold]，2层[gold]敏捷[/gold]，2层[gold]集中[/gold]，自身获得1层[gold]自卑[/gold]",
+  "MOMIZI_POWER_ALERT.description": "每累计10层[gold]警戒[/gold]后对敌方全体造成伤害，给予其他队友和自身增益，到达上限时清空，自身获得1层[gold]自卑[/gold]",
+  "MOMIZI_POWER_ALERT.smartDescription": "每累计10层[gold]警戒[/gold]后清空并对敌方全体造成50点伤害，队友获得2层[gold]力量[/gold]，2层[gold]敏捷[/gold]，2层[gold]集中[/gold]，到达上限时清空，自身获得1层[gold]自卑[/gold]",
   "MOMIZI_POWER_HELP.title": "协助",
   "MOMIZI_POWER_HELP.description": "队友打出不同的卡获得不同效果",
   "MOMIZI_POWER_HELP.smartDescription": "队友打出不同的卡获得不同效果",
@@ -103,5 +103,11 @@
   "MOMIZI_POWER_READY_POWER.smartDescription": "本回合失去生命时，减少失去的生命值{Amount}点",
   "MOMIZI_POWER_FIRM.title": "坚固",
   "MOMIZI_POWER_FIRM.description": "失去生命时，减少失去的生命值",
-  "MOMIZI_POWER_FIRM.smartDescription": "失去生命时，减少失去的生命值{Amount}点"
+  "MOMIZI_POWER_FIRM.smartDescription": "失去生命时，减少失去的生命值{Amount}点",
+  "MOMIZI_POWER_WARN.title": "紧急闪避",
+  "MOMIZI_POWER_WARN.description": "下回合失去[gold]集中（椛）[/gold]",
+  "MOMIZI_POWER_WARN.smartDescription": "下回合失去2点[gold]集中（椛）[/gold]",
+  "MOMIZI_POWER_HURT_POWER.title": "疼痛",
+  "MOMIZI_POWER_HURT_POWER.description": "每抽到1张状态或诅咒，抽牌",
+  "MOMIZI_POWER_HURT_POWER.smartDescription": "每抽到1张状态或诅咒，抽{Amount}张牌"
 }

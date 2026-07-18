@@ -48,7 +48,7 @@ public class WarnDodge: ModCardTemplate
         await PowerCmd.Apply<Dodge>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner.Creature, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<FrailPower>(choiceContext, Owner.Creature, DynamicVars["Frail"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<WarningDodgePower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
+        await PowerCmd.Apply<Warn>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
         PlayerCmd.EndTurn(Owner, canBackOut: false);
     }
 

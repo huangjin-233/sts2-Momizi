@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -87,5 +88,10 @@ public class Alert : ModPowerTemplate
             await PowerCmd.Remove(this);
             await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
         }
+    }
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        max = 150;
+        return Task.CompletedTask;
     }
 }

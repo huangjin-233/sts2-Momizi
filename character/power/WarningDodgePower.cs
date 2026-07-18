@@ -15,7 +15,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace Momizi.character.power;
 
 [RegisterPower]
-public class WarningDodgePower: ModTemporaryAppliedPowerTemplate<WarnDodge,JiZhong>
+public class WarningDodgePower: ModTemporaryAppliedPowerTemplate<Warn,JiZhong>
 {
     // 类型，Buff或Debuff
     public override PowerType Type => PowerType.Buff;
