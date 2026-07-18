@@ -18,7 +18,7 @@ namespace Momizi.character.card.uncommon;
 public class WarnDodge: ModCardTemplate
 {
     // 基础耗能
-    private const int energyCost = 1;
+    private const int energyCost = 0;
     // 卡牌类型
     private const CardType type = CardType.Skill;
     // 卡牌稀有度
@@ -27,7 +27,7 @@ public class WarnDodge: ModCardTemplate
     private const TargetType targetType = TargetType.Self;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
-
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust,MomiziKeyword.Thinking];
     // 卡图资源
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: $"res://images/cards/uncommon/{GetType().Name}.png"

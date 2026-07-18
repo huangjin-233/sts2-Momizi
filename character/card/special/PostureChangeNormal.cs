@@ -57,7 +57,7 @@ public class PostureChangeNormal: ModCardTemplate,PostureChange.IChoosable
             await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -2, Owner.Creature, null);
             await PowerCmd.Apply<BarricadePower>(new ThrowingPlayerChoiceContext(), Owner.Creature, -1, Owner.Creature, null);
         }
-        await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, 1, Owner.Creature, null);
+        await PowerCmd.Apply<JiZhong>(new ThrowingPlayerChoiceContext(), Owner.Creature, 4, Owner.Creature, null);
         PostureChange.posture = 3;
     }
 

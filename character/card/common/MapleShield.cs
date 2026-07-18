@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character;
 using Momizi.character.power;
@@ -37,7 +38,7 @@ public class MapleShield: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         ModCardVars.Int("Blockposture",2),
-        new BlockVar(3m,ValueProp.Move)
+        new BlockVar(6m,ValueProp.Move)
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -48,17 +49,17 @@ public class MapleShield: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BlockPosture>(choiceContext, Owner.Creature,DynamicVars["Blockposture"].BaseValue,Owner.Creature,this);
+        await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature,DynamicVars["Blockposture"].BaseValue,Owner.Creature,this);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars["Blockposture"].UpgradeValueBy(1);
+        DynamicVars["Blockposture"].UpgradeValueBy(2);
         DynamicVars.Block.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<BlockPosture>(),
+        HoverTipFactory.FromPower<PlatingPower>(),
     ];
 }

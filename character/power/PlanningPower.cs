@@ -32,7 +32,7 @@ public class PlanningPower : ModPowerTemplate,IAfterScryed
     public async Task AfterScryed(PlayerChoiceContext ctx, Player player, int scryAmount, int discardedAmount, IEnumerable<CardModel> discarded)
     {
         List<CardModel> cards = discarded.ToList();
-        Owner.Player?.RunState.Rng.Shuffle.Shuffle<CardModel>(cards);
+        Owner.Player?.RunState.Rng.Shuffle.Shuffle(cards);
         CardModel card = cards[0];
         card.EnergyCost.AddUntilPlayed(-1);
     }

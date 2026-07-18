@@ -51,13 +51,14 @@ public class AdaptToCircumstances: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int num = ResolveEnergyXValue()-1;
+        int num = ResolveEnergyXValue();
         if (IsUpgraded)
         {
             num++;
         }
         if (cardPlay.Target.Monster.IntendsToAttack ||
-            cardPlay.Target.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
+            cardPlay.Target.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff) ||
+            cardPlay.Target.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.DebuffStrong))
         {
             for (int i = 0; i < num; i++)
             {
@@ -66,7 +67,7 @@ public class AdaptToCircumstances: ModCardTemplate
         }
         else
         {
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < num-1; i++)
             {
                 CardModel cardModel = PileType.Discard.GetPile(Owner.Creature.Player).Cards.ToList()
                     .StableShuffle(Owner.Creature.Player.RunState.Rng.Shuffle)

@@ -58,7 +58,7 @@ public class TenguSee: ModRelicTemplate,IModRightClickableRelic
     }
     public bool CanHandleRightClickLocal(ModRightClickContext context)
     {
-        return Owner.Creature.GetPowerAmount<Alert>() >= 5;
+        return Owner.Creature.GetPowerAmount<Alert>() >= 10;
     }
 
     // 右键执行（多人下会在所有客户端同步执行）

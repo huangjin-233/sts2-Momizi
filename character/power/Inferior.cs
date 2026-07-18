@@ -35,6 +35,7 @@ public class Inferior: ModPowerTemplate
         {
             await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, amount, Owner, null);
             await PowerCmd.Apply<FrailPower>(choiceContext, Owner, amount, Owner, null);
+            await PowerCmd.Apply<WeakPower>(choiceContext, Owner, amount, Owner, null);
         }
     }
 }

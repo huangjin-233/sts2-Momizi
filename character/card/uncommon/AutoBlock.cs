@@ -21,7 +21,7 @@ public class AutoBlock: ModCardTemplate
 {
     public override bool GainsBlock => true;
     // 基础耗能
-    private const int energyCost = 2;
+    private const int energyCost = 3;
     // 卡牌类型
     private const CardType type = CardType.Power;
     // 卡牌稀有度
@@ -38,8 +38,8 @@ public class AutoBlock: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(4),
-        new CalculationExtraVar(0.5m),
-        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<Alert>()/2)
+        new CalculationExtraVar(1m),
+        new CalculatedBlockVar(ValueProp.Unpowered).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<Alert>())
     ];
 
     public AutoBlock() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -50,14 +50,15 @@ public class AutoBlock: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await PowerCmd.Apply<BlockPosture>(choiceContext, Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, Owner.Creature, null);
+        await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, Owner.Creature, null);
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
+        EnergyCost.UpgradeBy(-1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<BlockPosture>(),
+        HoverTipFactory.FromPower<PlatingPower>(),
     ];
 }

@@ -43,7 +43,7 @@ public class RainFall: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RainFallPower>(choiceContext, CombatState.HittableEnemies,3*Owner.Creature.GetPowerAmount<JiZhong>(), Owner.Creature, null);
+        await PowerCmd.Apply<RainFallPower>(choiceContext, CombatState.HittableEnemies,3+Owner.Creature.GetPowerAmount<JiZhong>(), Owner.Creature, null);
     }
 
     // 升级后的效果逻辑

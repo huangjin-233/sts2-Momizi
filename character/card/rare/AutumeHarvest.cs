@@ -26,8 +26,6 @@ public class AutumeHarvest: ModCardTemplate
     
     public bool Remove;
     private const string _increaseKey = "Increase";
-    private int _currentUse = 3;
-    private int _increasedUse;
     // 基础耗能
     private const int energyCost = 3;
     // 卡牌类型
@@ -54,26 +52,27 @@ public class AutumeHarvest: ModCardTemplate
     {
         get
         {
-            return _currentUse;
+            return field;
         }
         set
         {
             AssertMutable();
-            _currentUse = value;
-            DynamicVars["CurrentUse"].BaseValue = _currentUse;
+            field = value;
+            DynamicVars["CurrentUse"].BaseValue = field;
         }
-    }
+    } = 3;
+
     [SavedProperty]
     public int IncreasedUse
     {
         get
         {
-            return _increasedUse;
+            return field;
         }
         set
         {
             AssertMutable();
-            _increasedUse = value;
+            field = value;
         }
     }
 

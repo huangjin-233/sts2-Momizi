@@ -37,7 +37,7 @@ public class StrikeFirst: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(2)
+        new CardsVar(1)
     ];
     protected override bool IsPlayable => Flag;
     public StrikeFirst() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -50,7 +50,7 @@ public class StrikeFirst: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue + Owner.Creature.GetPowerAmount<JiZhong>(), Owner);//抽卡
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue + Owner.Creature.GetPowerAmount<JiZhong>()/2, Owner);//抽卡
     }
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {

@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://ojls6c53ktas"]
 
-[ext_resource type="Texture2D" uid="uid://dthyi8iy4hm2c" path="res://character/momizi/akai.tres" id="2_o6qp3"]
+[ext_resource type="Texture2D" uid="uid://dlvyu6opsij8u" path="res://images/character/character.png" id="1_y3u1x"]
 [ext_resource type="Script" uid="uid://cgagr87iw4ao" path="res://scenes/creature_visuals/Alerts.cs" id="2_y3u1x"]
 [ext_resource type="Texture2D" uid="uid://cmlgp3fkglm6t" path="res://images/atlases/ui_atlas.sprites/health_bar_bg.png" id="4_1m6yb"]
 [ext_resource type="Texture2D" uid="uid://cbrvt0pqt6yd8" path="res://images/atlases/ui_atlas.sprites/health_bar.png" id="5_xpo8b"]
 [ext_resource type="Texture2D" uid="uid://di5ekd0e6laq7" path="res://images/atlases/ui_atlas.sprites/health_bar_fill.png" id="6_gvsdp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w1114"]
-font_size = 25
+font_size = 23
 outline_size = 3
 outline_color = Color(0.60784316, 0, 0.12941177, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_1m6yb"]
-font_size = 40
+font_size = 24
 outline_size = 9
 outline_color = Color(0.60784316, 0, 0.12941177, 1)
 
@@ -22,9 +22,9 @@ outline_color = Color(0.60784316, 0, 0.12941177, 1)
 unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-position = Vector2(58.000004, -221.75)
-scale = Vector2(1.0933334, 1.0829082)
-texture = ExtResource("2_o6qp3")
+position = Vector2(61, -233)
+scale = Vector2(0.4, 0.396)
+texture = ExtResource("1_y3u1x")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
@@ -50,10 +50,10 @@ position = Vector2(165, -367)
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -372.0
-offset_top = -106.99999
-offset_right = -284.0
-offset_bottom = -63.999992
+offset_left = -416.0
+offset_top = -106.0
+offset_right = -328.0
+offset_bottom = -63.0
 rotation = 4.7246065
 script = ExtResource("2_y3u1x")
 
@@ -73,8 +73,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -177.0
-offset_top = -11.0
-offset_right = 163.0
+offset_top = -41.513824
+offset_right = 209.33856
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -100,13 +100,13 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -5.0
-offset_top = 3.0
-offset_right = 3.255005
-offset_bottom = -16.0
+offset_top = -19.549683
+offset_right = 51.149048
+offset_bottom = -22.20874
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_xpo8b")
-patch_margin_left = 6
+patch_margin_left = 8
 patch_margin_right = 6
 
 [node name="Alertcolor" type="NinePatchRect" parent="Alert/Alertshow/Alertcontorl/Alertmask"]
@@ -115,10 +115,10 @@ modulate = Color(0.60784316, 0, 0.12941177, 1)
 texture_filter = 2
 texture_repeat = 1
 layout_mode = 0
-offset_left = -2.152
-offset_top = 6.336
-offset_right = 340.388
-offset_bottom = 18.336
+offset_left = 3.5209606
+offset_top = 1.8293658
+offset_right = 376.29993
+offset_bottom = 35.39388
 texture = ExtResource("6_gvsdp")
 patch_margin_left = 6
 patch_margin_right = 6
@@ -129,16 +129,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -140.478
-offset_top = -117.103
-offset_right = -40.244995
-offset_bottom = -82.103
+offset_left = -120.30983
+offset_top = 60.673885
+offset_right = -53.30983
+offset_bottom = 95.67389
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 1.5620697
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-text = "10/10"
+text = "20/20"
 label_settings = SubResource("LabelSettings_w1114")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -148,14 +148,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 214.67
-offset_top = -28.595
-offset_right = 204.66998
-offset_bottom = -16.595
+offset_left = 266.89456
+offset_top = -10.261482
+offset_right = 258.89456
+offset_bottom = 17.738518
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -4.722861
-text = "警戒"
+text = "警
+戒"
 label_settings = SubResource("LabelSettings_1m6yb")
 horizontal_alignment = 1
 vertical_alignment = 1

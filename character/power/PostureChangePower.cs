@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -12,6 +13,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
+using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -32,9 +34,11 @@ public class PostureChangePower: ModPowerTemplate
         BigIconPath: "res://images/powers/PostureChangePower.png"
     );
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
-        if (cardPlay.Card.Type ==CardType.Attack)
-        await PowerCmd.Apply<VulnerablePower>(choiceContext,cardPlay.Target , 1, Owner, null);
+        if (dealer != null && (dealer == Owner || dealer.PetOwner?.Creature == Owner) && props.IsPoweredAttack() && result.TotalDamage > 0)
+        {
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, target, 1, base.Owner, null);
+        }
     }
 }

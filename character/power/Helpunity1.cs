@@ -42,7 +42,6 @@ public class Helpunity1: ModPowerTemplate
                 {
                     CardCmd.Upgrade(item);
                 }
-
             await PowerCmd.Remove(this);
         }
     }

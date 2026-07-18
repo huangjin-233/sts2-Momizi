@@ -23,10 +23,11 @@ using YakumoAkai.character.power;
 namespace Momizi.character.power;
 
 [RegisterPower]
-public class RainFallPower: ModPowerTemplate
+public class RainFallPower : ModPowerTemplate,IHealthBarForecastSource
 {
     // 类型，Buff或Debuff
     public override PowerType Type => PowerType.Debuff;
+
     // 叠加类型，Counter表示可叠加，Single表示不可叠加
     public override PowerStackType StackType => PowerStackType.Counter;
 
@@ -35,13 +36,16 @@ public class RainFallPower: ModPowerTemplate
         IconPath: "res://images/powers/RainFallPower.png",
         BigIconPath: "res://images/powers/RainFallPower.png"
     );
+
     public override bool AllowNegative => false;
+
     public IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)
     {
-        return HealthBarForecasts
-            .FromRight(context, new(1f, 0.478f, 0f), Colors.Blue)
-            .Add(Amount*2, HealthBarForecastOrder.ForSideTurnStart(context.Creature, Owner.Side))
-            .Build();
+        return HealthBarForecasts.Single(
+            Amount*2, // 展示的数量（例如如果你的能力有2倍效果可以乘2）
+            new Color(0f, 1f, 1f), // 颜色
+            HealthBarForecastGrowthDirection.FromRight // 从左边开始延伸还是右边开始
+        );
     }
 
     private int TriggerCount
@@ -51,23 +55,33 @@ public class RainFallPower: ModPowerTemplate
             IEnumerable<Creature> source = from c in Owner.CombatState.GetOpponentsOf(Owner)
                 where c.IsAlive
                 select c;
-            return Math.Min(base.Amount, 1 + source.Sum(( a) => a.GetPowerAmount<Rain>()));
+            return Math.Min(base.Amount, 1 + source.Sum((a) => a.GetPowerAmount<Rain>()));
         }
     }
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
+        ICombatState combatState)
 
     {
         int iterations = TriggerCount;
         if (side != Owner.Side)
         {
-            for (int i = 0; i < iterations; i++)
+            for (int i = 0; i < 3; i++)
             {
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount/3,
+                    ValueProp.Unblockable | ValueProp.Unpowered, null, null);
             }
         }
-        for (int i = 0; i < iterations; i++)
+
+        if (side == Owner.Side)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount/3,
+                        ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+                }
+            }
         }
     }
 }

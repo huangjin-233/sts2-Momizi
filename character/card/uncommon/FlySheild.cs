@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -31,8 +32,9 @@ public class FlySheild: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(14m, ValueProp.Move),
-        new DamageVar(3m,ValueProp.Move)
+        new BlockVar(10m, ValueProp.Move),
+        new DamageVar(3m,ValueProp.Move),
+        ModCardVars.Int("LoseBlock",7)
     ];
     protected override bool IsPlayable => Owner.Creature.Block > DynamicVars.Block.IntValue;
     public FlySheild() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -52,6 +54,7 @@ public class FlySheild: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(-2);
+        DynamicVars.Block.UpgradeValueBy(-3);
+        DynamicVars["LoseBlock"].UpgradeValueBy(-2);
     }
 }

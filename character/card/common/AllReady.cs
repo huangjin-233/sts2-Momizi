@@ -24,7 +24,7 @@ public class AllReady: ModCardTemplate
 {
     public override bool GainsBlock => true;
     // 基础耗能
-    private const int energyCost = 1;
+    private const int energyCost = 2;
     // 卡牌类型
     private const CardType type = CardType.Skill;
     // 卡牌稀有度
@@ -41,7 +41,9 @@ public class AllReady: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(6m,ValueProp.Move),
+        new BlockVar(11m,ValueProp.Move),
+        ModCardVars.Int("Firm",2),
+        ModCardVars.Int("Ready",2)
     ];
 
     public AllReady() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -52,15 +54,19 @@ public class AllReady: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        await PowerCmd.Apply<Ready>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<ReadyPower>(choiceContext, Owner.Creature, DynamicVars["Firm"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<Ready>(choiceContext, Owner.Creature,DynamicVars["Ready"].BaseValue , Owner.Creature, this);
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2);
+        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars["Firm"].UpgradeValueBy(1);
+        DynamicVars["Ready"].UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<VigorPower>(),
+        HoverTipFactory.FromPower<Firm>(),
     ];
 }

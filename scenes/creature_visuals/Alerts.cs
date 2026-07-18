@@ -49,13 +49,12 @@ public partial class Alerts : Control
 		{
 			return 0f;
 		}
-		float val = (float)amount/10 * maxFgWidth;
+		float val = (float)amount/20 * maxFgWidth;
 		return Math.Max(val, _creature != null && ( _creature.CurrentHp > 0) ? 12f : 0f);
 	}
 	public void RefreshValues()
 	{
 		RefreshText();
-		RefreshForeground();
 	}
 
 	public override void _EnterTree()
@@ -71,17 +70,11 @@ public partial class Alerts : Control
 	{
 		_alert?.Visible = true;
 		RefreshValues();
-		RefreshForeground();
 	}
 	private void RefreshText()
 	{
 		_alertLabel?.Visible = true;
-		_alertLabel?.Text = _creature?.GetPowerAmount<Alert>().ToString()+"/10";
+		_alertLabel?.Text = _creature?.GetPowerAmount<Alert>().ToString()+"/20";
 	}
-
-	private void RefreshForeground()
-	{
-		_alertcolor?.Visible = true;
-		if (_creature != null) _alertcolor?.OffsetRight = GetFgWidth(_creature.GetPowerAmount<Alert>()) + 10f;
-	}
+	
 }

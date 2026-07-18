@@ -50,7 +50,7 @@ public class Ready: ModPowerTemplate
                     select c;
                 foreach (Creature item in enumerable)
                 {
-                    await PowerCmd.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), Owner, 2, Owner, null);
+                    await PowerCmd.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), item, Amount, Owner, null);
                 }
                
             }

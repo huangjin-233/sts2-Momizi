@@ -41,8 +41,8 @@ public class DesperateCounterattack: ModCardTemplate
         new ExtraDamageVar(3m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
             card.Owner.Creature.GetPowerAmount<StrengthPower>()),
-        new PowerVar<WeakPower>(5),
-        new PowerVar<VulnerablePower>(5),
+        new PowerVar<WeakPower>(3),
+        new PowerVar<VulnerablePower>(3),
         new PowerVar<StrengthPower>(10)
     ];
 
@@ -73,7 +73,7 @@ public class DesperateCounterattack: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(4);
+        DynamicVars.ExtraDamage.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<StrengthPower>(),

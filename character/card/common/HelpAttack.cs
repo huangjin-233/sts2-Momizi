@@ -66,8 +66,7 @@ public class HelpAttack: ModCardTemplate
             {
                 return;
             }
-            CardModel card = this.CombatState.CreateCard((CardModel) ModelDb.Card<HelpAttack1>(), Owner);
-            card.SetToFreeThisCombat();
+            CardModel card = this.CombatState.CreateCard((CardModel) ModelDb.Card<HelpAttack1>(), item.Player);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, item.Player);
         }
     }

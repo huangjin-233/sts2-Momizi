@@ -47,11 +47,11 @@ public class HelpUnity: ModCardTemplate
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
         if (IsUpgraded)
         {
-            await PowerCmd.Apply<Helpunity1>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<Helpunity1>(choiceContext, cardPlay.Target, 1, Owner.Creature, this);
         }
         else
         {
-            await PowerCmd.Apply<Helpunity>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<Helpunity>(choiceContext, cardPlay.Target, 1, Owner.Creature, this);
         }
     }
 

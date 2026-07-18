@@ -49,6 +49,7 @@ public class SelfBelieve: ModCardTemplate
     {
         await ScryCmd.Execute(new BlockingPlayerChoiceContext(),this,3);
         await CardPileCmd.Draw(choiceContext, 1, base.Owner);//抽卡
+        await PowerCmd.Remove<Inferior>(Owner.Creature);
         await PowerCmd.Apply<NoBlockPower>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner.Creature, 2, Owner.Creature, null);
         await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, DynamicVars["JiZhong"].BaseValue, Owner.Creature, null);
@@ -59,6 +60,7 @@ public class SelfBelieve: ModCardTemplate
     {
         EnergyCost.UpgradeBy(-1);
         AddKeyword(CardKeyword.Retain);
+        DynamicVars["JiZhong"].UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<NoBlockPower>(),

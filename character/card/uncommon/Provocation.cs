@@ -22,13 +22,13 @@ namespace Momizi.character.card.uncommon;
 public class Provocation: ModCardTemplate
 {
     // 基础耗能
-    private const int energyCost = 0;
+    private const int energyCost = 1;
     // 卡牌类型
     private const CardType type = CardType.Skill;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Uncommon;
     // 目标类型（AnyEnemy表示任意敌人）
-    private const TargetType targetType = TargetType.AllEnemies;
+    private const TargetType targetType = TargetType.AnyEnemy;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
 
@@ -38,35 +38,27 @@ public class Provocation: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new EnergyVar(2)
+        new BlockVar(8m,ValueProp.Move)
     ];
-
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public Provocation() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
-    private static readonly Dictionary<MoveState, MoveState> BaseMovesByReplacement = [];
-    private static readonly Dictionary<Creature, string> PhaseKeys = [];
-    private static readonly Dictionary<Creature, HashSet<string>> UsedMovesByPhase = [];
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);//能量
-        await PowerCmd.Apply<ProvocationPower>(choiceContext, Owner.Creature, 3, Owner.Creature, null);
-        foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-        {
-            if (creature.Monster.IntendsToAttack)
-            {
-                await creature.Monster.PerformMove();
-            }
-        }
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block,cardPlay);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, 2, Owner.Creature, null);
+        await PowerCmd.Apply<ProvocationPower>(choiceContext, cardPlay.Target, 2, Owner.Creature, null);
     }
 
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.Energy.UpgradeValueBy(1);
+        EnergyCost.UpgradeBy(-1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<JiZhong>()
+        HoverTipFactory.FromPower<VulnerablePower>(),
+        HoverTipFactory.FromPower<StrengthPower>(),
     ];
 }

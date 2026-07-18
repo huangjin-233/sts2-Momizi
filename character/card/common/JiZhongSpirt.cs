@@ -19,7 +19,7 @@ namespace Momizi.character.cards.basic;
 public class JiZhongSpirt: ModCardTemplate
 {
     // 基础耗能
-    private const int energyCost = 1;
+    private const int energyCost = 0;
     // 卡牌类型
     private const CardType type = CardType.Skill;
     // 卡牌稀有度
@@ -52,7 +52,7 @@ public class JiZhongSpirt: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Retain);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),

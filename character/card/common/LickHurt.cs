@@ -47,7 +47,8 @@ public class LickHurt: ModCardTemplate
     {
         await CreatureCmd.Heal(base.Owner.Creature, DynamicVars.Heal.BaseValue);//回血
         await PowerCmd.Remove<WeakPower>(Owner.Creature);
-        await PowerCmd.Remove<VulnerablePower>(Owner.Creature);
+        if (IsUpgraded)
+            await PowerCmd.Remove<VulnerablePower>(Owner.Creature);
     }
 
     // 升级后的效果逻辑

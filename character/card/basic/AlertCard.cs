@@ -47,14 +47,14 @@ public class AlertCard: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         ModCardVars.Int("JiZhong",1 ),
-        ModCardVars.Int("Dodge",10 ),
-        new BlockVar(6m,ValueProp.Move)
+        ModCardVars.Int("Alert",3 ),
+        new BlockVar(9m,ValueProp.Move)
     ];
 
     protected override bool IsPlayable => Flag;
     //打出条件
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [MomiziKeyword.Thinking,CardKeyword.Innate,CardKeyword.Retain,CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [MomiziKeyword.Thinking,CardKeyword.Retain,CardKeyword.Exhaust];
     public AlertCard() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -75,11 +75,13 @@ public class AlertCard: ModCardTemplate
         }
     }
     // 打出时的效果逻辑
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
         foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
         {
-            if (creature.Monster.IntendsToAttack || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff))
+            if (creature.Monster.IntendsToAttack 
+                || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff)
+                || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.DebuffStrong))
             {
                 Intnet = true;
             }
@@ -108,10 +110,13 @@ public class AlertCard: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars["JiZhong"].UpgradeValueBy(1);
+        DynamicVars["JiZhong"].UpgradeValueBy(2);
+        DynamicVars["Alert"].UpgradeValueBy(2);
+        DynamicVars.Block.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<JiZhong>(),
+        HoverTipFactory.FromPower<Alert>(),
         HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
     ];
 }

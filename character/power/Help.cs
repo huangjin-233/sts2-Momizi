@@ -28,7 +28,7 @@ public class Help: ModPowerTemplate
     
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Type == CardType.Power && cardPlay.Card.Owner != Owner.Player)
+        if (cardPlay.Card.Type == CardType.Power && cardPlay.Card.Owner != Owner.Player.Creature.Player)
         {
             await PowerCmd.Apply<FreePowerPower>(choiceContext,Owner, 1, Owner, null);
             await PowerCmd.Decrement(this);

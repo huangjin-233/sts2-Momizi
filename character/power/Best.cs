@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -31,16 +32,28 @@ public class Best: ModPowerTemplate
         IconPath: "res://images/powers/Best.png",
         BigIconPath: "res://images/powers/Best.png"
     );
-    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power,
+        decimal amount, Creature? applier, CardModel? cardSource)
     {
-        List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
-        foreach (CardModel cardModel in items)
+        if (Owner.Player != null)
         {
-            cardModel.EnergyCost.UpgradeBy(-2);
+            List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
+            foreach (CardModel cardModel in items)
+            {
+                cardModel.EnergyCost.AddUntilPlayed(-2);
+            }
         }
     }
     public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
+        if (Owner.Player != null)
+        {
+            List<CardModel> items = PileType.Hand.GetPile(Owner.Player).Cards.Where(c => c.Type == CardType.Attack && !c.Keywords.Contains(CardKeyword.Unplayable)).ToList();
+            foreach (CardModel cardModel in items)
+            {
+                cardModel.EnergyCost.AddUntilPlayed(2);
+            }
+        }
         await PowerCmd.Decrement(this);
     }
 }

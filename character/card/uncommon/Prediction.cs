@@ -52,7 +52,9 @@ public class Prediction: ModCardTemplate
         var intentQueue = cardPlay.Target.Monster.GetIntents();
         var nextIntent = intentQueue[1];
         
-        if (nextIntent.IntentType == IntentType.Attack ||  nextIntent.IntentType==IntentType.Debuff)
+        if (nextIntent.IntentType == IntentType.Attack 
+            ||  nextIntent.IntentType==IntentType.Debuff
+            ||nextIntent.IntentType==IntentType.DebuffStrong)
         {
             await PowerCmd.Apply<PredictionPower>(choiceContext, Owner.Creature, 8, Owner.Creature, null);
         }

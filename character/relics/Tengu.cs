@@ -80,10 +80,13 @@ public class Tengu: ModRelicTemplate,IRelicExtraIconAmountLabelSpecsProvider
 
         if (side == Owner.Creature.Side && combatState.RoundNumber == 1 && Inferior > 0)
         {
-            PostureChange.posture = 0;
             Flash(); // 触发遗物图标闪烁
             await PowerCmd.Apply<Inferior>(new ThrowingPlayerChoiceContext(), Owner.Creature, Inferior, Owner.Creature, null);
         }
+    }
+    public override async Task AfterCombatVictory(CombatRoom _)
+    {
+        PostureChange.posture = 0;
     }
     public IReadOnlyList<ExtraIconAmountLabelSpec> GetRelicExtraIconAmountLabelSpecs()
     {

@@ -14,9 +14,8 @@ namespace Momizi.character.card.special;
 [RegisterCard(typeof(TokenCardPool))]
 public class HelpAttack1: ModCardTemplate
 {
-    public override bool GainsBlock => true;
     // 基础耗能
-    private const int energyCost = 1;
+    private const int energyCost = 0;
     // 卡牌类型
     private const CardType type = CardType.Attack;
     // 卡牌稀有度
