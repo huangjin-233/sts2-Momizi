@@ -109,5 +109,11 @@
   "MOMIZI_POWER_WARN.smartDescription": "下回合失去2点[gold]集中（椛）[/gold]",
   "MOMIZI_POWER_HURT_POWER.title": "疼痛",
   "MOMIZI_POWER_HURT_POWER.description": "每抽到1张状态或诅咒，抽牌",
-  "MOMIZI_POWER_HURT_POWER.smartDescription": "每抽到1张状态或诅咒，抽{Amount}张牌"
+  "MOMIZI_POWER_HURT_POWER.smartDescription": "每抽到1张状态或诅咒，抽{Amount}张牌",
+  "MOMIZI_POWER_SPELL.title": "符卡冷却",
+  "MOMIZI_POWER_SPELL.description": "下数个回合不可使用[gold]符卡[/gold]",
+  "MOMIZI_POWER_SPELL.smartDescription": "下{Amount}个回合不可使用[gold]符卡[/gold]",
+  "MOMIZI_POWER_CHEW_OVER.title": "咀嚼玩味",
+  "MOMIZI_POWER_CHEW_OVER.description": "本回合失去[gold]力量[/gold]",
+  "MOMIZI_POWER_CHEW_OVER.smartDescription": "本回合失去{Amount}点[gold]力量[/gold]"
 }

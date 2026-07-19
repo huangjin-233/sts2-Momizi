@@ -43,7 +43,8 @@ public class Planning: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<VulnerablePower>(choiceContext,Owner.Creature, 1, Owner.Creature, null);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await PowerCmd.Apply<PlanningPower>(choiceContext,Owner.Creature, 1, Owner.Creature, null);
     }
 
     // 升级后的效果逻辑

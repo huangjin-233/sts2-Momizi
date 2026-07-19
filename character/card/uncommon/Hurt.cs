@@ -46,6 +46,7 @@ public class Hurt: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)
         {
             CardModel card = CombatState.CreateCard<Injury>(Owner);
@@ -57,6 +58,7 @@ public class Hurt: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
+        DynamicVars.Cards.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromCard<Injury>()

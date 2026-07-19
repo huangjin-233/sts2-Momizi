@@ -23,11 +23,11 @@ public class DexStrike: ModCardTemplate
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Attack;
     // 卡牌稀有度
     private const CardRarity rarity = CardRarity.Uncommon;
     // 目标类型（AnyEnemy表示任意敌人）
-    private const TargetType targetType = TargetType.Self;
+    private const TargetType targetType = TargetType.AnyEnemy;
     // 是否在卡牌图鉴中显示
     private const bool shouldShowInCardLibrary = true;
     // 卡图资源
@@ -37,7 +37,7 @@ public class DexStrike: ModCardTemplate
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
        new CalculationBaseVar(9m),
-       new CalculationExtraVar(3),
+       new ExtraDamageVar(3),
        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (card, _) =>
            GetValue(card.Owner))
     ];
@@ -72,7 +72,7 @@ public class DexStrike: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationExtra.UpgradeValueBy(2);
+        DynamicVars.ExtraDamage.UpgradeValueBy(2);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromKeyword(MomiziKeyword.Scry)
