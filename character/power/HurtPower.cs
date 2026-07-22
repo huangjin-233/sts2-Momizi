@@ -38,6 +38,7 @@ public class HurtPower: ModPowerTemplate
             Flash();
             if (Owner.Player != null) 
                 await CardPileCmd.Draw(choiceContext, Amount, Owner.Player);
+                await PowerCmd.Apply<Alert>(choiceContext, Owner,Amount,Owner,null);
         }
     }
 }

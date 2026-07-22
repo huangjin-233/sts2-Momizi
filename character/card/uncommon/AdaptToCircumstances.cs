@@ -92,6 +92,5 @@ public class AdaptToCircumstances: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
-        HoverTipFactory.FromPower<ArtifactPower>()
     ];
 }

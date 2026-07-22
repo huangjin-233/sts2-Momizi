@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -38,8 +40,8 @@ public class ChewOverAndSavor: ModCardTemplate
         PortraitPath: $"res://images/cards/uncommon/{GetType().Name}.png"
     );
     protected override bool IsPlayable => Intnet;
-    public override int MaxUpgradeLevel => 99;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+    public override int MaxUpgradeLevel => 9999;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain,MomiziKeyword.Spell];
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
       new CalculationBaseVar(9),
@@ -70,7 +72,14 @@ public class ChewOverAndSavor: ModCardTemplate
         await PowerCmd.Apply<ChewOver>(choiceContext, cardPlay.Target, Owner.Creature.GetPowerAmount<JiZhong>()/2, Owner.Creature, null);
         await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, Owner.Creature.GetPowerAmount<JiZhong>()/2, Owner.Creature, null);
     }
-    
+
+    public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
+    {
+        if (autoPlayType == AutoPlayType.None)
+            return true;
+        return false;
+    }
+
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
@@ -81,4 +90,26 @@ public class ChewOverAndSavor: ModCardTemplate
         HoverTipFactory.FromPower<StrengthPower>(),
         HoverTipFactory.FromPower<WeakPower>()
     ];
+    public static async Task<CardModel> CreateInHand(Player owner, ICombatState combatState)
+    {
+        return (await CreateInHand(owner, 1, combatState)).FirstOrDefault();
+    }
+    public static async Task<IEnumerable<CardModel>> CreateInHand(Player owner, int count, ICombatState combatState)
+    {
+        if (count == 0)
+        {
+            return Array.Empty<CardModel>();
+        }
+        if (CombatManager.Instance.IsOverOrEnding)
+        {
+            return Array.Empty<CardModel>();
+        }
+        List<CardModel> ChewOverAndSavor = new List<CardModel>();
+        for (int i = 0; i < count; i++)
+        {
+            ChewOverAndSavor.Add(combatState.CreateCard<ChewOverAndSavor>(owner));
+        }
+        await CardPileCmd.AddGeneratedCardsToCombat(ChewOverAndSavor, PileType.Hand, owner);
+        return ChewOverAndSavor;
+    }
 }

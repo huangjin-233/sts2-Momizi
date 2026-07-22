@@ -19,7 +19,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.power;
 [RegisterPower]
-public class MockPower : ModTemporaryAppliedPowerTemplate<Mock, StrengthPower>
+public class MockPower : ModTemporaryAppliedPowerTemplate<Mock, JiZhong>
 {
     public override PowerType Type => PowerType.Buff;
     // 叠加类型，Counter表示可叠加，Single表示不可叠加

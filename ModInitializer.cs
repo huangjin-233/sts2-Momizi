@@ -52,8 +52,6 @@ namespace Momizi
             //你的场景字符串列表
             var paths = new List<string>
             {
-                "res://scenes/vfx/ironwheel/ironwheel.tscn",
-                "res://scenes/vfx/time/time.tscn",
             };
             foreach (var path in paths)
             {

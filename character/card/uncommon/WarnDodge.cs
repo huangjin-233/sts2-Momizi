@@ -60,6 +60,8 @@ public class WarnDodge: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<VulnerablePower>(),
-        HoverTipFactory.FromPower<WarningDodgePower>(),
+        HoverTipFactory.FromPower<Dodge>(),
+        HoverTipFactory.FromPower<JiZhong>(),
+        HoverTipFactory.FromPower<FrailPower>(),
     ];
 }

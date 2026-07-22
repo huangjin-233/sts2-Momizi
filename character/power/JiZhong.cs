@@ -52,16 +52,7 @@ public class JiZhong: ModPowerTemplate
 
             return Amount/2;
     }
-
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
-        CardModel? cardSource)
-    {
-            if (!props.IsPoweredAttack())
-            {
-                return 0m;
-            }
-            return dealer.GetPowerAmount<JiZhong>()/2;
-    }
+    
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (powers == this)
@@ -72,5 +63,26 @@ public class JiZhong: ModPowerTemplate
                 await PowerCmd.Remove(this);
             }
         }
+    }
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer,
+        CardModel? cardSource)
+    {
+        if ( Owner!= dealer)
+        {
+            return 0m;
+        }
+        if (!props.IsPoweredAttack())
+        {
+            return 0m;
+        }
+        if (cardSource == null)
+        {
+            return 0m;
+        }
+        if (cardSource.Keywords.Contains(MomiziKeyword.Spell))
+        {
+            return dealer.GetPowerAmount<JiZhong>()/2-dealer.GetPowerAmount<StrengthPower>();
+        }
+        return dealer.GetPowerAmount<JiZhong>()/2;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -45,8 +46,15 @@ public class Autumn: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel card in await CardSelectCmd.FromHand(choiceContext, Owner,
-                     new CardSelectorPrefs(SelectionScreenPrompt, 1), null, this))
+        CardModel card = (await CardSelectCmd.FromHand(
+                choiceContext,
+                base.Owner,
+                new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1),
+                null,
+                this)
+            ).FirstOrDefault();
+        //选择手卡
+        if (card != null)
         {
             await CardCmd.Exhaust(choiceContext, card);//消耗
             await PlayerCmd.GainEnergy(card.EnergyCost.GetResolved(), Owner.Creature.Player);
@@ -60,7 +68,5 @@ public class Autumn: ModCardTemplate
         DynamicVars.Cards.UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<Alert>(),
-        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
     ];
 }

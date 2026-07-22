@@ -32,11 +32,12 @@ public class OneBest : ModPowerTemplate
     {
         if (powers == this)
         {
-            await PowerCmd.Apply<JiZhong>(choiceContext, Owner, -2, Owner, null);
+            await PowerCmd.Apply<OneBestPower>(choiceContext, Owner, 2, Owner, null);
         }
     }
     public override async Task AfterEnergyReset(Player player)
     {
         await PowerCmd.Decrement(this);
+        await PowerCmd.Apply<OneBestPower>(new ThrowingPlayerChoiceContext(), Owner, 2, Owner, null);
     }
 }

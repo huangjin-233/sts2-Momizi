@@ -58,5 +58,6 @@ public class WhiteWlof: ModCardTemplate
         DynamicVars["Plating"].UpgradeValueBy(1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
+        HoverTipFactory.FromPower<PlatingPower>()
     ];
 }

@@ -19,10 +19,6 @@
     <ItemGroup>
         <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="scenes\creature_visuals\" />
-    </ItemGroup>
     <ItemGroup>
         <Reference Include="sts2">
             <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>

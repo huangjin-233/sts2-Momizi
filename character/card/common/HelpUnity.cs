@@ -36,7 +36,8 @@ public class HelpUnity: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(5, ValueProp.Move)
     ];
-
+    //多人联机卡牌
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     public HelpUnity() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }

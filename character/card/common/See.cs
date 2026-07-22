@@ -51,7 +51,7 @@ public class See: ModCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-        await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature, -DynamicVars["Alert"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<PlatingPower>(choiceContext, Owner.Creature, DynamicVars["Plating"].BaseValue, Owner.Creature, this);
     }
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
