@@ -11,6 +11,10 @@ namespace Momizi.character
 	[RegisterOwnedCardKeyword(nameof(Spell),CardDescriptionPlacement = ModKeywordCardDescriptionPlacement.BeforeCardDescription)]
 	[RegisterOwnedCardKeyword(nameof(Debuff))]
 	[RegisterOwnedCardKeyword(nameof(Scry))]
+	[RegisterOwnedCardKeyword(nameof(Lock))]
+	[RegisterOwnedCardKeyword(nameof(Rearrange))]
+	[RegisterOwnedCardKeyword(nameof(Intelligence))]
+	[RegisterOwnedCardKeyword(nameof(WhiteWolf))]
 	internal class MomiziKeyword
 	{
 		public static readonly CardKeyword  Loyalty = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Loyalty)).GetModCardKeyword();
@@ -19,5 +23,9 @@ namespace Momizi.character
 		public static readonly CardKeyword  Spell = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Spell)).GetModCardKeyword();
 		public static readonly CardKeyword  Debuff = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Debuff)).GetModCardKeyword();
 		public static readonly CardKeyword  Scry = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Scry)).GetModCardKeyword();
+		public static readonly CardKeyword  Lock = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Lock)).GetModCardKeyword();
+		public static readonly CardKeyword  Rearrange = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Rearrange)).GetModCardKeyword();
+		public static readonly CardKeyword  Intelligence = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Intelligence)).GetModCardKeyword();
+		public static readonly CardKeyword  WhiteWolf = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(WhiteWolf)).GetModCardKeyword();
 	}
 }

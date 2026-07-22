@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using Momizi.character.card.special;
+
 using Momizi.character.power;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -42,7 +42,6 @@ public class RainFall: ModCardTemplate
     // 打出时的效果逻辑
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RainFallPower>(choiceContext, CombatState.HittableEnemies,3+Owner.Creature.GetPowerAmount<JiZhong>(), Owner.Creature, null);
     }
 
     // 升级后的效果逻辑
@@ -52,6 +51,5 @@ public class RainFall: ModCardTemplate
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<RainFallPower>(),
-        HoverTipFactory.FromPower<JiZhong>(),
     ];
 }

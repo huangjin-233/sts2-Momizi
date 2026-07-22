@@ -21,6 +21,7 @@ namespace Momizi.character.card.uncommon;
 [RegisterCard(typeof(MomiziCardPool))]
 public class Provocation: ModCardTemplate
 {
+    public override bool GainsBlock => true;
     // 基础耗能
     private const int energyCost = 1;
     // 卡牌类型

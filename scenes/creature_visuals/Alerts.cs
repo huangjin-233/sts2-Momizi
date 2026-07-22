@@ -1,7 +1,6 @@
 #nullable enable
 using Godot;
 using System;
-using System.Diagnostics;
 using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -11,12 +10,12 @@ using Momizi.character.power;
 
 public partial class Alerts : Control
 { 
-	private Creature? _creature;
-	private Label? _alertLabel;
-	private Control? _alertcolor;
+	private Creature _creature;
+	private Label _alertLabel;
+	private Control _alertcolor;
 	private float _expectedMaxFgWidth = -1f;
-	private Control? _alertcontorl;
-	private Control? _alert;
+	private Control _alertcontorl;
+	private Control _alert;
 
 	public override void _Ready()
 	{
@@ -25,7 +24,7 @@ public partial class Alerts : Control
 		_alertcontorl = GetNode<Control>("%Alertcontorl");
 		_alert = GetNode<Control>("%Alert");
 		NCreature? nCreature = GetParent().GetParent() as NCreature;
-		_creature = nCreature?.Entity;
+		_creature = nCreature.Entity;
 	}
 	private float MaxFgWidth
 	{
@@ -33,7 +32,6 @@ public partial class Alerts : Control
 		{
 			if (!(_expectedMaxFgWidth > 0f))
 			{
-				Debug.Assert(_alertcontorl != null, nameof(_alertcontorl) + " != null");
 				return _alertcontorl.Size.X;
 			}
 			return _expectedMaxFgWidth;
@@ -45,16 +43,17 @@ public partial class Alerts : Control
 	}
 	private float GetFgWidth(int amount, float maxFgWidth)
 	{
-		if ( _creature != null && _creature.GetPowerAmount<Alert>() <= 0)
+		if ( _creature.GetPowerAmount<Alert>() <= 0)
 		{
 			return 0f;
 		}
-		float val = (float)amount/20 * maxFgWidth;
-		return Math.Max(val, _creature != null && ( _creature.CurrentHp > 0) ? 12f : 0f);
+		float val = (float)amount/Alert.max * maxFgWidth;
+		return Math.Max(val, ( _creature.CurrentHp > 0) ? 12f : 0f);
 	}
 	public void RefreshValues()
 	{
 		RefreshText();
+		RefreshForeground();
 	}
 
 	public override void _EnterTree()
@@ -68,13 +67,19 @@ public partial class Alerts : Control
 	}
 	private void OnCombatStateChanged(CombatState _)
 	{
-		_alert?.Visible = true;
+		_alert.Visible = true;
 		RefreshValues();
+		RefreshForeground();
 	}
 	private void RefreshText()
 	{
-		_alertLabel?.Visible = true;
-		_alertLabel?.Text = _creature?.GetPowerAmount<Alert>().ToString()+"/20";
+		_alertLabel.Visible = true;
+		_alertLabel.Text = _creature.GetPowerAmount<Alert>()+"/"+Alert.max;
 	}
-	
+
+	private void RefreshForeground()
+	{
+		_alertcolor.Visible = true;
+		_alertcolor.OffsetRight = GetFgWidth(_creature.GetPowerAmount<Alert>())+ 10f;
+	}
 }

@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace Momizi.character.cards.basic
 {
     [RegisterCard(typeof(MomiziCardPool))]
-    [RegisterCharacterStarterCard(typeof(Momizi), 4)]
+    [RegisterCharacterStarterCard(typeof(Momizi), 3)]
     public class DefendMomizi : ModCardTemplate
     {
         public override bool GainsBlock => true;

@@ -23,6 +23,10 @@ public static class ScryCmd
 	{
 		return Execute(choiceContext, card.Owner, amount);
 	}
+	public static Task<ScryResult> Lock(BlockingPlayerChoiceContext choiceContext, CardModel card,int amount)
+	{
+		return Lock(choiceContext, card.Owner, amount);
+	}
 
 	public static async Task<ScryResult> Execute(BlockingPlayerChoiceContext choiceContext, Player player, int amount)
 	{
@@ -45,15 +49,42 @@ public static class ScryCmd
 		{
 			return default(ScryResult);
 		}
-		CardSelectorPrefs prefs = new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 0, list.Count);
+		CardSelectorPrefs prefs = new CardSelectorPrefs(RelicModel.L10NLookup("查看抽牌堆顶部"), 0);
 		List<CardModel> cardsToDiscard = (await CardSelectCmd.FromSimpleGrid(choiceContext, list, player, prefs)).ToList();
-		foreach (CardModel card in cardsToDiscard)
-		{
-			await CardPileCmd.Add(card, discardPile);
-			CombatManager.Instance.History.CardDiscarded(combatState, card);
-			await Hook.AfterCardDiscarded(combatState, choiceContext, card);
-		}
 		discardPile.InvokeContentsChanged();
+		await ScryHook.AfterScryed(choiceContext, player, modifiedAmount, cardsToDiscard.Count, cardsToDiscard);
+		return new ScryResult(cardsToDiscard);
+	}
+	public static async Task<ScryResult> Lock(BlockingPlayerChoiceContext choiceContext, Player player, int amount)
+	{
+		IEnumerable<IModifyScryAmount> modifiers;
+		int modifiedAmount = ScryHook.ModifyScryAmount(player, amount, out modifiers);
+		await ScryHook.AfterModifyingScryAmount(choiceContext, player, modifiers, amount, modifiedAmount);
+		if (modifiedAmount <= 0)
+		{
+			return default(ScryResult);
+		}
+		CardPile pile = PileType.Draw.GetPile(player);
+		CardPile discardPile = PileType.Discard.GetPile(player);
+		ICombatState combatState = player.Creature.CombatState;
+		if (combatState == null)
+		{
+			return default(ScryResult);
+		}
+		List<CardModel> list = pile.Cards.Take(modifiedAmount).ToList();
+		if (list.Count == 0)
+		{
+			return default(ScryResult);
+		}
+
+		CardSelectorPrefs prefs = new CardSelectorPrefs(RelicModel.L10NLookup("选择一张牌至于牌堆顶部"), 1);
+		List<CardModel> cardsToDiscard = (await CardSelectCmd.FromSimpleGrid(choiceContext, list, player, prefs)).ToList();
+		discardPile.InvokeContentsChanged();
+		foreach (CardModel cardModel in await CardSelectCmd.FromSimpleGrid(choiceContext, cardsToDiscard, player, new CardSelectorPrefs(RelicModel.L10NLookup("选择一张牌至于牌堆顶部"), 1)))
+			if (cardModel != null)
+			{
+				await CardPileCmd.Add(cardModel, PileType.Draw, CardPilePosition.Top);
+			}
 		await ScryHook.AfterScryed(choiceContext, player, modifiedAmount, cardsToDiscard.Count, cardsToDiscard);
 		return new ScryResult(cardsToDiscard);
 	}

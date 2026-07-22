@@ -25,8 +25,9 @@ namespace Momizi.character.card.basic;
 [RegisterCharacterStarterCard(typeof(Momizi))]
 public class AlertCard: ModCardTemplate
 {
+    public override bool GainsBlock => true;
     // 基础耗能
-    private const int energyCost = 2;
+    private const int energyCost = 1;
     // 卡牌类型
     private const CardType type = CardType.Skill;
     // 卡牌稀有度
@@ -46,61 +47,20 @@ public class AlertCard: ModCardTemplate
     );
     // 卡牌基础数值
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        ModCardVars.Int("JiZhong",1 ),
         ModCardVars.Int("Alert",3 ),
-        new BlockVar(9m,ValueProp.Move)
+        new BlockVar(6m,ValueProp.Move)
     ];
-
-    protected override bool IsPlayable => Flag;
-    //打出条件
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [MomiziKeyword.Thinking,CardKeyword.Retain,CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain,CardKeyword.Exhaust];
     public AlertCard() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
-
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        if (cardPlay.Card.Type == CardType.Attack)
-        {
-            Attack = false;
-        }
-        if (Intnet && Attack)
-        {
-            Flag = true;
-        }
-        else
-        {
-            Flag = false;
-        }
-    }
+    
     // 打出时的效果逻辑
-    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
-    {
-        foreach (var creature in Owner.Creature.CombatState.HittableEnemies)
-        {
-            if (creature.Monster.IntendsToAttack 
-                || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.Debuff)
-                || creature.Monster.NextMove.Intents.Any(intent => intent.IntentType == IntentType.DebuffStrong))
-            {
-                Intnet = true;
-            }
-        }
-
-        if (Intnet && Attack)
-        {
-            Flag = true;
-        }
-        else
-        {
-            Flag = false;
-        }
-    }
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<JiZhong>(choiceContext, Owner.Creature, DynamicVars["JiZhong"].BaseValue, Owner.Creature, null);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);//防御
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, 1, Owner.Creature, null);
+        await PowerCmd.Apply<Alert>(choiceContext, Owner.Creature, DynamicVars["Alert"].BaseValue, Owner.Creature, null);
     }
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
@@ -110,13 +70,10 @@ public class AlertCard: ModCardTemplate
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars["JiZhong"].UpgradeValueBy(2);
-        DynamicVars["Alert"].UpgradeValueBy(2);
-        DynamicVars.Block.UpgradeValueBy(2);
+        DynamicVars["Alert"].UpgradeValueBy(9);
+        DynamicVars.Block.UpgradeValueBy(9);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromPower<JiZhong>(),
         HoverTipFactory.FromPower<Alert>(),
-        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff),
     ];
 }

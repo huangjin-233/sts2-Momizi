@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using Momizi.character.card.special;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -36,11 +35,8 @@ public class PostureChange: ModCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(4, ValueProp.Move)
     ];
-    protected static readonly IReadOnlyList<CardModel> Chose = new CardModel[3]
+    protected static readonly IReadOnlyList<CardModel> Chose = new CardModel[0]
     {
-        ModelDb.Card<PostureChangeAttack>(),
-        ModelDb.Card<PostureChangeSkill>(),
-        ModelDb.Card<PostureChangeNormal>()
     };
     public PostureChange() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -55,9 +51,7 @@ public class PostureChange: ModCardTemplate
         List<CardModel> card = new List<CardModel>();
         foreach (var choice in Chose)
         {
-            if (posture == 1 && choice == ModelDb.Card<PostureChangeAttack>() ||
-                posture == 2 && choice == ModelDb.Card<PostureChangeSkill>() ||
-                posture == 3 && choice == ModelDb.Card<PostureChangeNormal>())
+            
             {
                 continue;
             }
@@ -84,8 +78,5 @@ public class PostureChange: ModCardTemplate
         EnergyCost.UpgradeBy(-1);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
-        HoverTipFactory.FromCard<PostureChangeAttack>(),
-        HoverTipFactory.FromCard<PostureChangeSkill>(),
-        HoverTipFactory.FromCard<PostureChangeNormal>(),
     ];
 }

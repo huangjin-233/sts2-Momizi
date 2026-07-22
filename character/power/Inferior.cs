@@ -1,25 +1,25 @@
-﻿#nullable enable
-using System.Collections.Generic;
+#nullable enable
+using System;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.power;
 
 [RegisterPower]
-public class Inferior: ModPowerTemplate
+public class Inferior : ModPowerTemplate
 {
+    private const int MaxStacks = 5;
+
     // 类型，Buff或Debuff
-    public override PowerType Type => PowerType.Buff;
+    public override PowerType Type => PowerType.Debuff;
     // 叠加类型，Counter表示可叠加，Single表示不可叠加
     public override PowerStackType StackType => PowerStackType.Counter;
 
@@ -28,14 +28,23 @@ public class Inferior: ModPowerTemplate
         IconPath: "res://images/powers/Inferior.png",
         BigIconPath: "res://images/powers/Inferior.png"
     );
-    
+
+    // 每层使椛造成的攻击伤害 -10%，最多 5 层（下限 50%）。
+    // 白狼为伤害来源时不受影响（不吃你的虚弱/自卑）。
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if (dealer != Owner || !props.IsPoweredAttack())
+        {
+            return 1m;
+        }
+        return Math.Max(0.5m, 1m - 0.1m * Amount);
+    }
+
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel powers, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (powers == this)
+        if (powers == this && Amount > MaxStacks)
         {
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, amount, Owner, null);
-            await PowerCmd.Apply<FrailPower>(choiceContext, Owner, amount, Owner, null);
-            await PowerCmd.Apply<WeakPower>(choiceContext, Owner, amount, Owner, null);
+            await PowerCmd.ModifyAmount(choiceContext, this, MaxStacks - Amount, applier, cardSource);
         }
     }
 }

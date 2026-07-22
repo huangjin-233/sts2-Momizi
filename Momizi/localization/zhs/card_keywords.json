@@ -6,9 +6,17 @@
   "MOMIZI_KEYWORD_THINKING.title": "想法",
   "MOMIZI_KEYWORD_THINKING.description": "抽到带有本词条的卡时抽1张牌",
   "MOMIZI_KEYWORD_SPELL.title": "符卡",
-  "MOMIZI_KEYWORD_SPELL.description": "...",
+  "MOMIZI_KEYWORD_SPELL.description": "可无限升级，不可被其他牌打出。",
   "MOMIZI_KEYWORD_DEBUFF.title": "不利",
   "MOMIZI_KEYWORD_DEBUFF.description": "攻击或施加负面",
   "MOMIZI_KEYWORD_SCRY.title": "预见",
-  "MOMIZI_KEYWORD_SCRY.description": "观看[gold]抽牌堆[/gold]顶部的牌，丢弃任意张牌"
+  "MOMIZI_KEYWORD_SCRY.description": "观看[gold]抽牌堆[/gold]顶部的牌，丢弃任意张牌",
+  "MOMIZI_KEYWORD_LOCK.title": "锁定",
+  "MOMIZI_KEYWORD_LOCK.description": "从[gold]预见[/gold]的牌中选1张置于[gold]抽牌堆[/gold]顶，其余按原顺序放回。",
+  "MOMIZI_KEYWORD_REARRANGE.title": "重排",
+  "MOMIZI_KEYWORD_REARRANGE.description": "重排[gold]抽牌堆[/gold]顶 N 张（任意顺序）。",
+  "MOMIZI_KEYWORD_INTELLIGENCE.title": "情报",
+  "MOMIZI_KEYWORD_INTELLIGENCE.description": "跨节点保留的战略资源，战斗结束由[gold]警戒[/gold]档位转化；用于节点内二选一。",
+  "MOMIZI_KEYWORD_WHITE_WOLF.title": "白狼",
+  "MOMIZI_KEYWORD_WHITE_WOLF.description": "[gold]白狼[/gold]：生命值 {MaxHp:diff()}，攻击 {Attack:diff()}。"
 }

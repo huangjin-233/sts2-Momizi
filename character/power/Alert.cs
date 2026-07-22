@@ -1,6 +1,5 @@
-﻿#nullable enable
-using System.Collections.Generic;
-using System.Linq;
+#nullable enable
+using System;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -10,7 +9,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.ValueProps;
 using Momizi.character.relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -29,9 +27,9 @@ public class Alert : ModPowerTemplate
         BigIconPath: "res://images/powers/Alert.png"
     );
 
+    // 警戒上限 20（场景覆盖层 Alerts.cs 也引用该字段）
     public static int max = 20;
 
-    public static bool inferior;
     protected override bool IsVisibleInternal
     {
         get
@@ -43,55 +41,29 @@ public class Alert : ModPowerTemplate
             return base.IsVisibleInternal;
         }
     }
+    // 警戒不衰减、不触发爆炸；仅做上限钳制。
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (Amount == 10 && power==this)
+        if (power == this && Amount > max)
         {
-            if (Owner.Player != null)
-            {
-                IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
-                    where c.IsAlive && c.IsPlayer && c != Owner
-                    select c;
-                foreach (Creature players in enumerable)
-                {
-                    await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
-                    await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
-                    await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
-                }
-                await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, 2, Owner, null);
-                await PowerCmd.Apply<Dodge>(choiceContext, Owner, 1, Owner, null);
-                await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
-            }
-        }
-        if (Amount == 20 && power==this && max !=20)
-        {
-            if (Owner.Player != null)
-            {
-                IEnumerable<Creature> enumerable = from c in CombatState.GetTeammatesOf(Owner.Player.Creature)
-                    where c.IsAlive && c.IsPlayer && c != Owner
-                    select c;
-                foreach (Creature players in enumerable)
-                {
-                    await PowerCmd.Apply<StrengthPower>(choiceContext, players, 2, Owner, null);
-                    await PowerCmd.Apply<DexterityPower>(choiceContext, players, 2, Owner, null);
-                    await PowerCmd.Apply<JiZhong>(choiceContext, players, 2, Owner, null);
-                }
-                await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, 2, Owner, null);
-                await PowerCmd.Apply<Dodge>(choiceContext, Owner, 1, Owner, null);
-                await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
-            }
-        }
-        if (Amount == max && power==this)
-        {
-            inferior = true;
-            await PowerCmd.Apply<Inferior>(choiceContext, Owner, 1, Owner, null);
-            await PowerCmd.Remove(this);
-            await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, 50, ValueProp.Unpowered, Owner);
+            await PowerCmd.ModifyAmount(choiceContext, this, max - Amount, applier, cardSource);
         }
     }
-    public override Task AfterCombatEnd(CombatRoom room)
+
+    // 战斗结束：按档位转化为情报（≥15→3、≥10→2、≥5→1；25% 额外 +1，精英战 50%）。
+    public override async Task AfterCombatEnd(CombatRoom room)
     {
-        max = 150;
-        return Task.CompletedTask;
+        int alertAmount = (int)Amount;
+        if (alertAmount >= 5)
+        {
+            int intelligence = alertAmount >= 15 ? 3 : alertAmount >= 10 ? 2 : 1;
+            bool elite = room.RoomType == RoomType.Elite || room.RoomType == RoomType.Boss;
+            if (Random.Shared.NextDouble() < (elite ? 0.5 : 0.25))
+            {
+                intelligence++;
+            }
+            Owner.Player?.GetRelic<Tengu>()?.AddIntelligence(intelligence);
+        }
+        await PowerCmd.Remove(this);
     }
 }

@@ -46,9 +46,9 @@ public class Momizi: ModCharacterTemplate<MomiziCardPool, MomiziRelicPool, Momiz
                 // 游戏左上角头像、角色统计页头像、每日挑战角色头像。这个是场景而不是图片。参考下方附赠资源搭建。
                 //IconPath: "res://scenes_icon.tscn",
                 // 人物选择背景。
-                //CharacterSelectBgPath: "res://scenes_bg.tscn",
+                CharacterSelectBgPath: "res://scenes/screens/char_select/char_select_bg_momizi.tscn",
                 // 人物选择图标。
-                //CharacterSelectIconPath: "res://images/char_select_test.png",
+                CharacterSelectIconPath: "res://images/character/select.png"
                 // 人物选择图标-锁定状态。
                 //CharacterSelectLockedIconPath: "res://images/char_select_test_locked.png",
                 // 人物选择过渡动画。
