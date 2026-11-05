@@ -6,6 +6,9 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using Momizi.character.card.basic;
+using Momizi.character.Mini;
+using Momizi.character.relics;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -44,7 +47,13 @@ namespace Momizi
             var harmony = new Harmony("Momizi.neow.patch");
             harmony.PatchAll(); // 自动扫描当前程序集的所有补丁
 
+            MomiziTelemetry.Register(); // 注册遥测申请方（玩家授权后才会上报）
+
             Log.Info("犬走椛模组已加载");
+            RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<AlertCard, HighAlertCard>();
+            RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<MountainSee, TenguSee>();
+
+
         }
 
         static void LoadScenes()

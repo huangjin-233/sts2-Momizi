@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Momizi.character.card.basic;
 using Momizi.character.power;
 using STS2RitsuLib.Cards.DynamicVars;
@@ -13,7 +14,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(MomiziCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public class YanhuCommand : ModCardTemplate, Command.IChoosable
 {
     private const int energyCost = -1;
@@ -23,7 +24,7 @@ public class YanhuCommand : ModCardTemplate, Command.IChoosable
     private const bool shouldShowInCardLibrary = false;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        ModCardVars.Int("Block", 0)
+        ModCardVars.Int("Block", -1)
     ];
 
     public override CardAssetProfile AssetProfile => new(
@@ -39,18 +40,18 @@ public class YanhuCommand : ModCardTemplate, Command.IChoosable
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Block"].UpgradeValueBy(4);
+        DynamicVars["Block"].UpgradeValueBy(5);
     }
 
     public async Task OnChosen()
     {
-        var wolf = WhiteWolfGuard.whitewolf;
-        if (wolf is not { IsAlive: true })
+        if (Command.wolf != null)
         {
-            return;
+            await PowerCmd.Remove<LiaowangPower>(Command.wolf);
+            await PowerCmd.Remove<JiebeiPower>(Command.wolf);
+            await PowerCmd.Apply<YanhuPower>(new ThrowingPlayerChoiceContext(), Command.wolf,
+                DynamicVars["Block"].BaseValue, Owner.Creature, this);
+            await PowerCmd.Remove<PinPower>(Command.wolf);
         }
-        await PowerCmd.Remove<LiaowangPower>(wolf);
-        await PowerCmd.Remove<JiebeiPower>(wolf);
-        await PowerCmd.Apply<YanhuPower>(new ThrowingPlayerChoiceContext(), wolf, DynamicVars["Block"].BaseValue, Owner.Creature, this);
     }
 }

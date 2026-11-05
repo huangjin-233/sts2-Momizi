@@ -15,6 +15,7 @@ namespace Momizi.character
 	[RegisterOwnedCardKeyword(nameof(Rearrange))]
 	[RegisterOwnedCardKeyword(nameof(Intelligence))]
 	[RegisterOwnedCardKeyword(nameof(WhiteWolf))]
+	[RegisterOwnedCardKeyword(nameof(Coordinations))]
 	internal class MomiziKeyword
 	{
 		public static readonly CardKeyword  Loyalty = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Loyalty)).GetModCardKeyword();
@@ -27,5 +28,6 @@ namespace Momizi.character
 		public static readonly CardKeyword  Rearrange = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Rearrange)).GetModCardKeyword();
 		public static readonly CardKeyword  Intelligence = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Intelligence)).GetModCardKeyword();
 		public static readonly CardKeyword  WhiteWolf = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(WhiteWolf)).GetModCardKeyword();
+		public static readonly CardKeyword  Coordinations = ModContentRegistry.GetQualifiedKeywordId(ModInitializer.ModId, nameof(Coordinations)).GetModCardKeyword();
 	}
 }

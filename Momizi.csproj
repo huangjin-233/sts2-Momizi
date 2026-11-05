@@ -20,22 +20,18 @@
         <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="sts2">
-            <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-
-        <Reference Include="0Harmony">
-            <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <PackageReference Include="STS2.RitsuLib.Compat.0.107.1" Version="*" />
+        <PackageReference Include="STS2.RitsuLib.Compat.0.107.1" Version="0.6.2" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="FuYnAloft.Sts2.MinionLib" Version="0.5.2"/>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="character\card\special\" />
+      <Reference Include="0Harmony">
+        <HintPath>dll\0Harmony.dll</HintPath>
+      </Reference>
+      <Reference Include="sts2">
+        <HintPath>dll\sts2.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <Target Name="Copy Mod" AfterTargets="PostBuildEvent">

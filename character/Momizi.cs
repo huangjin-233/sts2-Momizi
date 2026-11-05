@@ -17,7 +17,7 @@ public class Momizi: ModCharacterTemplate<MomiziCardPool, MomiziRelicPool, Momiz
     // 能量图标轮廓颜色
     public override Color EnergyLabelOutlineColor => new(0.5f, 0.5f, 1f);
     // 地图绘制颜色
-    public override Color MapDrawingColor => new(0.5f, 0.5f, 1f);
+    public override Color MapDrawingColor => new(1f, 1f, 1f);
 
     // 人物性别（男女中立）
     public override CharacterGender Gender => CharacterGender.Feminine;

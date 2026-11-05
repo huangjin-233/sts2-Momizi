@@ -23,6 +23,5 @@ public class ScrySingle: HookedSingletonModel,IAfterScryed
     }
     public async Task AfterScryed(PlayerChoiceContext ctx, Player player, int scryAmount, int discardedAmount, IEnumerable<CardModel> discarded)
     {
-        DexStrike.scry[player] =DexStrike.GetValue(player) +  discardedAmount;
     }
 }

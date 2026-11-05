@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Godot;
@@ -21,7 +21,7 @@ public class InferiorRest:ModRestSiteOptionTemplate
 {
     public override string OptionId => "InferiorRest";
     public override RestSiteOptionAssetProfile AssetProfile => new( "res://images/rest/InferiorRest.png");
-    public override bool IsEnabled => Tengu.inferior;
+    public override bool IsEnabled => Owner.GetRelic<Tengu>() is { } tengu && tengu.inferior;
     public InferiorRest(Player owner)
     : base(owner)
 {
@@ -34,7 +34,7 @@ public override LocString Description
         {
             return new LocString("rest_site_ui", "OPTION_" + OptionId + ".descriptionX");
         }
-        if (Tengu.Flag)
+        if (Owner.GetRelic<Tengu>() is { } tengu && tengu.Flag)
         {
             LocString locString = new LocString("rest_site_ui", "OPTION_" + OptionId + ".description");
             return locString;

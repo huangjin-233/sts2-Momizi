@@ -3,6 +3,8 @@
   <component name="UserContentModel">
     <attachedFolders />
     <explicitIncludes />
-    <explicitExcludes />
+    <explicitExcludes>
+      <Path>character/card/uncommon/Reinforcement.cs</Path>
+    </explicitExcludes>
   </component>
 </project>

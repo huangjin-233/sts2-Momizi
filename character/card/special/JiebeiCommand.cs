@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Momizi.character.card.basic;
 using Momizi.character.power;
 using STS2RitsuLib.Cards.DynamicVars;
@@ -13,7 +14,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(MomiziCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public class JiebeiCommand : ModCardTemplate, Command.IChoosable
 {
     private const int energyCost = -1;
@@ -44,14 +45,12 @@ public class JiebeiCommand : ModCardTemplate, Command.IChoosable
 
     public async Task OnChosen()
     {
-        var wolf = WhiteWolfGuard.whitewolf;
-        if (wolf is not { IsAlive: true })
+        if (Command.wolf != null)
         {
-            return;
+            await PowerCmd.Remove<LiaowangPower>(Command.wolf);
+            await PowerCmd.Remove<YanhuPower>(Command.wolf);
+            await PowerCmd.Apply<JiebeiPower>(new ThrowingPlayerChoiceContext(), Command.wolf,
+                DynamicVars["Alert"].BaseValue, Owner.Creature, this);
         }
-
-        await PowerCmd.Remove<LiaowangPower>(wolf);
-        await PowerCmd.Remove<YanhuPower>(wolf);
-        await PowerCmd.Apply<JiebeiPower>(new ThrowingPlayerChoiceContext(), wolf, DynamicVars["Alert"].BaseValue, Owner.Creature, this);
     }
 }

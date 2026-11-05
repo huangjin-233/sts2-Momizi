@@ -23,15 +23,6 @@ public class YanhuPower : ModPowerTemplate
     );
 
     // 白狼受到的任何伤害，改由其主人承受；经过主人的格挡。
-    public override Creature ModifyUnblockedDamageTarget(Creature target, decimal amount, ValueProp props, Creature? dealer)
-    {
-        var owner = Owner.PetOwner?.Creature;
-        if (target == Owner && owner is { IsAlive: true })
-        {
-            return owner;
-        }
-        return target;
-    }
 
     // 升级后：椛每回合获得 Amount 点格挡。
     public override async Task AfterEnergyReset(Player player)

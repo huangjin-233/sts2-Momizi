@@ -7,10 +7,12 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using Momizi.character.power;
+using STS2RitsuLib.Scaffolding.Characters;
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑添加 'required' 修饰符或声明为可以为 null。
 
 public partial class Alerts : Control
 { 
-	private Creature _creature;
+	private Creature? _creature;
 	private Label _alertLabel;
 	private Control _alertcolor;
 	private float _expectedMaxFgWidth = -1f;
@@ -24,7 +26,7 @@ public partial class Alerts : Control
 		_alertcontorl = GetNode<Control>("%Alertcontorl");
 		_alert = GetNode<Control>("%Alert");
 		NCreature? nCreature = GetParent().GetParent() as NCreature;
-		_creature = nCreature.Entity;
+		_creature = nCreature?.Entity;
 	}
 	private float MaxFgWidth
 	{
@@ -43,12 +45,13 @@ public partial class Alerts : Control
 	}
 	private float GetFgWidth(int amount, float maxFgWidth)
 	{
-		if ( _creature.GetPowerAmount<Alert>() <= 0)
+		if ( _creature != null && _creature.GetPowerAmount<Alert>() <= 0)
 		{
 			return 0f;
 		}
-		float val = (float)amount/Alert.max * maxFgWidth;
-		return Math.Max(val, ( _creature.CurrentHp > 0) ? 12f : 0f);
+		int max = _creature?.FindPower<Alert>()?.max ?? 20; // 无实例时缺省为上限 20
+		float val = (float)amount/max * maxFgWidth;
+		return Math.Max(val, _creature != null && ( _creature.CurrentHp > 0) ? 12f : 0f);
 	}
 	public void RefreshValues()
 	{
@@ -74,12 +77,12 @@ public partial class Alerts : Control
 	private void RefreshText()
 	{
 		_alertLabel.Visible = true;
-		_alertLabel.Text = _creature.GetPowerAmount<Alert>()+"/"+Alert.max;
+		if (_creature != null) _alertLabel.Text = _creature.GetPowerAmount<Alert>() + "/" + (_creature.FindPower<Alert>()?.max ?? 20);
 	}
 
 	private void RefreshForeground()
 	{
 		_alertcolor.Visible = true;
-		_alertcolor.OffsetRight = GetFgWidth(_creature.GetPowerAmount<Alert>())+ 10f;
+		if (_creature != null) _alertcolor.OffsetRight = GetFgWidth(_creature.GetPowerAmount<Alert>()) + 10f;
 	}
 }

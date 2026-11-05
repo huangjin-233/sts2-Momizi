@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -67,13 +67,44 @@ public class AlertCard: ModCardTemplate
         Attack = true;
     }
 
+    // 玩家回合开始：若敌方本回合有负面意图（攻击/死亡打击/施加负面），本卡本回合费用为 0
+    // （机制同原版 BulletTime/Invoke：通过 EnergyCost.SetThisTurn 把本卡本回合费用压到 0，回合结束自动还原）
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
+        ICombatState combatState)
+    {
+        if (side == CombatSide.Player && EnemyHasHarmfulIntent(combatState))
+        {
+            SetToFreeThisTurn();
+        }
+        await Task.CompletedTask;
+    }
+
+    // 敌方是否存在负面意图（含攻击/死亡打击/施加负面）
+    private bool EnemyHasHarmfulIntent(ICombatState combatState)
+    {
+        foreach (var creature in combatState.HittableEnemies)
+        {
+            if (!creature.IsAlive || creature.Monster?.NextMove == null)
+            {
+                continue;
+            }
+            if (creature.Monster.NextMove.Intents.Any(i =>
+                i.IntentType is IntentType.Attack or IntentType.DeathBlow or IntentType.Debuff or IntentType.DebuffStrong or IntentType.CardDebuff))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 升级后的效果逻辑
     protected override void OnUpgrade()
     {
-        DynamicVars["Alert"].UpgradeValueBy(9);
-        DynamicVars.Block.UpgradeValueBy(9);
+        DynamicVars["Alert"].UpgradeValueBy(3);
+        DynamicVars.Block.UpgradeValueBy(3);
     }
     protected override IEnumerable<IHoverTip> AdditionalHoverTips  => [
         HoverTipFactory.FromPower<Alert>(),
+        HoverTipFactory.FromKeyword(MomiziKeyword.Debuff)
     ];
 }

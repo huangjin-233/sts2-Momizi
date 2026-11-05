@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Momizi.character.card.basic;
 using Momizi.character.power;
 using STS2RitsuLib.Cards.DynamicVars;
@@ -13,7 +14,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace Momizi.character.card.special;
 
-[RegisterCard(typeof(MomiziCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public class LiaowangCommand : ModCardTemplate, Command.IChoosable
 {
     private const int energyCost = -1;
@@ -44,15 +45,13 @@ public class LiaowangCommand : ModCardTemplate, Command.IChoosable
 
     public async Task OnChosen()
     {
-        var wolf = WhiteWolfGuard.whitewolf;
-        if (wolf is not { IsAlive: true })
-        {
-            return;
-        }
-
         // 指令状态由白狼持有；预见效果仍由能力内部施加给其主人。
-        await PowerCmd.Remove<JiebeiPower>(wolf);
-        await PowerCmd.Remove<YanhuPower>(wolf);
-        await PowerCmd.Apply<LiaowangPower>(new ThrowingPlayerChoiceContext(), wolf, DynamicVars["Scry"].BaseValue, Owner.Creature, this);
+        if (Command.wolf != null)
+        {
+            await PowerCmd.Remove<JiebeiPower>(Command.wolf);
+            await PowerCmd.Remove<YanhuPower>(Command.wolf);
+            await PowerCmd.Apply<LiaowangPower>(new ThrowingPlayerChoiceContext(), Command.wolf,
+                DynamicVars["Scry"].BaseValue, Owner.Creature, this);
+        }
     }
 }
